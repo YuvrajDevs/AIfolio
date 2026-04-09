@@ -2,7 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { X, ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Info, Activity, Database, Cpu, Layers, Zap } from "lucide-react";
+import { X, ArrowUpRight, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Info, Activity, Database, Cpu, Layers, Zap } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useSection } from "@/context/SectionContext";
 
@@ -12,7 +13,41 @@ interface CaseStudyOverlayProps {
 
 const PROJECT_ORDER = ["hivestate", "resolveos", "burnsight"];
 
-const PROJECTS_DATA: Record<string, any> = {
+interface ProjectSection {
+  title: string;
+  desc: string;
+  icon?: React.ReactNode;
+  step?: string;
+}
+
+interface ProjectData {
+  name: string;
+  systemNumber: string;
+  subheading: string;
+  description: string;
+  image: string;
+  accent: string;
+  sections: {
+    need: string;
+    painPoints?: ProjectSection[];
+    systemIdea: string;
+    coreEngine?: ProjectSection[];
+    hitl?: ProjectSection[];
+    dataEngine?: {
+        steps: ProjectSection[];
+    };
+    stack: { category: string; items: string[] }[];
+    highlights?: ProjectSection[];
+    reality: {
+        built: string[];
+        mocked: string[];
+        gap: string[];
+    };
+    roadmap: ProjectSection[];
+  };
+}
+
+const PROJECTS_DATA: Record<string, ProjectData> = {
   burnsight: {
     name: "BurnSight",
     systemNumber: "03 // SYSTEM",
@@ -240,7 +275,7 @@ const CardSection = ({ title, items = [], renderCard, gridCols = "md:grid-cols-2
 };
 
 export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
-  const { activeProject, setActiveProject } = useSection();
+  const { setActiveProject } = useSection();
   const overlayRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     container: overlayRef,
@@ -330,7 +365,13 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
              className="absolute inset-0"
              style={{ y: imageY }}
           >
-            <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
+            <Image 
+              src={project.image} 
+              alt={project.name} 
+              fill
+              className="object-cover"
+              priority
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-transparent to-transparent opacity-60" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0E0E0E]/40" />
           </motion.div>
@@ -426,7 +467,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
               <div className="mb-16">
                 <h3 className="font-bebas text-xl tracking-[0.2em] text-white/50 uppercase mb-6">HUMAN-IN-THE-LOOP (HITL)</h3>
                 <div className="flex flex-col md:flex-row gap-4">
-                    {project.sections.hitl.map((item: any, i: number) => (
+                    {project.sections.hitl.map((item, i) => (
                       <div key={i} className="flex-1 relative">
                         <div className="flex items-center gap-3 mb-3">
                             <span className="font-bebas text-2xl text-white/10">{item.step}</span>
@@ -445,7 +486,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
               <div className="mb-16 p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent">
                 <h3 className="font-bebas text-xl tracking-[0.2em] text-white/50 uppercase mb-6">DATA FLOW ARCHITECTURE</h3>
                 <div className="space-y-6">
-                  {project.sections.dataEngine.steps.map((step: any, i: number) => (
+                  {project.sections.dataEngine.steps.map((step, i) => (
                     <div key={i} className="flex gap-4 items-start">
                         <div className="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center font-bebas text-md text-white">
                           {i + 1}
@@ -464,7 +505,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
             <div className="mb-16">
                <h3 className="font-bebas text-xl tracking-[0.2em] text-white/50 uppercase mb-6">STACK & TOOLS</h3>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {project.sections.stack.map((cat: any, i: number) => (
+                  {project.sections.stack.map((cat, i) => (
                     <div key={i} className="space-y-3">
                         <h4 className="font-outfit text-[9px] font-bold text-white/40 tracking-[0.4em] uppercase">{cat.category}</h4>
                         <div className="flex flex-wrap gap-2">
@@ -484,7 +525,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
               <div className="mb-16">
                 <h3 className="font-bebas text-xl tracking-[0.2em] text-white/50 uppercase mb-6">ENGINEERING HIGHLIGHTS</h3>
                 <div className="space-y-3">
-                  {project.sections.highlights.map((h: any, i: number) => (
+                  {project.sections.highlights.map((h, i) => (
                     <div key={i} className="group p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:border-yellow-400/20 transition-all flex items-center gap-4">
                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
                        <div className="flex-1">
@@ -535,7 +576,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
             <div className="mb-16">
                <h3 className="font-bebas text-xl tracking-[0.2em] text-white/50 uppercase mb-6">ROADMAP</h3>
                <div className="relative pl-6 border-l border-white/10 space-y-8">
-                  {project.sections.roadmap.map((item: any, i: number) => (
+                  {project.sections.roadmap.map((item, i) => (
                     <div key={i} className="relative">
                        <div className="absolute -left-[29px] top-0 w-3 h-3 rounded-full bg-[#0E0E0E] border-2 border-yellow-400 shadow-[0_0_10px_rgba(255,215,0,0.4)]" />
                        <div className="font-bebas text-[10px] text-yellow-500 mb-0.5 tracking-widest">{item.step}</div>

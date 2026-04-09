@@ -86,7 +86,7 @@ const FloatingDockMobile = ({
                 >
                   <div className={cn("h-4 w-4", item.isActive && "text-[#2F56FF]")}>
                     {React.isValidElement(item.icon)
-                      ? React.cloneElement(item.icon as React.ReactElement<any>, {
+                      ? React.cloneElement(item.icon as React.ReactElement<{ isActive?: boolean }>, {
                           isActive: item.isActive,
                         })
                       : item.icon}
@@ -118,8 +118,8 @@ const FloatingDockDesktop = ({
   orientation?: "horizontal" | "vertical";
   showOnMobile?: boolean;
 }) => {
-  let mouseX = useMotionValue(Infinity);
-  let mouseY = useMotionValue(Infinity);
+  const mouseX = useMotionValue(Infinity);
+  const mouseY = useMotionValue(Infinity);
 
   return (
     <motion.div
@@ -168,12 +168,12 @@ function IconContainer({
   isActive?: boolean;
   orientation?: "horizontal" | "vertical";
 }) {
-  let ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  let distance = useTransform(
+  const distance = useTransform(
     orientation === "horizontal" ? mouseX : mouseY,
     (val) => {
-      let bounds = ref.current?.getBoundingClientRect() ?? {
+      const bounds = ref.current?.getBoundingClientRect() ?? {
         x: 0,
         y: 0,
         width: 0,
@@ -188,33 +188,33 @@ function IconContainer({
     },
   );
 
-  let widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  let heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
 
-  let widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
-  let heightTransformIcon = useTransform(
+  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  const heightTransformIcon = useTransform(
     distance,
     [-150, 0, 150],
     [20, 40, 20],
   );
 
-  let width = useSpring(widthTransform, {
+  const width = useSpring(widthTransform, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   });
-  let height = useSpring(heightTransform, {
+  const height = useSpring(heightTransform, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   });
 
-  let widthIcon = useSpring(widthTransformIcon, {
+  const widthIcon = useSpring(widthTransformIcon, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
   });
-  let heightIcon = useSpring(heightTransformIcon, {
+  const heightIcon = useSpring(heightTransformIcon, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
@@ -272,7 +272,7 @@ function IconContainer({
           className="flex items-center justify-center pointer-events-none"
         >
           {React.isValidElement(icon)
-            ? React.cloneElement(icon as React.ReactElement<any>, {
+            ? React.cloneElement(icon as React.ReactElement<{ isHovered?: boolean; isActive?: boolean }>, {
                 isHovered: hovered,
                 isActive: isActive,
               })

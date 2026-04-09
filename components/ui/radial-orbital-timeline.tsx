@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect, useRef, useMemo } from "react";
-import { ArrowRight, Link, Zap, Crosshair } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 
 interface TimelineItem {
   id: number;
@@ -27,15 +25,13 @@ export default function RadialOrbitalTimeline({
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
     {}
   );
-  const [viewMode, setViewMode] = useState<"orbital">("orbital");
+  const [viewMode] = useState<"orbital">("orbital");
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
-  const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
-  const [centerOffset, setCenterOffset] = useState<{ x: number; y: number }>({
+  const [centerOffset] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
-  const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   const [windowWidth, setWindowWidth] = useState(1200);
   const [windowHeight, setWindowHeight] = useState(800);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -72,6 +68,7 @@ export default function RadialOrbitalTimeline({
   const ringSize = useMemo(() => radius * 2 + 60, [radius]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsHydrated(true);
     setWindowWidth(window.innerWidth);
     setWindowHeight(window.innerHeight);
@@ -86,8 +83,6 @@ export default function RadialOrbitalTimeline({
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
       setExpandedItems({});
-      setActiveNodeId(null);
-      setPulseEffect({});
       setAutoRotate(true);
     }
   };
@@ -104,14 +99,10 @@ export default function RadialOrbitalTimeline({
       newState[id] = !prev[id];
 
       if (!prev[id]) {
-        setActiveNodeId(id);
         setAutoRotate(false);
-
         centerViewOnNode(id);
       } else {
-        setActiveNodeId(null);
         setAutoRotate(true);
-        setPulseEffect({});
       }
 
       return newState;
@@ -161,7 +152,7 @@ export default function RadialOrbitalTimeline({
     return { x, y, angle, zIndex, opacity };
   };
 
-  const getStatusStyles = (badge: string): string => {
+  const getStatusStyles = (_badge: string): string => {
     // All badges now use the unified high-tech outline aesthetic
     return "text-sky-400 bg-black/40 border-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.2)]";
   };
@@ -298,7 +289,9 @@ export default function RadialOrbitalTimeline({
               return (
                 <div
                   key={item.id}
-                  ref={(el) => { nodeRefs.current[item.id] = el; }}
+                  ref={(el) => {
+                    nodeRefs.current[item.id] = el;
+                  }}
                   className="absolute transition-all duration-700 cursor-pointer group"
                   style={nodeStyle}
                   onClick={(e) => {
