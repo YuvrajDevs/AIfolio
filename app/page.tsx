@@ -81,11 +81,13 @@ export default function Home() {
                >
                   Hey I am,
                </motion.span>
-               <motion.div 
+               <motion.a 
+                  href="/Yuvraj_Singh.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   layout 
                   transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                  className="mt-[-10px] relative group cursor-pointer"
-                  onClick={() => setActiveSection("connect")}
+                  className="mt-[-10px] relative group cursor-pointer block"
                >
                   <div className="relative inline-block">
                      <EncryptedText
@@ -104,7 +106,7 @@ export default function Home() {
                         <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12" strokeWidth={1.5} />
                      </motion.div>
                   </div>
-               </motion.div>
+               </motion.a>
                </motion.h1>
                
                <motion.p 

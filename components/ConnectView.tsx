@@ -21,7 +21,7 @@ const BUTTON_LINKS = [
   { label: "EMAIL", icon: IconMail, href: "mailto:workwithyuvraj0712@gmail.com" },
   { label: "LINKEDIN", icon: IconBrandLinkedin, href: "https://www.linkedin.com/in/yuvraj-singh-shekhawat-4404b4283" },
   { label: "GITHUB", icon: IconBrandGithub, href: "https://github.com/YuvrajDevs" },
-  { label: "RESUME", icon: IconFileText, href: "#" }
+  { label: "RESUME", icon: IconFileText, href: "/Yuvraj_Singh.pdf" }
 ];
 
 export function ConnectView({ isActive, onHome }: ConnectViewProps) {
