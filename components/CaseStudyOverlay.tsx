@@ -547,7 +547,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
                         <CheckCircle2 className="w-3 h-3" />
                         <span className="font-bebas text-xs tracking-widest uppercase">BUILT</span>
                      </div>
-                     {(project.sections.execution?.built || project.sections.reality?.built).map((item: string, i: number) => (
+                     {(project.sections.reality.built).map((item: string, i: number) => (
                        <div key={i} className="font-outfit text-xs text-neutral-400 font-medium">— {item}</div>
                      ))}
                   </div>
@@ -556,16 +556,16 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
                         <Info className="w-3 h-3" />
                         <span className="font-bebas text-xs tracking-widest uppercase">MOCKED</span>
                      </div>
-                     {(project.sections.execution?.mocked || project.sections.reality?.mocked).map((item: string, i: number) => (
+                     {(project.sections.reality.mocked).map((item: string, i: number) => (
                        <div key={i} className="font-outfit text-xs text-neutral-400 font-medium">— {item}</div>
                      ))}
                   </div>
                   <div className="space-y-3">
                      <div className="flex items-center gap-2 text-red-500 mb-1">
                         <AlertCircle className="w-3 h-3" />
-                        <span className="font-bebas text-xs tracking-widest uppercase">{project.sections.execution ? 'LIMITATIONS' : 'GAP'}</span>
+                        <span className="font-bebas text-xs tracking-widest uppercase">GAP</span>
                      </div>
-                     {(project.sections.execution?.limitations || project.sections.reality?.gap).map((item: string, i: number) => (
+                     {(project.sections.reality.gap).map((item: string, i: number) => (
                        <div key={i} className="font-outfit text-xs text-neutral-400 font-medium">— {item}</div>
                      ))}
                   </div>
