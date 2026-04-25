@@ -7,6 +7,7 @@ import { useSection } from "@/context/SectionContext";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { Spotlight } from "@/components/ui/spotlight-new";
 import RadialOrbitalTimelineDemo from "@/components/ui/radial-orbital-timeline-demo";
+import { usePerformance } from "@/lib/usePerformance";
 
 interface InteractiveCardsProps {
   isExpanded: boolean;
@@ -135,9 +136,14 @@ export function InteractiveCards({
   isHome = false
 }: InteractiveCardsProps) {
   const { setActiveSection } = useSection();
+  const { isLowEnd, isMidTier } = usePerformance();
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = React.useState(false);
   const [isMidSize, setIsMidSize] = React.useState(false);
+
+  // Grid sizing: progressively fewer nodes on constrained devices
+  const gridRows = isLowEnd ? 0 : isMidTier ? 16 : 22;
+  const gridCols = isLowEnd ? 0 : isMidTier ? 28 : 38;
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -151,9 +157,14 @@ export function InteractiveCards({
 
   React.useEffect(() => {
     let frameId: number;
+    let frameCount = 0;
     const handleMouseMove = (e: MouseEvent) => {
       frameId = requestAnimationFrame(() => {
-        setMousePos({ x: e.clientX, y: e.clientY });
+        // Low-end: update mouse position every other frame to halve the work
+        frameCount++;
+        if (!isLowEnd || frameCount % 2 === 0) {
+          setMousePos({ x: e.clientX, y: e.clientY });
+        }
       });
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -161,7 +172,7 @@ export function InteractiveCards({
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(frameId);
     };
-  }, []);
+  }, [isLowEnd]);
 
   // Content logic removed as About section is now empty
 
@@ -199,8 +210,8 @@ export function InteractiveCards({
       <div className="relative h-full w-full overflow-hidden border-l border-white/10">
         {/* Background Ripple & Spotlight */}
         <div className="absolute inset-0 z-0 opacity-40">
-           <BackgroundRippleEffect rows={30} cols={50} cellSize={40} />
-           <Spotlight duration={8} xOffset={100} className="opacity-20" />
+           <BackgroundRippleEffect rows={gridRows} cols={gridCols} cellSize={40} lowEnd={isLowEnd} />
+           <Spotlight duration={8} xOffset={100} className="opacity-20" simplified={isLowEnd} />
         </div>
 
         <div className="base-layer h-full w-full absolute inset-0 z-[1]">

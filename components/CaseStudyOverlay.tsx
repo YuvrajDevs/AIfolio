@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { X, ArrowUpRight, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Info, Activity, Database, Cpu, Layers, Zap } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -277,9 +277,6 @@ const CardSection = ({ title, items = [], renderCard, gridCols = "md:grid-cols-2
 export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
   const { setActiveProject } = useSection();
   const overlayRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    container: overlayRef,
-  });
 
   // Use the prop passed from the parent to ensure data persists during exit animation
   const project = projectId ? PROJECTS_DATA[projectId] : null;
@@ -302,9 +299,6 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
       overlayRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
-  // Moving useTransform here - outside of conditional returns
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Set to 0 to disable parallax as requested
 
   if (!project) return null;
 
@@ -331,24 +325,21 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
         )}
       />
 
-      {/* Main Container */}
       <motion.div 
-        initial={{ opacity: 0, y: 20, scale: 0.97, filter: "blur(8px)" }}
-        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+        initial={{ opacity: 0, y: 20, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ 
           opacity: 0, 
           y: 40, 
           scale: 0.95, 
-          filter: "blur(10px)",
-          transition: { duration: 0.4, ease: "easeIn" }
+          transition: { duration: 0.35, ease: "easeIn" }
         }}
         transition={{ 
-          duration: 0.7, 
-          ease: [0.22, 1, 0.36, 1] // Premium ease-out
+          duration: 0.6, 
+          ease: [0.22, 1, 0.36, 1]
         }}
         className="relative w-full h-full max-w-7xl bg-[#0E0E0E] border border-white/10 rounded-[32px] overflow-hidden flex flex-col md:flex-row shadow-[0_0_100px_rgba(0,0,0,0.8)]"
       >
-        {/* Back Button */}
         <button 
           onClick={() => setActiveProject(null)}
           className="absolute top-8 left-8 z-[100] flex items-center gap-3 font-bebas text-sm tracking-[0.3em] text-white/40 hover:text-white transition-all group"
@@ -361,10 +352,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
 
         {/* Left Visual Panel - Strictly Sticky */}
         <div className="w-full md:w-[42%] h-[40vh] md:h-full relative overflow-hidden flex-shrink-0">
-          <motion.div 
-             className="absolute inset-0"
-             style={{ y: imageY }}
-          >
+          <div className="absolute inset-0">
             <Image 
               src={project.image} 
               alt={project.name} 
@@ -374,7 +362,7 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-transparent to-transparent opacity-60" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0E0E0E]/40" />
-          </motion.div>
+          </div>
           
           <div className="absolute top-8 right-8">
              <button className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white/60 hover:text-white hover:scale-110 transition-all">

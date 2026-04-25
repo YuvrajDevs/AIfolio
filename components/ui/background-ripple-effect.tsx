@@ -6,10 +6,13 @@ export const BackgroundRippleEffect = ({
   rows = 8,
   cols = 27,
   cellSize = 56,
+  lowEnd = false,
 }: {
   rows?: number;
   cols?: number;
   cellSize?: number;
+  /** On low-end devices render a pure-CSS grid with zero DOM nodes. */
+  lowEnd?: boolean;
 }) => {
   const [clickedCell, setClickedCell] = useState<{
     row: number;
@@ -17,6 +20,21 @@ export const BackgroundRippleEffect = ({
   } | null>(null);
   const [rippleKey, setRippleKey] = useState(0);
   const ref = useRef<any>(null);
+
+  // Low-end: replace 1500-node DOM grid with a zero-cost CSS background.
+  if (lowEnd) {
+    return (
+      <div
+        className="absolute inset-0 h-full w-full"
+        style={{
+          backgroundImage:
+            "linear-gradient(#333333 0.5px, transparent 0.5px), linear-gradient(90deg, #333333 0.5px, transparent 0.5px)",
+          backgroundSize: `${cellSize}px ${cellSize}px`,
+          opacity: 0.2,
+        }}
+      />
+    );
+  }
 
   return (
     <div
@@ -26,7 +44,7 @@ export const BackgroundRippleEffect = ({
         "[--cell-border-color:#333333] [--cell-fill-color:#0E0E0E] [--cell-shadow-color:#000000]",
       )}
     >
-      <div className="relative h-auto w-auto overflow-hidden">
+      <div className="relative h-auto w-auto overflow-hidden" style={{ contain: "layout style paint" }}>
         <div className="pointer-events-none absolute inset-0 z-[2] h-full w-full overflow-hidden" />
         <DivGrid
           key={`base-${rippleKey}`}

@@ -219,3 +219,34 @@
 .shadow-orbital-blue {
   box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
 }
+
+/* ────────────────────────────────────────────────
+   Reduced-motion: pause expensive looping animations
+   for users who request it or on low-end devices.
+   ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* Pause aurora background */
+  .after\:animate-aurora::after,
+  [class*="animate-aurora"] {
+    animation-play-state: paused !important;
+  }
+
+  /* Pause orbital ring animations */
+  .animate-orbital-pulse,
+  .animate-orbital-ping {
+    animation: none !important;
+  }
+
+  /* Pause Tailwind's built-in animate-pulse and animate-ping */
+  .animate-pulse,
+  .animate-ping {
+    animation: none !important;
+  }
+
+  /* Simplify all transitions */
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -10,9 +10,15 @@ import { CaseStudyOverlay } from "@/components/CaseStudyOverlay";
 import { ConnectView } from "@/components/ConnectView";
 import { useSection } from "@/context/SectionContext";
 import { ArrowUpRight } from "lucide-react";
+import { usePerformance } from "@/lib/usePerformance";
 
 export default function Home() {
   const { activeSection, setActiveSection, activeProject } = useSection();
+  const { isLowEnd, isMidTier } = usePerformance();
+
+  // Responsive grid sizing: fewer DOM nodes = fewer repaints
+  const gridRows = isLowEnd ? 0 : isMidTier ? 18 : 24;
+  const gridCols = isLowEnd ? 0 : isMidTier ? 30 : 42;
 
   const isAbout = activeSection === "about";
   const isContact = activeSection === "contact";
@@ -48,13 +54,21 @@ export default function Home() {
             opacity: { duration: 0.2 },
             scale: { duration: 0.2 }
          }}
-         style={{ pointerEvents: (isProjects || activeProject) ? "none" : "auto" }}
+         style={{ 
+           pointerEvents: (isProjects || activeProject) ? "none" : "auto",
+           willChange: "transform, opacity"
+         }}
       >
-            <Spotlight duration={8} xOffset={100} className="opacity-50" />
+            <Spotlight duration={8} xOffset={100} className="opacity-50" simplified={isLowEnd} />
             
             {/* Background Effect */}
             <div className="absolute inset-0 z-0">
-              <BackgroundRippleEffect rows={30} cols={50} cellSize={40} />
+              <BackgroundRippleEffect 
+                rows={gridRows} 
+                cols={gridCols} 
+                cellSize={40} 
+                lowEnd={isLowEnd}
+              />
             </div>
 
             {/* Hero Content */}

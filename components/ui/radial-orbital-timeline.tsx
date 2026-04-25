@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
+import { usePerformance } from "@/lib/usePerformance";
 
 interface TimelineItem {
   id: number;
@@ -22,11 +23,13 @@ interface RadialOrbitalTimelineProps {
 export default function RadialOrbitalTimeline({
   timelineData,
 }: RadialOrbitalTimelineProps) {
+  const { isLowEnd, isMidTier } = usePerformance();
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
     {}
   );
   const [viewMode] = useState<"orbital">("orbital");
   const [rotationAngle, setRotationAngle] = useState<number>(0);
+  // Low-end devices: disable auto-rotation to avoid JS-driven 20fps re-renders
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
   const [centerOffset] = useState<{ x: number; y: number }>({
     x: 0,
@@ -110,15 +113,20 @@ export default function RadialOrbitalTimeline({
   };
 
   useEffect(() => {
+    // Low-end: skip rotation entirely to avoid 20fps JS-driven re-renders of every node
+    if (isLowEnd) return;
+
     let rotationTimer: NodeJS.Timeout;
 
     if (autoRotate && viewMode === "orbital") {
+      // Mid-tier: slower rotation (80ms vs 50ms) to reduce CPU pressure
+      const intervalMs = isMidTier ? 80 : 50;
       rotationTimer = setInterval(() => {
         setRotationAngle((prev) => {
           const newAngle = (prev + 0.3) % 360;
           return Number(newAngle.toFixed(3));
         });
-      }, 50);
+      }, intervalMs);
     }
 
     return () => {
@@ -126,7 +134,7 @@ export default function RadialOrbitalTimeline({
         clearInterval(rotationTimer);
       }
     };
-  }, [autoRotate, viewMode]);
+  }, [autoRotate, viewMode, isLowEnd, isMidTier]);
 
   const centerViewOnNode = (nodeId: number) => {
     if (viewMode !== "orbital" || !nodeRefs.current[nodeId]) return;
@@ -293,7 +301,12 @@ export default function RadialOrbitalTimeline({
                     nodeRefs.current[item.id] = el;
                   }}
                   className="absolute transition-all duration-700 cursor-pointer group"
-                  style={nodeStyle}
+                  style={{
+                    ...nodeStyle,
+                    // Promote each node to its own GPU compositing layer
+                    willChange: "transform",
+                    transform: `translate(${position.x}px, ${position.y}px) translateZ(0)`,
+                  }}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleItem(item.id);
