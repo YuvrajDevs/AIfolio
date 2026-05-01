@@ -6,6 +6,7 @@ import { X, ArrowUpRight, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, 
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useSection } from "@/context/SectionContext";
+import { usePerformance } from "@/lib/usePerformance";
 
 interface CaseStudyOverlayProps {
   projectId: string | null;
@@ -276,6 +277,7 @@ const CardSection = ({ title, items = [], renderCard, gridCols = "md:grid-cols-2
 
 export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
   const { setActiveProject } = useSection();
+  const { isLowEnd } = usePerformance();
   const overlayRef = useRef<HTMLDivElement>(null);
 
   // Use the prop passed from the parent to ensure data persists during exit animation
@@ -320,8 +322,9 @@ export function CaseStudyOverlay({ projectId }: CaseStudyOverlayProps) {
         transition={{ duration: 0.4 }}
         onClick={() => setActiveProject(null)}
         className={cn(
-          "absolute inset-0 backdrop-blur-[2px]",
-          projectId === 'hivestate' && "backdrop-blur-[8px]"
+          "absolute inset-0 transition-all",
+          !isLowEnd && "backdrop-blur-[2px]",
+          !isLowEnd && projectId === 'hivestate' && "backdrop-blur-[8px]"
         )}
       />
 

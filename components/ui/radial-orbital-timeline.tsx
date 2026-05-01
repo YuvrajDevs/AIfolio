@@ -248,16 +248,19 @@ export default function RadialOrbitalTimeline({
           >
             {/* CENTRAL ENGINE - BLUE THEME */}
             <div className={cn(
-              "absolute rounded-full bg-gradient-to-br from-blue-600 via-sky-400 to-cyan-300 animate-pulse flex items-center justify-center z-10 shadow-[0_0_40px_rgba(56,189,248,0.5)]",
+              "absolute rounded-full bg-gradient-to-br from-blue-600 via-sky-400 to-cyan-300 flex items-center justify-center z-10 shadow-[0_0_40px_rgba(56,189,248,0.5)]",
+              !isLowEnd && "animate-pulse",
               isMobile ? "w-16 h-16" : "w-24 h-24"
             )}>
               <div className={cn(
-                "absolute rounded-full border border-sky-400/30 animate-ping opacity-70",
+                "absolute rounded-full border border-sky-400/30 opacity-70",
+                !isLowEnd && "animate-ping",
                 isMobile ? "w-20 h-20" : "w-32 h-32"
               )}></div>
               <div
                 className={cn(
-                  "absolute rounded-full border border-sky-400/20 animate-ping opacity-50",
+                  "absolute rounded-full border border-sky-400/20 opacity-50",
+                  !isLowEnd && "animate-ping",
                   isMobile ? "w-24 h-24" : "w-40 h-40"
                 )}
                 style={{ animationDelay: "0.5s" }}
@@ -266,7 +269,7 @@ export default function RadialOrbitalTimeline({
                 "rounded-full bg-[#0E0E0E] flex items-center justify-center",
                 isMobile ? "w-8 h-8" : "w-12 h-12"
               )}>
-                  <div className="w-3 h-3 rounded-full bg-sky-400 animate-pulse"></div>
+                  <div className={cn("w-3 h-3 rounded-full bg-sky-400", !isLowEnd && "animate-pulse")}></div>
               </div>
             </div>
 
@@ -303,9 +306,9 @@ export default function RadialOrbitalTimeline({
                   className="absolute transition-all duration-700 cursor-pointer group"
                   style={{
                     ...nodeStyle,
-                    // Promote each node to its own GPU compositing layer
-                    willChange: "transform",
-                    transform: `translate(${position.x}px, ${position.y}px) translateZ(0)`,
+                    // Promote each node to its own GPU compositing layer ONLY on capable devices
+                    willChange: isLowEnd ? "auto" : "transform",
+                    transform: `translate(${position.x}px, ${position.y}px) ${isLowEnd ? '' : 'translateZ(0)'}`,
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
