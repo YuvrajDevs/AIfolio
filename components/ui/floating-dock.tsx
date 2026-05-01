@@ -25,7 +25,7 @@ export const FloatingDock = ({
   orientation = "horizontal",
   showOnMobile = false,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string; isActive?: boolean }[];
+  items: { title: string; icon: React.ReactNode; href: string; isActive?: boolean; onClick?: (e: React.MouseEvent) => void }[];
   desktopClassName?: string;
   mobileClassName?: string;
   orientation?: "horizontal" | "vertical";
@@ -50,7 +50,7 @@ const FloatingDockMobile = ({
   items,
   className,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string; isActive?: boolean }[];
+  items: { title: string; icon: React.ReactNode; href: string; isActive?: boolean; onClick?: (e: React.MouseEvent) => void }[];
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
@@ -82,6 +82,7 @@ const FloatingDockMobile = ({
                 <a
                   href={item.href}
                   key={item.title}
+                  onClick={item.onClick}
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
                 >
                   <div className={cn("h-4 w-4", item.isActive && "text-[#2F56FF]")}>
@@ -113,7 +114,7 @@ const FloatingDockDesktop = ({
   orientation = "horizontal",
   showOnMobile = false,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string; isActive?: boolean }[];
+  items: { title: string; icon: React.ReactNode; href: string; isActive?: boolean; onClick?: (e: React.MouseEvent) => void }[];
   className?: string;
   orientation?: "horizontal" | "vertical";
   showOnMobile?: boolean;
@@ -158,6 +159,7 @@ function IconContainer({
   icon,
   href,
   isActive,
+  onClick,
   orientation = "horizontal",
 }: {
   mouseX: MotionValue;
@@ -166,6 +168,7 @@ function IconContainer({
   icon: React.ReactNode;
   href: string;
   isActive?: boolean;
+  onClick?: (e: React.MouseEvent) => void;
   orientation?: "horizontal" | "vertical";
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -223,7 +226,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a href={href}>
+    <a href={href} onClick={onClick}>
       <motion.div
         ref={ref}
         style={{

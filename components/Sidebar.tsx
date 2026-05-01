@@ -36,8 +36,12 @@ export function Sidebar() {
     {
       title: "Home",
       icon: <StaticIcon icon={Terminal} isActive={activeSection === "home"} />,
-      href: "#home",
+      href: "/",
       isActive: activeSection === "home",
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+        setActiveSection("home");
+      }
     },
     {
       title: "About",
