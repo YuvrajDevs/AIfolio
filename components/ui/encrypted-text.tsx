@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
+import { usePerformance } from "@/lib/usePerformance";
 
 type EncryptedTextProps = {
   text: string;
@@ -56,6 +57,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
+  const { isLowEnd } = usePerformance();
 
   const [isMounted, setIsMounted] = useState(false);
   const [revealCount, setRevealCount] = useState<number>(0);
@@ -125,9 +127,18 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isInView, text, revealDelayMs, charset, flipDelayMs]);
+    };
+  }, [isInView, text, revealDelayMs, charset, flipDelayMs, isLowEnd]);
 
   if (!text) return null;
+
+  if (isLowEnd) {
+    return (
+      <span className={cn(className, revealedClassName)} aria-label={text} role="text">
+        {text}
+      </span>
+    );
+  }
 
   return (
     <motion.span

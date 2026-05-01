@@ -3,6 +3,8 @@
 import React from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import { usePerformance } from "@/lib/usePerformance";
+import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
   id: string;
@@ -23,6 +25,7 @@ export function ProjectCard({
   index,
   onClick
 }: ProjectCardProps) {
+  const { isLowEnd } = usePerformance();
   return (
     <motion.div
       onClick={onClick}
@@ -43,7 +46,7 @@ export function ProjectCard({
           />
         </motion.div>
         {/* Dark Glassmorphic Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 via-40% to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-[2px]" />
+        <div className={cn("absolute inset-0 bg-gradient-to-t from-black via-black/90 via-40% to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500", !isLowEnd && "backdrop-blur-[2px]")} />
       </motion.div>
 
       {/* Top Right Arrow Icon */}

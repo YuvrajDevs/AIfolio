@@ -62,7 +62,6 @@ export default function Home() {
 
             {/* Hero Content */}
             <motion.div 
-               layout
                className={`relative z-10 flex w-full min-w-0 max-w-[90vw] xs:max-w-[85vw] md:max-w-5xl flex-col justify-center px-4 xs:px-6 pb-24 md:pb-0 ${
                isAnyPageActive ? "hidden" : "items-center text-center mx-auto"
                }`}
@@ -73,13 +72,9 @@ export default function Home() {
                transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
                <motion.h1 
-               layout 
-               transition={{ type: "spring", stiffness: 200, damping: 15 }}
                className={`flex flex-col font-heading leading-[0.8] tracking-tighter items-center justify-center`}
                >
                <motion.span 
-                  layout 
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
                   className="text-4xl text-white opacity-70 xs:text-5xl md:text-6xl lg:text-7xl mb-4"
                >
                   Hey I am,
@@ -88,8 +83,6 @@ export default function Home() {
                   href="/Yuvraj_Singh.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  layout 
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
                   className="mt-[-10px] relative group cursor-pointer block"
                >
                   <div className="relative inline-block">
@@ -113,8 +106,6 @@ export default function Home() {
                </motion.h1>
                
                <motion.p 
-               layout 
-               transition={{ type: "spring", stiffness: 200, damping: 15 }}
                className="mt-2 max-w-xl font-outfit text-sm font-light tracking-wide text-neutral-400 xs:text-base md:text-lg lg:max-w-2xl"
                >
                I build AI-powered systems end to end from architecture to interface. 
@@ -123,8 +114,6 @@ export default function Home() {
                </motion.p>
 
                <motion.div 
-               layout 
-               transition={{ type: "spring", stiffness: 200, damping: 15 }}
                className={`mt-8 flex flex-row flex-wrap justify-center gap-4`}
                >
                <button 
