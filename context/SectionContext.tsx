@@ -18,7 +18,11 @@ export function SectionProvider({ children }: { children: ReactNode }) {
 
   const setActiveSection = (section: Section) => {
     setActiveSectionState(section);
-    window.location.hash = section;
+    if (section === "home") {
+      window.history.replaceState("", document.title, window.location.pathname + window.location.search);
+    } else {
+      window.location.hash = section;
+    }
   };
 
   useEffect(() => {
