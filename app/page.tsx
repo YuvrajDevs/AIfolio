@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { EncryptedText } from "@/components/ui/encrypted-text";
 import { Spotlight } from "@/components/ui/spotlight-new";
 import { InteractiveCards } from "@/components/InteractiveCards";
@@ -15,10 +14,6 @@ import { usePerformance } from "@/lib/usePerformance";
 export default function Home() {
   const { activeSection, setActiveSection, activeProject } = useSection();
   const { isLowEnd, isMidTier } = usePerformance();
-
-  // Responsive grid sizing: fewer DOM nodes = fewer repaints
-  const gridRows = isLowEnd ? 0 : isMidTier ? 18 : 24;
-  const gridCols = isLowEnd ? 0 : isMidTier ? 30 : 42;
 
   const isAbout = activeSection === "about";
   const isContact = activeSection === "contact";
@@ -59,16 +54,10 @@ export default function Home() {
            willChange: "transform, opacity"
          }}
       >
-            <Spotlight duration={8} xOffset={100} className="opacity-50" simplified={isLowEnd} />
+            <Spotlight duration={8} xOffset={100} className="opacity-50" simplified={true} />
             
-            {/* Background Effect */}
-            <div className="absolute inset-0 z-0">
-              <BackgroundRippleEffect 
-                rows={gridRows} 
-                cols={gridCols} 
-                cellSize={40} 
-                lowEnd={isLowEnd}
-              />
+            {/* Background Grid */}
+            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]">
             </div>
 
             {/* Hero Content */}

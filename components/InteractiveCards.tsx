@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSection } from "@/context/SectionContext";
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { Spotlight } from "@/components/ui/spotlight-new";
 import RadialOrbitalTimelineDemo from "@/components/ui/radial-orbital-timeline-demo";
 import { usePerformance } from "@/lib/usePerformance";
@@ -141,10 +140,6 @@ export function InteractiveCards({
   const [isMobile, setIsMobile] = React.useState(false);
   const [isMidSize, setIsMidSize] = React.useState(false);
 
-  // Grid sizing: progressively fewer nodes on constrained devices
-  const gridRows = isLowEnd ? 0 : isMidTier ? 16 : 22;
-  const gridCols = isLowEnd ? 0 : isMidTier ? 28 : 38;
-
   React.useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -208,10 +203,9 @@ export function InteractiveCards({
       style={{ willChange: "transform, width" }}
     >
       <div className="relative h-full w-full overflow-hidden border-l border-white/10">
-        {/* Background Ripple & Spotlight */}
-        <div className="absolute inset-0 z-0 opacity-40">
-           <BackgroundRippleEffect rows={gridRows} cols={gridCols} cellSize={40} lowEnd={isLowEnd} />
-           <Spotlight duration={8} xOffset={100} className="opacity-20" simplified={isLowEnd} />
+        {/* Background Grid & Spotlight */}
+        <div className="absolute inset-0 z-0 opacity-40 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]">
+           <Spotlight duration={8} xOffset={100} className="opacity-20" simplified={true} />
         </div>
 
         <div className="base-layer h-full w-full absolute inset-0 z-[1]">
