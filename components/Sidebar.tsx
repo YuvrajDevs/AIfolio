@@ -31,7 +31,7 @@ const StaticIcon = ({ icon: Icon, isActive, isHovered }: StaticIconProps) => {
 };
 
 export function Sidebar() {
-  const { activeSection, activeProject } = useSection();
+  const { activeSection, activeProject, setActiveSection } = useSection();
   const links = [
     {
       title: "Home",
