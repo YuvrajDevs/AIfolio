@@ -64,18 +64,53 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {project.image && (
-        <div className="neo mt-12 rounded-xl bg-white p-2">
+        <div className="neo mt-12 flex justify-center rounded-xl bg-white p-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.image} alt={`${project.name} screenshot`} className="w-full" decoding="async" />
+          <img
+            src={project.image}
+            alt={`${project.name} screenshot`}
+            className={project.imageFit === "contain" ? "max-h-[520px] w-auto object-contain" : "w-full"}
+            decoding="async"
+          />
+        </div>
+      )}
+
+      {(c.whatItDoes || c.unique) && (
+        <div className="mt-16 grid gap-x-8 gap-y-10 md:grid-cols-2">
+          {c.whatItDoes && (
+            <Folder tab={c.doesLabel ?? "What it does"} color="bg-fgreen" bodyClassName="bg-white">
+              <ul className="space-y-3">
+                {c.whatItDoes.map((t) => (
+                  <li key={t} className="flex gap-3 leading-relaxed text-neutral-700"><span aria-hidden className="mt-2 h-2 w-2 shrink-0 rounded-full bg-fgreen" />{t}</li>
+                ))}
+              </ul>
+            </Folder>
+          )}
+          {c.unique && (
+            <Folder tab="What makes it different" color="bg-fpurple" bodyClassName="bg-white">
+              <ul className="space-y-3">
+                {c.unique.map((t) => (
+                  <li key={t} className="flex gap-3 leading-relaxed text-neutral-700"><span aria-hidden className="mt-2 h-2 w-2 shrink-0 rounded-full bg-fpurple" />{t}</li>
+                ))}
+              </ul>
+            </Folder>
+          )}
         </div>
       )}
 
       <div className="mt-16 grid gap-x-8 gap-y-10 md:grid-cols-2">
         {blocks.map((b, n) => (
           <Folder key={b.title} tab={`${String(n + 1).padStart(2, "0")} ${b.title}`} color={["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-fyellow", "bg-bubble", "bg-forange"][n % 6]} bodyClassName="bg-white">
-            <p className="leading-relaxed text-neutral-700">{b.body}</p>
+            <div className="space-y-3 leading-relaxed text-neutral-700">
+              {b.body.split("\n\n").map((para, k) => <p key={k}>{para}</p>)}
+            </div>
           </Folder>
         ))}
+        {c.limits && (
+          <Folder tab="Honest limits" color="bg-note-sun" className="md:col-span-2" bodyClassName="bg-white">
+            <p className="leading-relaxed text-neutral-700">{c.limits}</p>
+          </Folder>
+        )}
       </div>
 
       <section className="mt-20">
@@ -85,7 +120,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {c.built.map((b, n) => (
             <li key={b.label} style={{ "--r": rot(n) } as React.CSSProperties} className={`relative note tape p-6 pt-8 ${NOTE_COLORS[(n + 1) % 4]}`}>
               <p className="font-hand text-xl text-neutral-600">{b.label}</p>
-              <p className="font-pixel text-lg font-bold uppercase">{b.value}</p>
+              <p className="text-sm leading-relaxed text-neutral-800">{b.value}</p>
             </li>
           ))}
         </ul>

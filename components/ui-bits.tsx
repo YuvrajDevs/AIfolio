@@ -142,7 +142,7 @@ export function ProjectCard({ project, index, size = "lg" }: { project: Project;
         <div className={cn("absolute -rotate-1 overflow-hidden bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,.35)] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-0", lg ? "inset-x-6 top-6 -bottom-10" : "inset-x-3 top-4 -bottom-10")}>
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+            <img src={project.image} alt="" loading="lazy" decoding="async" className={cn("h-full w-full", project.imageFit === "contain" ? "bg-white object-contain object-top p-2" : "object-cover object-top")} />
           ) : (
             <div className="flex h-full items-start justify-center bg-[repeating-linear-gradient(45deg,#fff_0_10px,#f3f3ee_10px_20px)] pt-6">
               <span className={cn("font-pixel text-ink/15", lg ? "text-7xl" : "text-4xl")}>{project.name[0]}</span>
