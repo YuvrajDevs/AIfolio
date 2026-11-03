@@ -137,9 +137,9 @@ export function ProjectCard({ project, index, size = "lg" }: { project: Project;
       <span className={cn("relative z-10 inline-block rounded-t-xl px-4 pb-1 pt-1.5 font-pixel uppercase", lg ? "text-xs" : "text-[10px]", color)}>
         Project {String(index + 1).padStart(2, "0")}
       </span>
-      <div className={cn("relative overflow-hidden rounded-tr-2xl", color, lg ? "h-56 md:h-72" : "h-36")}>
-        <div className={cn("absolute rotate-2 bg-white/70", lg ? "inset-x-10 top-7 -bottom-10" : "inset-x-7 top-5 -bottom-10")} />
-        <div className={cn("absolute -rotate-1 overflow-hidden bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,.35)] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-0", lg ? "inset-x-6 top-6 -bottom-10" : "inset-x-4 top-4 -bottom-10")}>
+      <div className={cn("relative overflow-hidden rounded-tr-2xl", color, lg ? "h-56 md:h-72" : "h-52 md:h-60")}>
+        <div className={cn("absolute rotate-2 bg-white/70", lg ? "inset-x-10 top-7 -bottom-10" : "inset-x-5 top-5 -bottom-10")} />
+        <div className={cn("absolute -rotate-1 overflow-hidden bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,.35)] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-0", lg ? "inset-x-6 top-6 -bottom-10" : "inset-x-3 top-4 -bottom-10")}>
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={project.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />

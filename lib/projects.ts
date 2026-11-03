@@ -104,6 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "honest-mailbox",
+    image: "/projects/atlas.png", // filler image
     name: "Honest Mailbox",
     tag: "Design showcase // web to app",
     summary:
@@ -128,6 +129,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "neighboxed",
+    image: "/projects/burnsight-light.png", // filler image
     name: "Neighboxed",
     tag: "Browser game",
     summary: "Filler card for a small browser game. Shows range and creativity.",
@@ -142,6 +144,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "lookmax-app",
+    image: "/projects/hivestate-visual.png", // filler image
     name: "Lookmax App",
     tag: "Consumer app",
     summary: "Filler card for a consumer app. Show only if finished.",
@@ -156,6 +159,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "widget-app",
+    image: "/projects/resolveos.png", // filler image
     name: "Widget App",
     tag: "Consumer app",
     summary: "Filler card for a finished consumer app.",
