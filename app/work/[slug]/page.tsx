@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ButtonLink, Folder, Hand, PageShell, Sticky } from "@/components/ui-bits";
 import { PROJECTS, getProject } from "@/lib/projects";
 
@@ -93,34 +93,40 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       )}
 
-      {/* What it does + what's different */}
+      {/* Highlights: features + differentiators */}
       {(c.whatItDoes || c.unique) && (
-        <div className="mt-12 grid gap-x-8 gap-y-10 lg:grid-cols-2">
+        <section className="mt-14" aria-labelledby="highlights">
+          <Hand className="leading-none">the good stuff</Hand>
+          <h2 id="highlights" className="mb-6 font-pixel text-3xl uppercase md:text-4xl">Highlights</h2>
+
           {c.whatItDoes && (
-            <Folder tab={c.doesLabel ?? "What it does"} color="bg-fgreen" bodyClassName="bg-white">
+            <div className="rounded-3xl bg-white p-5 shadow-[0_10px_28px_-16px_rgba(0,0,0,.3)] md:p-6">
+              <p className="mb-3 font-pixel text-xs uppercase text-neutral-500">{c.doesLabel ?? "What it does"}</p>
               <ul className="flex flex-wrap gap-2">
-                {c.whatItDoes.map((t) => (
-                  <li key={t} className="rounded-full bg-note-mint px-3 py-1 text-sm">{t}</li>
+                {c.whatItDoes.map((t, n) => (
+                  <li key={t} className={`rounded-full px-3.5 py-1.5 text-sm font-medium ${TILE[n % 4]}`}>{t}</li>
                 ))}
               </ul>
-            </Folder>
+            </div>
           )}
+
           {c.unique && (
-            <Folder tab="What makes it different" color="bg-fpurple" bodyClassName="bg-white">
-              <ul className="space-y-2">
-                {c.unique.map((t) => (
-                  <li key={t} className="flex gap-2.5 text-[15px] leading-snug text-neutral-800">
-                    <span aria-hidden className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-fpurple" />{t}
-                  </li>
-                ))}
-              </ul>
-            </Folder>
+            <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {c.unique.map((t, n) => (
+                <li key={t} className="flex gap-4 rounded-2xl bg-white p-4 shadow-[0_8px_22px_-16px_rgba(0,0,0,.4)]">
+                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-pixel text-sm ${TAB[n % 6]}`}>{String(n + 1).padStart(2, "0")}</span>
+                  <span className="text-[15px] leading-snug text-neutral-800">{t}</span>
+                </li>
+              ))}
+            </ul>
           )}
-        </div>
+        </section>
       )}
 
       {/* Case study, in short points */}
-      <div className="mt-12 grid gap-x-6 gap-y-9 md:grid-cols-2 lg:grid-cols-3">
+      <Hand className="mt-14 leading-none">the story</Hand>
+      <h2 className="mb-6 font-pixel text-3xl uppercase md:text-4xl">Case study</h2>
+      <div className="grid gap-x-6 gap-y-9 md:grid-cols-2 lg:grid-cols-3">
         {blocks.map((b, n) => (
           <Folder key={b.title} tab={b.title} color={TAB[n % 6]} bodyClassName="bg-white p-5 md:p-5">
             <ul className="space-y-2">
@@ -134,31 +140,67 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ))}
       </div>
 
-      {/* Limits */}
-      {c.limits && (
-        <div className="mt-10">
-          <p className="mb-2 font-pixel text-xs uppercase text-neutral-500">Honest limits</p>
-          <ul className="flex flex-wrap gap-2">
-            {list(c.limits).map((t) => (
-              <li key={t} className="rounded-full border border-ink/20 bg-note-sun px-3 py-1 text-sm">{t}</li>
+      {/* Under the hood */}
+      {project.deep ? (
+        <section className="mt-16 overflow-hidden rounded-[28px] bg-ink px-5 py-10 text-white md:px-10 md:py-12" aria-labelledby="hood">
+          <p className="font-hand text-2xl leading-none text-lime">for the engineers</p>
+          <h2 id="hood" className="mt-1 font-pixel text-4xl uppercase md:text-5xl">Under the hood</h2>
+
+          {/* Architecture flow */}
+          <ol className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-3" aria-label="Architecture">
+            {project.deep.flow.map((step, n, arr) => (
+              <li key={step} className="flex items-center gap-2">
+                <span className="rounded-lg border border-white/20 bg-white/10 px-3.5 py-2 font-pixel text-xs uppercase">{step}</span>
+                {n < arr.length - 1 && <ArrowRight aria-hidden className="h-4 w-4 text-lime" />}
+              </li>
+            ))}
+          </ol>
+
+          {/* Stack and practice, by area */}
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {project.deep.groups.map((g) => (
+              <section key={g.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <h3 className="mb-3 font-pixel text-sm uppercase text-lime">{g.title}</h3>
+                <ul className="flex flex-wrap gap-1.5">
+                  {g.items.map((it) => (
+                    <li key={it} className="rounded-md bg-white/10 px-2.5 py-1 text-[13px] leading-snug text-white/90">{it}</li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+
+          {/* Decisions */}
+          <h3 className="mb-3 mt-10 font-pixel text-sm uppercase text-lime">Decisions and trade-offs</h3>
+          <ul className="grid gap-3 md:grid-cols-2">
+            {project.deep.decisions.map((d) => (
+              <li key={d.pick} className="rounded-2xl border border-white/10 p-4">
+                <p className="font-pixel text-sm uppercase">
+                  <span className="text-lime">{d.pick}</span>
+                  <span className="mx-2 text-white/40">over</span>
+                  <span className="text-white/70">{d.over}</span>
+                </p>
+                <p className="mt-1.5 text-[14px] leading-snug text-white/75">{d.why}</p>
+              </li>
             ))}
           </ul>
-        </div>
+        </section>
+      ) : (
+        c.built && (
+          <section className="mt-14">
+            <Hand className="leading-none">the engineering proof</Hand>
+            <h2 className="mb-5 font-pixel text-3xl uppercase md:text-4xl">How it&apos;s built</h2>
+            <dl className="divide-y divide-ink/10 rounded-2xl bg-white shadow-[0_10px_28px_-16px_rgba(0,0,0,.3)]">
+              {c.built.map((b) => (
+                <div key={b.label} className="grid gap-1 px-5 py-3 sm:grid-cols-[9rem_1fr] sm:items-baseline sm:gap-4">
+                  <dt className="font-pixel text-xs uppercase text-neutral-500">{b.label}</dt>
+                  <dd className="text-[15px] text-neutral-800">{b.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )
       )}
-
-      {/* How it's built */}
-      <section className="mt-14">
-        <Hand className="leading-none">the engineering proof</Hand>
-        <h2 className="mb-5 font-pixel text-3xl uppercase md:text-4xl">How it&apos;s built</h2>
-        <dl className="divide-y divide-ink/10 rounded-2xl bg-white shadow-[0_10px_28px_-16px_rgba(0,0,0,.3)]">
-          {c.built.map((b) => (
-            <div key={b.label} className="grid gap-1 px-5 py-3 sm:grid-cols-[9rem_1fr] sm:items-baseline sm:gap-4">
-              <dt className="font-pixel text-xs uppercase text-neutral-500">{b.label}</dt>
-              <dd className="text-[15px] text-neutral-800">{b.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
 
       <Link href={`/work/${next.slug}`} className="neo group mt-16 flex items-center justify-between gap-4 rounded-2xl bg-fyellow p-6 transition-transform hover:-translate-y-1">
         <div>
