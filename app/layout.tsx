@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Pixelify_Sans, Caveat, Outfit } from "next/font/google";
+import { Caveat, Outfit } from "next/font/google";
+import { GeistPixelSquare } from "geist/font/pixel/square";
 import "./globals.css";
 import { SiteNav } from "@/components/SiteNav";
 import { Footer } from "@/components/Footer";
 import { CursorTrail } from "@/components/CursorTrail";
 import { SITE } from "@/lib/site";
 
-const pixel = Pixelify_Sans({ variable: "--font-pixelify", subsets: ["latin"], weight: ["500", "700"], display: "swap" });
 const hand = Caveat({ variable: "--font-caveat", subsets: ["latin"], display: "swap" });
 const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], display: "swap" });
 
@@ -21,8 +21,8 @@ export const viewport: Viewport = { themeColor: "#f4f1ea" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${pixel.variable} ${hand.variable} ${outfit.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
+    <html lang="en" className={`${GeistPixelSquare.variable} ${hand.variable} ${outfit.variable} h-full antialiased`}>
+      <body id="top" className="flex min-h-full flex-col">
         <SiteNav />
         <CursorTrail />
         <main className="flex-1">{children}</main>

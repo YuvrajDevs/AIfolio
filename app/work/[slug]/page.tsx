@@ -35,7 +35,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <PageShell>
       <Link href="/work" className="mb-8 inline-flex items-center gap-2 font-pixel text-sm font-bold uppercase hover:underline">
-        <ArrowLeft className="h-4 w-4" /> All work
+        <ArrowLeft className="h-4 w-4" /> All projects
       </Link>
 
       <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">

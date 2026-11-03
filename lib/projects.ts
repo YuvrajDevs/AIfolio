@@ -108,7 +108,7 @@ export const PROJECTS: Project[] = [
     tag: "Design showcase // web to app",
     summary:
       "Private communication space for couples. Website is done; the app version is in progress.",
-    tier: "featured",
+    tier: "more",
     status: "Website done, app in progress",
     stack: ["Design system", "Next.js", "TypeScript"],
     links: {},
@@ -134,6 +134,20 @@ export const PROJECTS: Project[] = [
     tier: "more",
     status: "Filler",
     stack: ["TypeScript", "Canvas"],
+    links: {},
+    case: {
+      problem: TBD, user: TBD, design: TBD, tech: TBD, hardProblem: TBD, outcome: TBD,
+      built: [{ label: "Data model", value: "Filler" }],
+    },
+  },
+  {
+    slug: "lookmax-app",
+    name: "Lookmax App",
+    tag: "Consumer app",
+    summary: "Filler card for a consumer app. Show only if finished.",
+    tier: "more",
+    status: "Filler",
+    stack: ["Mobile", "TypeScript"],
     links: {},
     case: {
       problem: TBD, user: TBD, design: TBD, tech: TBD, hardProblem: TBD, outcome: TBD,

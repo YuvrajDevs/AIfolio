@@ -57,7 +57,7 @@ export default function AboutPage() {
             <Folder key={s.group} tab={s.group} color={["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-bubble"][i % 4]} bodyClassName="p-5">
               <ul className="flex flex-wrap gap-2">
                 {s.items.map((it) => (
-                  <li key={it} className="rounded-md border-2 border-ink bg-white px-2.5 py-1 font-pixel text-xs font-bold uppercase shadow-[2px_2px_0_#111]">{it}</li>
+                  <li key={it} className="rounded-md bg-white px-2.5 py-1 font-pixel text-xs uppercase">{it}</li>
                 ))}
               </ul>
             </Folder>

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { label: "Home", href: "/", icon: Home },
   { label: "About", href: "/about", icon: User },
-  { label: "Work", href: "/work", icon: Briefcase },
+  { label: "Projects", href: "/work", icon: Briefcase },
   { label: "Services", href: "/services", icon: Layers },
 ];
 
@@ -18,7 +18,7 @@ export function SiteNav() {
   const path = usePathname();
   return (
     <>
-      <header className="sticky top-0 z-50 border-b-2 border-ink bg-white/90 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-ink/15 bg-white/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 md:px-6">
           <div className="flex items-center gap-5">
             <Link href="/" aria-label="Home" className="flex items-center gap-1.5">
@@ -44,7 +44,7 @@ export function SiteNav() {
           </div>
           <Link
             href="/contact"
-            className="neo-sm bg-white px-4 py-1.5 font-pixel text-xs font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5 hover:bg-fyellow"
+            className="neo-sm rounded-lg bg-white px-4 py-1.5 font-pixel text-xs font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5 hover:bg-fyellow"
           >
             ♥ Contact
           </Link>
@@ -53,7 +53,7 @@ export function SiteNav() {
 
       {/* Mobile bottom dock */}
       <nav aria-label="Primary" className="fixed inset-x-0 bottom-3 z-50 flex justify-center md:hidden">
-        <ul className="neo flex items-center gap-1 bg-white p-1.5">
+        <ul className="neo flex items-center gap-1 rounded-2xl bg-white p-1.5">
           {LINKS.map((l) => (
             <li key={l.href}>
               <Link

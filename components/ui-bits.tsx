@@ -66,8 +66,8 @@ export function ButtonLink({ href, children, variant = "primary", external }: {
   href: string; children: React.ReactNode; variant?: "primary" | "ghost"; external?: boolean;
 }) {
   const cls = cn(
-    "neo-sm inline-flex rounded-lg items-center justify-center gap-2 px-6 py-3 font-pixel text-sm font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5 active:translate-y-0",
-    variant === "primary" ? "bg-ink text-white hover:bg-ocean" : "bg-white hover:bg-fyellow"
+    "inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-pixel text-sm uppercase tracking-wider transition-all hover:-translate-y-0.5 active:translate-y-0",
+    variant === "primary" ? "bg-ink text-white hover:bg-ocean" : "border border-ink/20 bg-white hover:bg-fyellow"
   );
   return external ? (
     <a href={href} className={cls} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{children}</a>
@@ -76,18 +76,16 @@ export function ButtonLink({ href, children, variant = "primary", external }: {
   );
 }
 
-const FOLDER_COLORS = ["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-fyellow", "bg-forange", "bg-bubble"];
+const FOLDER_COLORS = ["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-fyellow", "bg-bubble", "bg-forange", "bg-lime"];
 
-/** A manila-style folder panel: tab on top, body below */
+/** A flat folder panel: tab on top, body below. No outlines, soft shadow. */
 export function Folder({ tab, color = "bg-fyellow", children, className, bodyClassName }: {
   tab: string; color?: string; children: React.ReactNode; className?: string; bodyClassName?: string;
 }) {
   return (
     <div className={className}>
-      <span className={cn("relative z-10 -mb-[2px] inline-block rounded-t-xl border-2 border-b-0 border-ink px-5 pb-1 pt-1.5 font-pixel text-xs font-bold uppercase", color)}>
-        {tab}
-      </span>
-      <div className={cn("rounded-b-2xl rounded-tr-2xl border-2 border-ink p-6 shadow-[6px_6px_0_#111] md:p-8", color, bodyClassName)}>
+      <span className={cn("relative z-10 inline-block rounded-t-xl px-5 pb-1 pt-1.5 font-pixel text-xs uppercase", color)}>{tab}</span>
+      <div className={cn("rounded-b-2xl rounded-tr-2xl p-6 shadow-[0_14px_32px_-16px_rgba(0,0,0,.35)] md:p-8", color, bodyClassName)}>
         {children}
       </div>
     </div>
@@ -131,37 +129,54 @@ export function FigCursor({ name, color, className, d = "0s" }: { name: string; 
 }
 
 /** Project as a file folder: tab, papers poking out, front flap with the title */
-export function ProjectCard({ project, index }: { project: Project; index: number }) {
+export function ProjectCard({ project, index, size = "lg" }: { project: Project; index: number; size?: "lg" | "sm" }) {
   const color = FOLDER_COLORS[index % FOLDER_COLORS.length];
+  const lg = size === "lg";
   return (
     <Link href={`/work/${project.slug}`} className="group block">
-      <span className={cn("relative z-10 -mb-[2px] inline-block rounded-t-xl border-2 border-b-0 border-ink px-5 pb-1 pt-1.5 font-pixel text-xs font-bold uppercase", color)}>
+      <span className={cn("relative z-10 inline-block rounded-t-xl px-4 pb-1 pt-1.5 font-pixel uppercase", lg ? "text-xs" : "text-[10px]", color)}>
         Project {String(index + 1).padStart(2, "0")}
       </span>
-      {/* back panel with papers */}
-      <div className={cn("relative h-56 overflow-hidden rounded-tr-2xl border-2 border-ink", color)}>
-        <div className="absolute inset-x-8 top-6 -bottom-10 rotate-2 border-2 border-ink bg-white" />
-        <div className="absolute inset-x-5 top-5 -bottom-10 -rotate-1 overflow-hidden border-2 border-ink bg-white shadow-[0_2px_0_rgba(0,0,0,.15)] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-0">
+      <div className={cn("relative overflow-hidden rounded-tr-2xl", color, lg ? "h-56 md:h-72" : "h-36")}>
+        <div className={cn("absolute rotate-2 bg-white/70", lg ? "inset-x-10 top-7 -bottom-10" : "inset-x-7 top-5 -bottom-10")} />
+        <div className={cn("absolute -rotate-1 overflow-hidden bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,.35)] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-0", lg ? "inset-x-6 top-6 -bottom-10" : "inset-x-4 top-4 -bottom-10")}>
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={project.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
           ) : (
-            <div className="flex h-full items-start justify-center bg-[repeating-linear-gradient(45deg,#fff_0_10px,#f3f3ee_10px_20px)] pt-8">
-              <span className="font-pixel text-6xl font-bold text-ink/20">{project.name[0]}</span>
+            <div className="flex h-full items-start justify-center bg-[repeating-linear-gradient(45deg,#fff_0_10px,#f3f3ee_10px_20px)] pt-6">
+              <span className={cn("font-pixel text-ink/15", lg ? "text-7xl" : "text-4xl")}>{project.name[0]}</span>
             </div>
           )}
         </div>
       </div>
-      {/* front flap */}
-      <div className={cn("relative -mt-12 rounded-2xl border-2 border-ink p-5 shadow-[6px_6px_0_#111] transition-transform duration-300 group-hover:translate-y-1", color)}>
+      <div className={cn("relative -mt-10 rounded-2xl shadow-[0_-8px_18px_-8px_rgba(0,0,0,.25),0_14px_28px_-16px_rgba(0,0,0,.35)] transition-transform duration-300 group-hover:translate-y-1", color, lg ? "p-6" : "p-4")}>
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-pixel text-3xl font-bold uppercase leading-none">{project.name}</h3>
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-white transition-colors group-hover:bg-ink group-hover:text-white">
-            <ArrowUpRight className="h-4 w-4" />
+          <h3 className={cn("font-pixel uppercase leading-none", lg ? "text-3xl md:text-4xl" : "text-xl")}>{project.name}</h3>
+          <span className={cn("flex shrink-0 items-center justify-center rounded-full bg-white transition-colors group-hover:bg-ink group-hover:text-white", lg ? "h-9 w-9" : "h-7 w-7")}>
+            <ArrowUpRight className={lg ? "h-4 w-4" : "h-3.5 w-3.5"} />
           </span>
         </div>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink/80">{project.summary}</p>
+        <p className={cn("mt-2 text-ink/80", lg ? "line-clamp-2 text-sm leading-relaxed" : "line-clamp-1 text-xs")}>{project.summary}</p>
       </div>
     </Link>
+  );
+}
+
+/** 3 big folders on top, the rest smaller underneath */
+export function ProjectGrid({ projects }: { projects: Project[] }) {
+  const top = projects.slice(0, 3);
+  const rest = projects.slice(3);
+  return (
+    <div className="space-y-14 md:space-y-16">
+      <div className="grid gap-x-8 gap-y-12 md:grid-cols-3">
+        {top.map((p, i) => <ProjectCard key={p.slug} project={p} index={i} />)}
+      </div>
+      {rest.length > 0 && (
+        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {rest.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + 3} size="sm" />)}
+        </div>
+      )}
+    </div>
   );
 }

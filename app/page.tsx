@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { ButtonLink, Chip, Doodle, FigCursor, Hand, ProjectCard, SectionHeading, Sticky } from "@/components/ui-bits";
-import { featured } from "@/lib/projects";
+import { ButtonLink, Chip, Doodle, FigCursor, ProjectGrid, SectionHeading, Sticky } from "@/components/ui-bits";
+import { PROJECTS } from "@/lib/projects";
 import { SERVICES } from "@/lib/services";
 
 const STACK = ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "React Flow", "LLM APIs", "Salesforce", "Power BI"];
@@ -46,9 +46,7 @@ export default function Home() {
         <FigCursor name="Recruiter" color="#FF7262" className="right-[18%] top-[40%] hidden xl:block" d="1.5s" />
 
         <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
-          <Hand className="reveal">by yuvraj singh shekhawat</Hand>
-
-          <div className="reveal relative mt-3 w-fit" style={{ "--d": "80ms" } as React.CSSProperties}>
+          <div className="reveal relative w-fit" style={{ "--d": "80ms" } as React.CSSProperties}>
             <h1 className="relative border-2 border-fblue bg-white px-8 py-3 font-pixel text-6xl font-bold uppercase leading-none md:px-12 md:text-8xl">
               Yuvraj
               {["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((p) => (
@@ -64,11 +62,7 @@ export default function Home() {
             <Sticky color="bg-note-mint" r="2deg">Product designer</Sticky>
           </div>
 
-          <p className="reveal mt-8 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-white px-3 py-1 font-pixel text-[11px] font-bold uppercase shadow-[3px_3px_0_#111]" style={{ "--d": "140ms" } as React.CSSProperties}>
-            <span className="h-2 w-2 animate-pulse rounded-full bg-leaf" /> Open to new work and remote roles
-          </p>
-
-          <h2 className="reveal mt-8 max-w-2xl font-pixel text-3xl font-bold leading-tight md:text-5xl" style={{ "--d": "200ms" } as React.CSSProperties}>
+          <h2 className="reveal mt-10 max-w-2xl font-pixel text-3xl font-bold leading-tight md:text-5xl" style={{ "--d": "200ms" } as React.CSSProperties}>
             I build AI tools that do real work, and make them{" "}
             <span className="relative whitespace-nowrap">
               <span className="relative z-10">a joy to use</span>
@@ -93,13 +87,13 @@ export default function Home() {
         </ul>
       </section>
 
-      {/* Featured */}
-      <section className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-        <SectionHeading label="a few things i've made ↓" title="Featured works" />
-        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
-          {featured().map((p, i) => <ProjectCard key={p.slug} project={p} index={i} />)}
+      {/* Projects */}
+      <section className="mx-auto max-w-[1400px] px-6 py-20 md:px-12 md:py-28">
+        <SectionHeading label="a few things i've made ↓" title="Projects" />
+        <ProjectGrid projects={PROJECTS} />
+        <div className="mt-14 flex justify-center">
+          <ButtonLink href="/work" variant="ghost">All projects →</ButtonLink>
         </div>
-        <div className="mt-10 flex justify-center"><ButtonLink href="/work" variant="ghost">All projects →</ButtonLink></div>
       </section>
 
       {/* What I do: tall colour panels */}
@@ -123,16 +117,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* Let's talk */}
-      <section className="px-5 pb-28 text-center">
-        <div className="mx-auto flex max-w-xl flex-col items-center">
-          <div aria-hidden className="mb-5 flex h-20 w-20 items-center justify-center rounded-full border-2 border-ink bg-fyellow font-pixel text-3xl font-bold shadow-[4px_4px_0_#111]">:)</div>
-          <h2 className="font-pixel text-5xl font-bold uppercase leading-none md:text-7xl">Let&apos;s talk</h2>
-          <Hand className="mt-3">got a project, a role, or just want to say hi? i read every message.</Hand>
-          <div className="mt-7"><ButtonLink href="/contact">Say hello</ButtonLink></div>
         </div>
       </section>
     </>
