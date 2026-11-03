@@ -225,12 +225,12 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    slug: "tally",
-    name: "Tally",
+    slug: "trueup",
+    name: "TrueUp",
     tag: "Data engineering // reconciliation",
     summary:
       "Payments reconciliation across ledger, processor and bank, graded against a known answer key instead of trusted on faith.",
-    image: "/projects/tally.png",
+    image: "/projects/trueup.png",
     tier: "more",
     status: "Release candidate, synthetic data only",
     stack: ["Python", "DuckDB", "dbt", "Airflow", "FastAPI", "Next.js 16", "Tailwind 4", "sqlglot"],
