@@ -1,189 +1,124 @@
-"use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { EncryptedText } from "@/components/ui/encrypted-text";
-import { Spotlight } from "@/components/ui/spotlight-new";
-import { InteractiveCards } from "@/components/InteractiveCards";
-import { ProjectsView } from "@/components/ProjectsView";
-import { CaseStudyOverlay } from "@/components/CaseStudyOverlay";
-import { ConnectView } from "@/components/ConnectView";
-import { useSection } from "@/context/SectionContext";
-import { ArrowUpRight } from "lucide-react";
-import { usePerformance } from "@/lib/usePerformance";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink, Chip, Doodle, FigCursor, ProjectGrid, SectionHeading, Sticky } from "@/components/ui-bits";
+import { PROJECTS } from "@/lib/projects";
+import { SERVICES } from "@/lib/services";
+
+const STACK = ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "React Flow", "LLM APIs", "Salesforce", "Power BI"];
 
 export default function Home() {
-  const { activeSection, setActiveSection, activeProject } = useSection();
-  const { isLowEnd, isMidTier } = usePerformance();
-
-  const isAbout = activeSection === "about";
-  const isContact = activeSection === "contact";
-  const isProjects = activeSection === "projects";
-  const isConnect = activeSection === "connect";
-  const isHome = activeSection === "home";
-
-  // Geometrically freeze the horizontal layout parameters during vertical transitions
-  const lastHorizontalState = React.useRef(activeSection);
-  if (activeSection !== "projects") {
-    lastHorizontalState.current = activeSection;
-  }
-
-  // Any "page" (About, Contact, Resume) triggers the 100vw slide
-  const isAnyPageActive = isAbout || isContact || isConnect;
-
   return (
-    // Master Camera Viewport
-    <main className="relative block h-screen w-full overflow-hidden bg-[#0E0E0E]">
-      
-      {/* Master Camera Viewport */}
-      <motion.section 
-         className="absolute inset-0 flex flex-col items-center justify-center overflow-visible"
-         animate={{ 
-            y: isProjects ? "-30vh" : "0vh",
-            x: activeProject ? "-50vw" : (isAnyPageActive ? "-100vw" : "0%"),
-            opacity: (isProjects || activeProject) ? 0 : 1,
-            scale: (isProjects || activeProject) ? 0.95 : 1
-         }}
-         transition={{ 
-            y: { type: "spring", stiffness: 200, damping: 20 },
-            x: { type: "spring", stiffness: 150, damping: 15 },
-            opacity: { duration: 0.2 },
-            scale: { duration: 0.2 }
-         }}
-         style={{ 
-           pointerEvents: (isProjects || activeProject) ? "none" : "auto",
-           willChange: "transform, opacity"
-         }}
-      >
-            <Spotlight duration={8} xOffset={100} className="opacity-50" simplified={true} />
-            
-            {/* Background Grid */}
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]">
-            </div>
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden px-5 pb-20 pt-16 md:pb-28 md:pt-24 xl:min-h-[760px] xl:pt-32">
+        {/* floating UI chips + doodles (xl screens only, purely decorative) */}
+        <div className="hidden xl:block">
+          <Chip className="left-[6%] top-[14%]" r="-2deg">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Now</p>
+            <p className="font-hand text-2xl leading-none">Software Engineer</p>
+            <p className="text-xs text-neutral-500">Dealermatix Technologies</p>
+          </Chip>
+          <Chip className="right-[7%] top-[13%]" r="2deg" d="1s">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Stack</p>
+            <p className="font-pixel text-sm font-bold">Next.js · TypeScript</p>
+            <p className="font-pixel text-sm font-bold">Supabase · LLMs</p>
+          </Chip>
+          <Chip lime className="left-[4%] top-[52%]" r="-5deg" d="0.5s"><span className="font-hand text-2xl">✓ ships end to end</span></Chip>
+          <Chip className="right-[5%] top-[50%]" r="3deg" d="2s">
+            <p className="flex gap-4 font-pixel text-xs font-bold uppercase"><span className="border-b-2 border-ink">Design</span><span className="text-neutral-400">Code</span><span className="text-neutral-400">AI</span></p>
+          </Chip>
+          <Chip className="bottom-[9%] left-[13%]" r="2deg" d="1.5s">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Based in</p>
+            <p className="font-hand text-2xl leading-none">Pune, India</p>
+            <p className="text-xs text-neutral-500">works with teams worldwide</p>
+          </Chip>
+          <Chip className="bottom-[10%] right-[12%]" r="-2deg" d="0.8s">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Next up</p>
+            <p className="font-hand text-2xl leading-none">Honest Mailbox app</p>
+          </Chip>
+          <Doodle kind="asterisk" className="left-[30%] top-[9%]" />
+          <Doodle kind="diamond" className="right-[27%] top-[9%]" />
+          <Doodle kind="heart" className="left-[22%] bottom-[22%]" />
+          <Doodle kind="cloud" className="right-[24%] bottom-[20%]" />
+          <Doodle kind="spark" className="left-[44%] bottom-[6%]" />
+        </div>
+        <FigCursor name="Founder" color="#0ACF83" className="left-[19%] top-[40%] hidden xl:block" d="0s" />
+        <FigCursor name="Recruiter" color="#FF7262" className="right-[18%] top-[40%] hidden xl:block" d="1.5s" />
 
-            {/* Hero Content */}
-            <motion.div 
-               className={`relative z-10 flex w-full min-w-0 max-w-[90vw] xs:max-w-[85vw] md:max-w-5xl flex-col justify-center px-4 xs:px-6 pb-24 md:pb-0 ${
-               isAnyPageActive ? "hidden" : "items-center text-center mx-auto"
-               }`}
-               animate={{ 
-               x: isAnyPageActive ? "-100%" : "0%",
-               opacity: isAnyPageActive ? 0 : 1
-               }}
-               transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
-               <motion.h1 
-               className={`flex flex-col font-heading leading-[0.8] tracking-tighter items-center justify-center`}
-               >
-               <motion.span 
-                  className="text-4xl text-white opacity-70 xs:text-5xl md:text-6xl lg:text-7xl mb-4"
-               >
-                  Hey I am,
-               </motion.span>
-               <motion.a 
-                  href="/Yuvraj_Singh.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-[-10px] relative group cursor-pointer block"
-               >
-                  <div className="relative inline-block">
-                     <EncryptedText
-                        text="Yuvraj"
-                        revealDelayMs={85}
-                        className="text-[8rem] leading-[0.8] text-white xs:text-[10rem] md:text-[12rem] lg:text-[14rem]"
-                        revealedClassName="text-white"
-                        encryptedClassName="text-white/20 font-sans"
-                     />
-                     <motion.div 
-                        className="absolute -top-2 -right-6 md:-top-4 md:-right-10 text-white/20 group-hover:text-sky-400 transition-colors duration-300"
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        whileHover={{ scale: 1.2, x: 2, y: -2 }}
-                     >
-                        <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12" strokeWidth={1.5} />
-                     </motion.div>
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
+          <div className="reveal relative w-fit" style={{ "--d": "80ms" } as React.CSSProperties}>
+            <h1 className="relative border-2 border-fblue bg-white px-8 py-3 font-pixel text-6xl font-bold uppercase leading-none md:px-12 md:text-8xl">
+              Yuvraj
+              {["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((p) => (
+                <span key={p} aria-hidden className={`absolute h-3 w-3 border-2 border-ink bg-white ${p}`} />
+              ))}
+            </h1>
+            <Sticky color="bg-note-sky" r="-5deg" className="absolute -left-4 -top-6 hidden md:block md:-left-24">AI full-stack</Sticky>
+            <Sticky color="bg-note-mint" r="4deg" className="absolute -right-4 -top-5 hidden md:block md:-right-24">Product designer</Sticky>
+          </div>
+
+          <div className="mt-5 flex flex-wrap justify-center gap-2 md:hidden">
+            <Sticky color="bg-note-sky" r="-3deg">AI full-stack</Sticky>
+            <Sticky color="bg-note-mint" r="2deg">Product designer</Sticky>
+          </div>
+
+          <h2 className="reveal mt-10 max-w-2xl font-pixel text-3xl font-bold leading-tight md:text-5xl" style={{ "--d": "200ms" } as React.CSSProperties}>
+            I build AI tools that do real work, and make them{" "}
+            <span className="relative whitespace-nowrap">
+              <span className="relative z-10">a joy to use</span>
+              <span aria-hidden className="absolute inset-x-0 bottom-0.5 -z-0 h-3 bg-lime md:h-4" />
+            </span>
+            <span className="ml-1 text-bubble">*</span>
+          </h2>
+
+          <div className="reveal mt-9 flex flex-wrap justify-center gap-3" style={{ "--d": "280ms" } as React.CSSProperties}>
+            <ButtonLink href="/contact">Contact me</ButtonLink>
+            <ButtonLink href="/work" variant="ghost">See the work</ButtonLink>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools */}
+      <section aria-label="Tools" className="border-y-2 border-ink bg-white px-5 py-5">
+        <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-2 font-pixel text-sm font-bold uppercase">
+          {STACK.map((s, i) => (
+            <li key={s} className="flex items-center gap-7">{s}{i < STACK.length - 1 && <span aria-hidden className="text-bubble">✦</span>}</li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Projects */}
+      <section className="mx-auto max-w-[1400px] px-6 py-20 md:px-12 md:py-28">
+        <SectionHeading label="a few things i've made ↓" title="Projects" />
+        <ProjectGrid projects={PROJECTS} />
+        <div className="mt-14 flex justify-center">
+          <ButtonLink href="/work" variant="ghost">All projects →</ButtonLink>
+        </div>
+      </section>
+
+      {/* What I do: tall colour panels */}
+      <section className="border-y border-ink/20 bg-white/40 px-5 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading label="what i'm good at" title="What I do" />
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICES.map((s, i) => (
+              <li key={s.title}>
+                <Link href="/services" className={`group flex h-full min-h-[360px] flex-col rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1.5 ${["bg-[#EF86B1]", "bg-[#F4B93E]", "bg-[#E8583A]", "bg-[#3F86D9]"][i]}`}>
+                  <p className="font-pixel text-6xl font-bold leading-none">0{i + 1}</p>
+                  <h3 className="mt-2 font-pixel text-lg font-bold uppercase leading-tight">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/80">{s.short}</p>
+                  <div className="mt-auto flex items-end justify-between pt-8">
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-ink bg-white transition-transform duration-300 group-hover:rotate-6">
+                      <s.icon className="h-9 w-9" strokeWidth={1.5} />
+                    </span>
+                    <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
                   </div>
-               </motion.a>
-               </motion.h1>
-               
-               <motion.p 
-               className="mt-2 max-w-xl font-outfit text-sm font-light tracking-wide text-neutral-400 xs:text-base md:text-lg lg:max-w-2xl"
-               >
-               I build AI-powered systems end to end from architecture to interface. 
-               Product thinking, clean engineering, and agent-driven automation combined 
-               into tools that actually ship.
-               </motion.p>
-
-               <motion.div 
-               className={`mt-8 flex flex-row flex-wrap justify-center gap-4`}
-               >
-               <button 
-                  onClick={() => setActiveSection("projects")}
-                  className="group relative flex items-center justify-center overflow-hidden rounded-xl bg-[#FFD700] px-8 py-3 font-bebas text-lg font-bold uppercase tracking-widest text-[#0E0E0E] transition-all hover:bg-[#FFC000] active:scale-95 shadow-[0_0_20px_rgba(255,215,0,0.2)]"
-               >
-                  My Systems
-               </button>
-               <button 
-                  onClick={() => setActiveSection("connect")}
-                  className="group relative flex items-center justify-center overflow-hidden rounded-xl border border-white/20 bg-white/5 px-8 py-3 font-bebas text-lg font-bold uppercase tracking-widest text-white backdrop-blur-md transition-all hover:bg-white/10 active:scale-95"
-               >
-                  Connect
-               </button>
-               </motion.div>
-            </motion.div>
-
-            {/* About Page (Full screen independent page) */}
-            <InteractiveCards 
-               isExpanded={isAbout}
-               onGoHome={() => setActiveSection("home")}
-               isConnectActive={false}
-               onConnectToggle={() => {}}
-               isHome={isHome}
-               mode="page"
-               onAboutPull={() => setActiveSection("about")}
-            />
-
-            {/* Connect Page */}
-            <ConnectView 
-               isActive={isConnect} 
-               onHome={() => setActiveSection("home")}
-            />
-
-            {/* Aesthetic Accents */}
-            <div className="pointer-events-none absolute bottom-10 left-10 z-20 hidden md:block">
-               <p className="font-bebas text-sm tracking-[0.3em] text-white/30 uppercase">
-               Based in India / Available Worldwide
-               </p>
-            </div>
-            
-            <div className="pointer-events-none absolute bottom-10 right-10 z-20 hidden md:block">
-               <p className="font-bebas text-sm tracking-[0.3em] text-white/30 uppercase">
-               Portfolio 2026
-               </p>
-            </div>
-
-            {/* Gradient Vignette */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#0E0E0E]/10 to-[#0E0E0E] opacity-80" />
-      </motion.section>
-
-      {/* Layer 02: Projects Section */}
-      <motion.div 
-        className={`absolute inset-0 z-40 ${isProjects ? "pointer-events-auto" : "pointer-events-none"}`}
-        animate={{ 
-          x: activeProject ? "-100vw" : "0%",
-          opacity: activeProject ? 0 : 1
-        }}
-        transition={{ type: "spring", stiffness: 150, damping: 20 }}
-      >
-         <ProjectsView 
-           isActive={isProjects} 
-           onReturn={() => setActiveSection(lastHorizontalState.current)}
-         />
-      </motion.div>
-
-      {/* Layer 03: Case Study Overlay */}
-      <AnimatePresence>
-        {activeProject && <CaseStudyOverlay projectId={activeProject} key={activeProject} />}
-      </AnimatePresence>
-    </main>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
   );
 }
