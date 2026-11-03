@@ -1,4 +1,6 @@
-import { ButtonLink, Hand, Polaroid, ProjectCard, SectionHeading, Sticky, NOTE_COLORS, rot } from "@/components/ui-bits";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink, Chip, Doodle, FigCursor, Hand, ProjectCard, SectionHeading, Sticky } from "@/components/ui-bits";
 import { featured } from "@/lib/projects";
 import { SERVICES } from "@/lib/services";
 
@@ -8,15 +10,46 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden px-5 pb-20 pt-16 md:pb-28 md:pt-24">
-        <Polaroid letter="Y" caption="that's me (photo soon)" r="-6deg" className="absolute left-[4%] top-24 hidden lg:block" />
-        <Polaroid letter="★" caption="building things" r="5deg" tint="bg-note-rose" className="absolute right-[4%] top-40 hidden lg:block" />
+      <section className="relative overflow-hidden px-5 pb-20 pt-16 md:pb-28 md:pt-24 xl:min-h-[760px] xl:pt-32">
+        {/* floating UI chips + doodles (xl screens only, purely decorative) */}
+        <div className="hidden xl:block">
+          <Chip className="left-[6%] top-[14%]" r="-2deg">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Now</p>
+            <p className="font-hand text-2xl leading-none">Software Engineer</p>
+            <p className="text-xs text-neutral-500">Dealermatix Technologies</p>
+          </Chip>
+          <Chip className="right-[7%] top-[13%]" r="2deg" d="1s">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Stack</p>
+            <p className="font-pixel text-sm font-bold">Next.js · TypeScript</p>
+            <p className="font-pixel text-sm font-bold">Supabase · LLMs</p>
+          </Chip>
+          <Chip lime className="left-[4%] top-[52%]" r="-5deg" d="0.5s"><span className="font-hand text-2xl">✓ ships end to end</span></Chip>
+          <Chip className="right-[5%] top-[50%]" r="3deg" d="2s">
+            <p className="flex gap-4 font-pixel text-xs font-bold uppercase"><span className="border-b-2 border-ink">Design</span><span className="text-neutral-400">Code</span><span className="text-neutral-400">AI</span></p>
+          </Chip>
+          <Chip className="bottom-[9%] left-[13%]" r="2deg" d="1.5s">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Based in</p>
+            <p className="font-hand text-2xl leading-none">Pune, India</p>
+            <p className="text-xs text-neutral-500">works with teams worldwide</p>
+          </Chip>
+          <Chip className="bottom-[10%] right-[12%]" r="-2deg" d="0.8s">
+            <p className="font-pixel text-[10px] font-bold uppercase tracking-wider text-neutral-500">Next up</p>
+            <p className="font-hand text-2xl leading-none">Honest Mailbox app</p>
+          </Chip>
+          <Doodle kind="asterisk" className="left-[30%] top-[9%]" />
+          <Doodle kind="diamond" className="right-[27%] top-[9%]" />
+          <Doodle kind="heart" className="left-[22%] bottom-[22%]" />
+          <Doodle kind="cloud" className="right-[24%] bottom-[20%]" />
+          <Doodle kind="spark" className="left-[44%] bottom-[6%]" />
+        </div>
+        <FigCursor name="Founder" color="#0ACF83" className="left-[19%] top-[40%] hidden xl:block" d="0s" />
+        <FigCursor name="Recruiter" color="#FF7262" className="right-[18%] top-[40%] hidden xl:block" d="1.5s" />
 
         <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
           <Hand className="reveal">by yuvraj singh shekhawat</Hand>
 
           <div className="reveal relative mt-3 w-fit" style={{ "--d": "80ms" } as React.CSSProperties}>
-            <h1 className="relative border-2 border-bubble bg-white/70 px-8 py-3 font-pixel text-6xl font-bold uppercase leading-none md:px-12 md:text-8xl">
+            <h1 className="relative border-2 border-fblue bg-white px-8 py-3 font-pixel text-6xl font-bold uppercase leading-none md:px-12 md:text-8xl">
               Yuvraj
               {["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((p) => (
                 <span key={p} aria-hidden className={`absolute h-3 w-3 border-2 border-ink bg-white ${p}`} />
@@ -24,7 +57,6 @@ export default function Home() {
             </h1>
             <Sticky color="bg-note-sky" r="-5deg" className="absolute -left-4 -top-6 hidden md:block md:-left-24">AI full-stack</Sticky>
             <Sticky color="bg-note-mint" r="4deg" className="absolute -right-4 -top-5 hidden md:block md:-right-24">Product designer</Sticky>
-            <Sticky color="bg-note-sun" r="-3deg" className="absolute -bottom-6 -left-4 hidden md:block md:-left-32">Ships end to end</Sticky>
           </div>
 
           <div className="mt-5 flex flex-wrap justify-center gap-2 md:hidden">
@@ -32,7 +64,7 @@ export default function Home() {
             <Sticky color="bg-note-mint" r="2deg">Product designer</Sticky>
           </div>
 
-          <p className="reveal mt-8 inline-flex items-center gap-2 border-2 border-ink bg-white px-3 py-1 font-pixel text-[11px] font-bold uppercase" style={{ "--d": "140ms" } as React.CSSProperties}>
+          <p className="reveal mt-8 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-white px-3 py-1 font-pixel text-[11px] font-bold uppercase shadow-[3px_3px_0_#111]" style={{ "--d": "140ms" } as React.CSSProperties}>
             <span className="h-2 w-2 animate-pulse rounded-full bg-leaf" /> Open to new work and remote roles
           </p>
 
@@ -40,7 +72,7 @@ export default function Home() {
             I build AI tools that do real work, and make them{" "}
             <span className="relative whitespace-nowrap">
               <span className="relative z-10">a joy to use</span>
-              <span aria-hidden className="absolute inset-x-0 bottom-0.5 -z-0 h-3 bg-sun md:h-4" />
+              <span aria-hidden className="absolute inset-x-0 bottom-0.5 -z-0 h-3 bg-lime md:h-4" />
             </span>
             <span className="ml-1 text-bubble">*</span>
           </h2>
@@ -64,30 +96,40 @@ export default function Home() {
       {/* Featured */}
       <section className="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <SectionHeading label="a few things i've made ↓" title="Featured works" />
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
           {featured().map((p, i) => <ProjectCard key={p.slug} project={p} index={i} />)}
         </div>
         <div className="mt-10 flex justify-center"><ButtonLink href="/work" variant="ghost">All projects →</ButtonLink></div>
       </section>
 
-      {/* What I do */}
-      <section className="mx-auto max-w-6xl px-5 pb-20 md:pb-28">
-        <SectionHeading label="what i'm good at" title="What I do" />
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((s, i) => (
-            <li key={s.title} style={{ "--r": rot(i) } as React.CSSProperties} className={`relative note tape wiggle p-6 pt-8 ${NOTE_COLORS[i % 4]}`}>
-              <s.icon className="mb-3 h-6 w-6" strokeWidth={1.75} />
-              <h3 className="font-pixel text-xl font-bold uppercase leading-tight">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-neutral-800">{s.short}</p>
-            </li>
-          ))}
-        </ul>
+      {/* What I do: tall colour panels */}
+      <section className="border-y border-ink/20 bg-white/40 px-5 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading label="what i'm good at" title="What I do" />
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICES.map((s, i) => (
+              <li key={s.title}>
+                <Link href="/services" className={`group flex h-full min-h-[360px] flex-col rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1.5 ${["bg-[#EF86B1]", "bg-[#F4B93E]", "bg-[#E8583A]", "bg-[#3F86D9]"][i]}`}>
+                  <p className="font-pixel text-6xl font-bold leading-none">0{i + 1}</p>
+                  <h3 className="mt-2 font-pixel text-lg font-bold uppercase leading-tight">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/80">{s.short}</p>
+                  <div className="mt-auto flex items-end justify-between pt-8">
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-ink bg-white transition-transform duration-300 group-hover:rotate-6">
+                      <s.icon className="h-9 w-9" strokeWidth={1.5} />
+                    </span>
+                    <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       {/* Let's talk */}
       <section className="px-5 pb-28 text-center">
         <div className="mx-auto flex max-w-xl flex-col items-center">
-          <div aria-hidden className="mb-5 flex h-20 w-20 items-center justify-center rounded-full border-2 border-ink bg-sun font-pixel text-3xl font-bold">:)</div>
+          <div aria-hidden className="mb-5 flex h-20 w-20 items-center justify-center rounded-full border-2 border-ink bg-fyellow font-pixel text-3xl font-bold shadow-[4px_4px_0_#111]">:)</div>
           <h2 className="font-pixel text-5xl font-bold uppercase leading-none md:text-7xl">Let&apos;s talk</h2>
           <Hand className="mt-3">got a project, a role, or just want to say hi? i read every message.</Hand>
           <div className="mt-7"><ButtonLink href="/contact">Say hello</ButtonLink></div>

@@ -44,7 +44,7 @@ export function SiteNav() {
           </div>
           <Link
             href="/contact"
-            className="neo-sm bg-white px-4 py-1.5 font-pixel text-xs font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5 hover:bg-sun"
+            className="neo-sm bg-white px-4 py-1.5 font-pixel text-xs font-bold uppercase tracking-wider transition-transform hover:-translate-y-0.5 hover:bg-fyellow"
           >
             ♥ Contact
           </Link>

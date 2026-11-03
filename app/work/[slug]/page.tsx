@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { ButtonLink, Hand, PageShell, Sticky, NOTE_COLORS, rot } from "@/components/ui-bits";
+import { ButtonLink, Folder, Hand, PageShell, Sticky, NOTE_COLORS, rot } from "@/components/ui-bits";
 import { PROJECTS, getProject } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -64,19 +64,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {project.image && (
-        <div className="neo mt-12 bg-white p-2">
+        <div className="neo mt-12 rounded-xl bg-white p-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={project.image} alt={`${project.name} screenshot`} className="w-full" decoding="async" />
         </div>
       )}
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2">
+      <div className="mt-16 grid gap-x-8 gap-y-10 md:grid-cols-2">
         {blocks.map((b, n) => (
-          <section key={b.title} className="neo bg-white p-6 md:p-8">
-            <Hand className="leading-none">{String(n + 1).padStart(2, "0")}.</Hand>
-            <h2 className="mb-3 font-pixel text-2xl font-bold uppercase">{b.title}</h2>
+          <Folder key={b.title} tab={`${String(n + 1).padStart(2, "0")} ${b.title}`} color={["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-fyellow", "bg-bubble", "bg-forange"][n % 6]} bodyClassName="bg-white">
             <p className="leading-relaxed text-neutral-700">{b.body}</p>
-          </section>
+          </Folder>
         ))}
       </div>
 
@@ -93,7 +91,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </ul>
       </section>
 
-      <Link href={`/work/${next.slug}`} className="neo group mt-20 flex items-center justify-between gap-4 bg-sun p-7 transition-transform hover:-translate-y-1">
+      <Link href={`/work/${next.slug}`} className="neo group mt-20 flex items-center justify-between gap-4 rounded-2xl bg-fyellow p-7 transition-transform hover:-translate-y-1">
         <div>
           <Hand className="leading-none">next up</Hand>
           <p className="font-pixel text-4xl font-bold uppercase md:text-5xl">{next.name}</p>

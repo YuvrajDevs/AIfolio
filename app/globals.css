@@ -5,12 +5,20 @@
   --font-hand: var(--font-caveat), cursive;
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 
-  --color-paper: #fbfbf8;
+  --color-paper: #f4f1ea;
+  --color-lime: #d9f34a;
   --color-ink: #111111;
   --color-sun: #f6c945;
   --color-bubble: #ff6fb5;
   --color-ocean: #2f56ff;
   --color-leaf: #2ec27e;
+  /* bright editor-style primaries */
+  --color-fred: #f24e1e;
+  --color-forange: #ff7262;
+  --color-fpurple: #a259ff;
+  --color-fblue: #1abcfe;
+  --color-fgreen: #0acf83;
+  --color-fyellow: #ffd43b;
   /* sticky-note pastels */
   --color-note-sun: #ffe38a;
   --color-note-sky: #b9c8ff;
@@ -21,11 +29,13 @@
 }
 
 html { scroll-behavior: smooth; background: var(--color-paper); }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 22s linear infinite; }
 
 body {
   background-color: var(--color-paper);
   /* notebook ruling */
-  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, #e2e5ec 31px 32px);
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, #e7e2d5 31px 32px);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
@@ -35,7 +45,7 @@ body {
 
 @layer utilities {
   /* hard offset "sticker" shadow */
-  .neo { border: 2px solid var(--color-ink); box-shadow: 4px 4px 0 var(--color-ink); }
+  .neo { border: 2px solid var(--color-ink); box-shadow: 6px 6px 0 var(--color-ink); }
   .neo-sm { border: 2px solid var(--color-ink); box-shadow: 2px 2px 0 var(--color-ink); }
 
   /* sticky note */
@@ -63,6 +73,12 @@ body {
   .wiggle { transition: transform .25s cubic-bezier(.22,1,.36,1); }
   .wiggle:hover { transform: rotate(calc(var(--r, 0deg) * -1)) translateY(-4px); }
 }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(8px, -10px); }
+}
+.float { animation: float 5s ease-in-out infinite; animation-delay: var(--d, 0s); }
 
 @keyframes reveal {
   from { opacity: 0; transform: translateY(14px); }
