@@ -169,21 +169,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </section>
             ))}
           </div>
-
-          {/* Decisions */}
-          <h3 className="mb-3 mt-10 font-pixel text-sm uppercase text-lime">Decisions and trade-offs</h3>
-          <ul className="grid gap-3 md:grid-cols-2">
-            {project.deep.decisions.map((d) => (
-              <li key={d.pick} className="rounded-2xl border border-white/10 p-4">
-                <p className="font-pixel text-sm uppercase">
-                  <span className="text-lime">{d.pick}</span>
-                  <span className="mx-2 text-white/40">over</span>
-                  <span className="text-white/70">{d.over}</span>
-                </p>
-                <p className="mt-1.5 text-[14px] leading-snug text-white/75">{d.why}</p>
-              </li>
-            ))}
-          </ul>
         </section>
       ) : (
         c.built && (

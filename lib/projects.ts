@@ -35,7 +35,6 @@ export type Project = {
   deep?: {
     flow: string[];
     groups: { title: string; items: string[] }[];
-    decisions: { pick: string; over: string; why: string }[];
   };
 };
 
@@ -89,16 +88,16 @@ export const PROJECTS: Project[] = [
           "items": [
             "Supabase Postgres",
             "10 SQL migrations",
-            "workflows, runs, logs, governance_settings, ai_providers",
+            "Tables for workflows, runs, step logs and settings",
             "SQL function for today's spend",
-            "Realtime on runs and logs"
+            "Realtime updates"
           ]
         },
         {
           "title": "Reliability",
           "items": [
             "Retry with exponential backoff (3x)",
-            "Fallback model on 429, 5xx, quota",
+            "Fallback model on rate limits and server errors",
             "Circuit breaker after 3 failures",
             "SHA-256 step fingerprints (idempotent)",
             "Human-in-the-loop pause"
@@ -108,8 +107,8 @@ export const PROJECTS: Project[] = [
           "title": "Governance",
           "items": [
             "Daily spend cap, checked before and during runs",
-            "Optional context compression (inputs over 500 chars)",
-            "Cost per step in INR",
+            "Optional context compression for long inputs",
+            "Cost per step",
             "Primary and fallback model settings"
           ]
         },
@@ -122,28 +121,6 @@ export const PROJECTS: Project[] = [
             "Trace list and detail views",
             "Pause reason on every run"
           ]
-        }
-      ],
-      "decisions": [
-        {
-          "pick": "Fingerprint per step",
-          "over": "re-running everything",
-          "why": "safe resume with no double spend"
-        },
-        {
-          "pick": "Human review as a node",
-          "over": "a bolt-on approval step",
-          "why": "reviewer feedback flows to downstream agents"
-        },
-        {
-          "pick": "One model hub",
-          "over": "calls scattered in nodes",
-          "why": "single place for routing, retries and fallback"
-        },
-        {
-          "pick": "Level-by-level execution",
-          "over": "fully sequential runs",
-          "why": "independent branches run in parallel"
         }
       ]
     },
@@ -191,7 +168,7 @@ export const PROJECTS: Project[] = [
       ],
       "outcome": [
         "Working orchestration app",
-        "Reading it found 3 real bugs, now fixed: budget skipped, Stop ignored, settings duplicated"
+        "Reading it end to end found and fixed 3 engine bugs"
       ]
     },
   },
@@ -258,15 +235,14 @@ export const PROJECTS: Project[] = [
     tier: "more",
     status: "Web app built, mobile app in progress",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind 4", "Firebase", "Web Crypto"],
-    links: { repo: "https://github.com/YuvrajDevs/project-hm" },
+    links: {},
     stats: [{"value": "59", "label": "rules tests"}, {"value": "~150", "label": "test cases"}, {"value": "2", "label": "people per space"}, {"value": "E2EE", "label": "encrypted chat"}],
     deep: {
       "flow": [
         "Next.js client",
         "Firebase Auth",
-        "Firestore + rules",
-        "Storage (ciphertext only)",
-        "Admin SDK routes"
+        "Firestore + access rules",
+        "Storage"
       ],
       "groups": [
         {
@@ -286,39 +262,33 @@ export const PROJECTS: Project[] = [
             "Firebase Auth (Google sign-in)",
             "Cloud Firestore",
             "Firebase Storage",
-            "No custom backend",
-            "2 server routes via Admin SDK"
+            "Access rules per couple"
           ]
         },
         {
-          "title": "Crypto",
+          "title": "Privacy",
           "items": [
-            "P-256 ECDH",
-            "HKDF",
-            "AES-256-GCM",
-            "PBKDF2 (600k+) passphrase backup",
-            "Keys held in IndexedDB",
-            "Videos encrypted on-device"
+            "End-to-end encrypted chat (Web Crypto)",
+            "Notifications never carry message text",
+            "Private notes stay private to their author"
           ]
         },
         {
-          "title": "Security",
+          "title": "Quality & safety",
           "items": [
-            "Membership checked on every read and write",
-            "One-use invite codes: 8 chars, 3 days, not listable",
-            "Pairing in one transaction",
-            "CSP, HSTS, nosniff, no framing",
-            "App Check hook",
-            "Size and type caps, no sender impersonation"
+            "Access rules tested in an emulator",
+            "Security review against a standard checklist",
+            "Dependency audits in CI",
+            "Hardened response headers"
           ]
         },
         {
           "title": "Testing",
           "items": [
-            "59 Firestore-rules tests in the emulator",
+            "59 access-rule tests",
             "13 more test files",
-            "Dates and streaks, E2EE, reset codes",
-            "Security headers, SEO, games",
+            "Dates, streaks, chat encryption, games",
+            "SEO and headers",
             "~150 cases in total"
           ]
         },
@@ -326,39 +296,11 @@ export const PROJECTS: Project[] = [
           "title": "DevOps",
           "items": [
             "GitHub Actions on every PR",
-            "npm audit, tsc, lint, tests, build",
+            "Audit, types, lint, tests, build",
             "Dependabot weekly",
-            "Lockfile installs",
-            "Auth and Firestore emulators with test sign-in",
+            "Local emulators for Auth and Firestore",
             "Vercel hosting"
           ]
-        }
-      ],
-      "decisions": [
-        {
-          "pick": "PBKDF2",
-          "over": "Argon2",
-          "why": "WebAssembly would need a weaker CSP"
-        },
-        {
-          "pick": "P-256",
-          "over": "X25519",
-          "why": "native WebCrypto support, no library"
-        },
-        {
-          "pick": "Rules as the backend",
-          "over": "a custom API",
-          "why": "no server to run, rules tested like code"
-        },
-        {
-          "pick": "Server-side reset ticket",
-          "over": "UI-only email check",
-          "why": "found bypassable in an ASVS review"
-        },
-        {
-          "pick": "One shared chat key",
-          "over": "a ratchet protocol",
-          "why": "scoped to a two-person chat, no extra dependency"
         }
       ]
     },
@@ -379,10 +321,10 @@ export const PROJECTS: Project[] = [
         "Repair guides"
       ],
       "unique": [
-        "Strictly two people: invite-code pairing, no social graph",
+        "Strictly two people: paired one to one, no social graph",
         "Blame-free wording: \"note\", not \"complaint\"",
-        "Capsules locked by database rules, not just the UI",
-        "Chat E2EE, with limits stated openly",
+        "Time capsules stay sealed until the date you choose",
+        "End-to-end encrypted chat",
         "Rules tested in CI: 59 emulator cases",
         "Notifications never show message content"
       ],
@@ -401,18 +343,14 @@ export const PROJECTS: Project[] = [
         "Light by default, dark switch"
       ],
       "tech": [
-        "Next.js straight to Firebase: the rules are the backend",
-        "Chat: P-256 ECDH + HKDF into AES-256-GCM",
-        "Videos encrypted on-device before upload",
-        "2 small server routes: key reset, admin stats"
+        "Next.js client with Firebase Auth, Firestore and Storage",
+        "End-to-end encrypted chat using Web Crypto",
       ],
       "hardProblem": [
-        "Encrypted yet recoverable: key backed up under a passphrase (PBKDF2, 600k+)",
-        "Review found the reset check was UI-only; moved behind a server ticket"
+        "Encrypted chat that can still be recovered on a new device"
       ],
       "outcome": [
-        "Working web app with a written threat model",
-        "Lesson: name the gaps",
+        "Working web app, security-reviewed",
         "Next: mobile app"
       ]
     },
@@ -474,7 +412,7 @@ export const PROJECTS: Project[] = [
             "8 core pages",
             "3 SEO guides",
             "Pricing and FAQ copy",
-            "Security page naming AES-256-GCM, Argon2id, Android Keystore (as stated)"
+            "Security page in plain language"
           ]
         },
         {
@@ -485,28 +423,6 @@ export const PROJECTS: Project[] = [
             "Launch checklist in README",
             "Works on any static host"
           ]
-        }
-      ],
-      "decisions": [
-        {
-          "pick": "No framework",
-          "over": "Next.js or similar",
-          "why": "nothing to upgrade, any host works"
-        },
-        {
-          "pick": "Content separate from output",
-          "over": "hand-edited HTML",
-          "why": "header, footer and sitemap stay in sync"
-        },
-        {
-          "pick": "One keyword per guide",
-          "over": "broad articles",
-          "why": "clear intent, easier to improve"
-        },
-        {
-          "pick": "Named algorithms",
-          "over": "vague \"military-grade\" copy",
-          "why": "claims a reader can check"
         }
       ]
     },
@@ -554,7 +470,7 @@ export const PROJECTS: Project[] = [
       ],
       "hardProblem": [
         "\"Encrypted\" and \"no internet\" are claims every vault makes",
-        "Security page names specifics: AES-256-GCM, Argon2id, Keystore"
+        "Security page spells out the protections in plain terms"
       ],
       "outcome": [
         "8 core pages + 3 guides, one-command build",
@@ -618,23 +534,6 @@ export const PROJECTS: Project[] = [
             "Only AndroidX dependencies",
             "No network permission"
           ]
-        }
-      ],
-      "decisions": [
-        {
-          "pick": "Compose",
-          "over": "XML views",
-          "why": "declarative UI, less boilerplate"
-        },
-        {
-          "pick": "AndroidX only",
-          "over": "third-party libraries",
-          "why": "small, dependency-free build"
-        },
-        {
-          "pick": "Bounded stylist",
-          "over": "open-ended AI chat",
-          "why": "outfit, fit and colour help only, no face ratings"
         }
       ]
     },
