@@ -225,6 +225,133 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    slug: "tally",
+    name: "Tally",
+    tag: "Data engineering // reconciliation",
+    summary:
+      "Payments reconciliation across ledger, processor and bank, graded against a known answer key instead of trusted on faith.",
+    image: "/projects/tally.png",
+    tier: "more",
+    status: "Release candidate, synthetic data only",
+    stack: ["Python", "DuckDB", "dbt", "Airflow", "FastAPI", "Next.js 16", "Tailwind 4", "sqlglot"],
+    links: { repo: "https://github.com/YuvrajDevs/dc" },
+    stats: [
+      { value: "0.999", label: "error precision (hard world)" },
+      { value: "0.994", label: "error recall" },
+      { value: "~7s", label: "1M ledger rows" },
+      { value: "68/68", label: "unsafe requests refused" },
+    ],
+    deep: {
+      flow: [
+        "Seeded synthetic world + answer key",
+        "Gated ingest (contracts, quarantine)",
+        "dbt staging and marts (DuckDB)",
+        "Five-tier matching engine",
+        "Grader vs answer key",
+        "API + dashboard + validated Q&A",
+      ],
+      groups: [
+        {
+          title: "Data",
+          items: [
+            "13 injected defect classes",
+            "Late, split, duplicated and mistyped records",
+            "Multi-currency with FX",
+            "Schema contracts and row quarantine",
+            "Idempotent, order-independent loads",
+          ],
+        },
+        {
+          title: "Engine",
+          items: [
+            "Five matching tiers, strongest evidence first",
+            "14 finding classes, plain-language reasons",
+            "Benign look-alikes explained, not alarmed",
+            "Exception queue with audit trail",
+            "Human decisions survive re-runs",
+          ],
+        },
+        {
+          title: "Measurement",
+          items: [
+            "Per-class precision and recall",
+            "Link accuracy and benign false alarms",
+            "Floors frozen from 8 seeds per profile",
+            "Regression gate in CI",
+            "First engine scored 0.561 precision; fixed to 0.999",
+          ],
+        },
+        {
+          title: "Operations",
+          items: [
+            "Run ledger, retries with backoff, alerts",
+            "Backfill equals a clean run (hash-identical)",
+            "Killed runs resume without duplicates",
+            "Freshness checks and dbt lineage",
+            "Ran for real under Airflow 3",
+          ],
+        },
+        {
+          title: "Product",
+          items: [
+            "Next.js dashboard, six screens",
+            "CSV export, keyboard use, mobile layout",
+            "Automated browser acceptance tests (14)",
+            "axe-core WCAG 2.1 AA checks on every page",
+          ],
+        },
+        {
+          title: "Question assistant",
+          items: [
+            "Plain English to read-only SQL, SQL always shown",
+            "Syntax-tree, query-plan and engine-lock checks",
+            "45-question evaluation, 45 correct",
+            "68 red-team cases, all refused",
+          ],
+        },
+      ],
+    },
+    case: {
+      whatItDoes: [
+        "Three-way reconciliation",
+        "Exception queue",
+        "Backfills",
+        "Scorecard",
+        "Ask in plain English",
+        "Audit trail",
+      ],
+      unique: [
+        "Graded against a known answer key",
+        "A harder world exposed a weak first engine, then it was fixed",
+        "Floors are frozen and enforced in CI",
+        "Every answer shows the SQL that produced it",
+      ],
+      problem: [
+        "Ledger, processor and bank never agree",
+        "Most demos ask you to trust a dashboard",
+      ],
+      user: ["Finance operations analysts and the data engineers who run the pipeline"],
+      design: [
+        "Calm, minimal cards, soft green palette, Poppins",
+        "Plain-language reasons on every exception",
+        "Empty, loading and error states on every screen",
+      ],
+      tech: [
+        "DuckDB warehouse, dbt models, tiered SQL matching",
+        "Input-hash step skipping and a run ledger",
+        "FastAPI on one locked-down connection",
+      ],
+      hardProblem: [
+        "Telling real errors from look-alikes (typo'd references that point at other real payments)",
+        "Making a backfill provably equal to a clean run",
+      ],
+      outcome: [
+        "Finished through acceptance testing, with the benchmark and its limits written down",
+        "All data synthetic; manual UAT still to run",
+      ],
+    },
+  },
+  {
     slug: "honest-mailbox",
     name: "Honest Mailbox",
     tag: "Web app // couples",
