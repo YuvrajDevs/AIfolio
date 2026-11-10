@@ -54,9 +54,9 @@ export const PROJECTS: Project[] = [
       { value: "129", label: "Automated tests" },
     ],
     tier: "star",
-    status: "Runs locally",
+    status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Next.js", "Kafka", "Redis", "BullMQ", "LLM APIs"],
-    links: { repo: `${GH}/AN` },
+    links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN` },
     case: {
       problem:
         "Startup databases are expensive, and their numbers are hard to check. An analyst mapping a sector needs to know which companies belong in it, what they raised and where each number came from.",
