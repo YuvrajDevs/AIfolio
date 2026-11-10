@@ -236,11 +236,11 @@ export function ProjectGrid({ projects, offset = 0 }: { projects: Project[]; off
 /** Smaller projects as compact horizontal cards */
 export function ProjectList({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
   return (
-    <ul className="grid gap-3 min-[640px]:grid-cols-2 min-[900px]:grid-cols-3">
+    <ul className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[900px]:grid-cols-3">
       {projects.map((p, i) => {
         const pastel = PASTELS[(i + offset) % PASTELS.length];
         return (
-          <li key={p.slug}>
+          <li key={p.slug} className="w-[84%] shrink-0 snap-start min-[640px]:w-auto">
             <Link href={`/work/${p.slug}`} className="group flex h-full flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_14px_30px_-22px_rgba(0,8,50,.5)] transition-transform hover:-translate-y-0.5">
               <span className={cn("block overflow-hidden rounded-xl px-4 pt-4", pastel)}>
                 <span className="block aspect-[16/9] overflow-hidden rounded-t-lg bg-white transition-transform duration-500 group-hover:-translate-y-1">
