@@ -13,7 +13,7 @@ const MENU = [
   { label: "AI & agents", key: "A", checked: true },
   { label: "Product design", key: "P", checked: true },
   { label: "Full-stack apps", key: "F", checked: true },
-  { label: "Data & dashboards", key: "D" },
+  { label: "Data & dashboards", key: "D", checked: true },
 ];
 
 const SKILL_CHIPS = [
@@ -43,7 +43,7 @@ const SCALLOP = (() => {
   return `M${pts.join("L")}Z`;
 })();
 
-const FAN = ["lg:-rotate-[5deg] lg:-translate-y-4", "lg:rotate-[3deg] lg:-ml-6", "lg:-rotate-[2deg] lg:-ml-6", "lg:rotate-[5deg] lg:-ml-6 lg:translate-y-2"];
+const FAN = ["md:-rotate-[5deg] md:-translate-y-4", "md:rotate-[3deg] md:-ml-6", "md:-rotate-[2deg] md:-ml-6", "md:rotate-[5deg] md:-ml-6 md:translate-y-2"];
 
 export default function Home() {
   const work = featured();
@@ -64,7 +64,7 @@ export default function Home() {
             </SelectionFrame>
 
             {/* context menu */}
-            <div className="parallax absolute left-full top-[-38px] ml-10 hidden xl:block" style={vars({ "--depth": "14" })}>
+            <div className="parallax absolute left-full top-[-38px] ml-10 hidden min-[900px]:block" style={vars({ "--depth": "14" })}>
               <ul className="float ui-panel w-56 p-1.5 text-left text-sm" style={vars({ "--d": "0.4s" })} aria-label="What I build">
                 {MENU.map((m) => (
                   <li key={m.label} className={cn("flex items-center gap-2.5 rounded-lg px-2.5 py-1.5", m.checked && "bg-white/[.06]")}>
@@ -77,10 +77,10 @@ export default function Home() {
             </div>
 
             {/* comment box */}
-            <div className="parallax absolute right-full top-[58%] mr-12 hidden xl:block" style={vars({ "--depth": "-12" })}>
+            <div className="parallax absolute right-full top-[58%] mr-12 hidden lg:block" style={vars({ "--depth": "-12" })}>
               <div className="float ui-panel w-64 text-left" style={vars({ "--d": "1.2s" })}>
-                <p className="px-4 pt-3 text-sm font-semibold">Software Engineer</p>
-                <p className="px-4 text-xs text-white/55">@ Dealermatix · Jun 2026 – now</p>
+                <p className="px-4 pt-3 text-sm font-semibold">Have an idea worth building?</p>
+                <p className="px-4 text-xs text-white/55">Design to deploy, shipped fast</p>
                 <div className="mt-3 flex items-center gap-3 border-t border-white/10 px-4 py-2.5 text-white/50">
                   <Smile className="h-4 w-4" /><AtSign className="h-4 w-4" /><ImageIcon className="h-4 w-4" />
                   <Link href="/contact" aria-label="Contact" className="ml-auto grid h-7 w-7 place-items-center rounded-full bg-figma text-white transition-transform hover:-translate-y-0.5">
@@ -142,7 +142,7 @@ export default function Home() {
 
       {/* Work: cards straight on the canvas */}
       <section className="wrap pt-16 md:pt-24">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-6 md:mb-10">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-6 md:mb-10 md:flex-nowrap">
           <div>
             <div className="mb-4 flex items-center gap-2">
               <Sticker color="bg-lime" r="-3deg">Selected work</Sticker>
@@ -158,7 +158,7 @@ export default function Home() {
               </span>
             </h2>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex shrink-0 items-center gap-5">
             <p className="hidden max-w-[220px] text-sm leading-relaxed text-white/75 md:block">Product thinking, interface and code, end to end.</p>
             <ButtonLink href="/work" variant="light">All projects <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></ButtonLink>
           </div>
@@ -180,9 +180,9 @@ export default function Home() {
             </span>
           </h2>
         </div>
-        <ul className="mx-auto grid max-w-[1040px] gap-3 sm:grid-cols-2 lg:flex lg:justify-center">
+        <ul className="mx-auto grid max-w-[1100px] gap-3 sm:grid-cols-2 md:flex md:justify-center">
           {SERVICES.map((s, i) => (
-            <li key={s.title} className={cn("group relative origin-[calc(100%-18px)_12px] transition-[rotate,translate] duration-500 ease-[cubic-bezier(.34,1.56,.64,1)] hover:z-10 hover:!rotate-0 lg:w-[260px]", FAN[i])}>
+            <li key={s.title} className={cn("group relative origin-[calc(100%-18px)_12px] transition-[rotate,translate] duration-500 ease-[cubic-bezier(.34,1.56,.64,1)] hover:z-10 hover:!rotate-0 md:w-[260px]", FAN[i])}>
               <Link href="/skills" className={cn("relative flex h-full flex-col overflow-hidden rounded-2xl p-5 pt-7 text-ink shadow-[0_24px_40px_-20px_rgba(0,8,50,.6)]", PASTELS[i])}>
                 {/* stitched edge */}
                 <span aria-hidden className="pointer-events-none absolute inset-2 rounded-xl border-2 border-dashed border-ink/15" />

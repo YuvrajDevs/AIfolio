@@ -23,8 +23,8 @@ export default function ContactPage() {
 
       <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr]">
         {/* comment thread */}
-        <section>
-          <span className="inline-flex h-[34px] items-center gap-2 rounded-t-xl bg-panel px-3.5 text-[13px] font-semibold">
+        <section className="flex flex-col">
+          <span className="relative z-10 -mb-px inline-flex h-[34px] self-start items-center gap-2 rounded-t-xl bg-panel px-3.5 text-[13px] font-semibold">
             <MessageCircle className="h-3.5 w-3.5 text-lime" strokeWidth={2.25} /> New message
           </span>
           <div className="ui-panel !rounded-2xl !rounded-tl-none p-4 md:p-5">

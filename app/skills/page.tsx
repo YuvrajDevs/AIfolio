@@ -51,7 +51,7 @@ export default function SkillsPage() {
       <ul className="grid gap-x-5 gap-y-8 md:auto-rows-fr md:grid-cols-2">
         {SERVICES.map((s, i) => (
           <li key={s.title} className="group flex flex-col text-ink">
-            <span className={cn("relative z-0 inline-flex self-start items-center gap-2 rounded-t-xl px-4 pb-1.5 pt-2 text-[13px] font-semibold text-ink", PASTELS[i])}>
+            <span className={cn("relative z-0 -mb-px inline-flex self-start items-center gap-2 rounded-t-xl px-4 pb-1.5 pt-2 text-[13px] font-semibold text-ink", PASTELS[i])}>
               <s.icon className="h-3.5 w-3.5" strokeWidth={2.25} /> {s.title}
             </span>
             <div className={cn("relative flex flex-1 flex-col overflow-hidden rounded-2xl rounded-tl-none", PASTELS[i])}>

@@ -33,7 +33,7 @@ export function CursorTrail() {
       <svg width="16" height="16" viewBox="0 0 22 22">
         <path d="M2 2l6.5 17 2.6-7.2L19 9z" fill="#d6ff3d" stroke="#121318" strokeWidth="1.6" strokeLinejoin="round" />
       </svg>
-      <span className="-mt-0.5 ml-3 inline-block rounded-md bg-lime px-2 py-0.5 text-[11px] font-semibold text-ink">You</span>
+      <span className="-mt-0.5 ml-3 inline-block rounded-md bg-lime px-2 py-0.5 text-[11px] font-semibold text-ink">Yuvraj</span>
     </div>
   );
 }

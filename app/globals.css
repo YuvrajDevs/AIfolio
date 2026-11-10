@@ -34,6 +34,8 @@
 }
 
 html { scroll-behavior: smooth; color-scheme: light; }
+/* A slightly zoomed-out canvas on desktop, so three cards fit per row at 100% browser zoom */
+@media (min-width: 768px) { .zoomed { zoom: 0.85; } }
 
 body {
   color: #fff;
@@ -65,7 +67,7 @@ h1, h2, h3 { text-wrap: balance; }
 :focus-visible { outline: 2px solid var(--color-lime); outline-offset: 3px; border-radius: 6px; }
 
 @layer components {
-  .wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: 16px; }
+  .wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 16px; }
   @media (min-width: 768px) { .wrap { padding-inline: 32px; } }
 
   .eyebrow {

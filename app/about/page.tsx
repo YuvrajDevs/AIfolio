@@ -32,12 +32,18 @@ const EXPERIENCE = [
 export default function AboutPage() {
   return (
     <PageShell>
-      <PageHero label="About" title="Hey, I'm Yuvraj" align="center">
+      <PageHero
+        label="About"
+        title={<span className="whitespace-nowrap">Hey, I&apos;m<br />Yuvraj</span>}
+        align="center"
+        below={
+          <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
+            I work where <span className="rounded bg-lime px-1 font-semibold text-ink">AI, full stack, product design and data</span> meet, and I like owning a product from the first sketch to the deployed app.
+          </p>
+        }
+      >
         <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
           A designer-engineer who gets a little too excited about making complicated things feel simple. I build with AI tools like Claude Code and Cursor, so ideas reach production in days instead of weeks.
-        </p>
-        <p className="mt-3 text-[15px] leading-relaxed text-white/85 md:text-base">
-          By day a <span className="rounded bg-lime px-1 font-semibold text-ink">software engineer in data analytics</span>; I also build full-stack data and AI products end to end.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>
@@ -78,7 +84,7 @@ export default function AboutPage() {
         </Artboard>
 
         <section className="flex flex-col">
-          <span className="relative z-10 inline-flex self-start items-center gap-2 rounded-t-xl bg-panel px-3.5 pb-1.5 pt-2 text-[13px] font-semibold">
+          <span className="relative z-10 -mb-px inline-flex self-start items-center gap-2 rounded-t-xl bg-panel px-3.5 pb-1.5 pt-2 text-[13px] font-semibold">
             <Layers className="h-3.5 w-3.5 text-lime" strokeWidth={2.25} /> Skills
           </span>
           <div className="ui-panel flex-1 overflow-hidden !rounded-2xl !rounded-tl-none">

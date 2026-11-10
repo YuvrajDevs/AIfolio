@@ -28,10 +28,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${poppins.variable} ${GeistMono.variable} h-full antialiased`}>
       <body id="top" className="flex min-h-full flex-col">
-        <TopBar />
         <CursorTrail />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <div className="zoomed flex flex-1 flex-col">
+          <TopBar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
         <Toolbar />
       </body>
     </html>

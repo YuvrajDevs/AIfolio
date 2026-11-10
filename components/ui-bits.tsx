@@ -29,7 +29,7 @@ export function Artboard({ name, meta, children, className, bodyClassName, id, c
 }) {
   const c = FRAME_COLORS[color];
   return (
-    <section id={id} className={className}>
+    <section id={id} className={cn("flex flex-col", className)}>
       <span className={cn("relative z-10 -mb-[2px] inline-flex h-[34px] self-start items-center gap-2 rounded-t-xl px-3.5 text-[13px] font-semibold text-ink", c.tab)}>
         <Frame className="h-3.5 w-3.5" strokeWidth={2.25} />
         {name}
@@ -85,7 +85,7 @@ export function SelectionFrame({ children, size, className }: { children: React.
 }
 
 /** Page header on the canvas: label, framed title, intro */
-export function PageHero({ label, title, intro, children, align = "end" }: { label: string; title: string; intro?: string; children?: React.ReactNode; align?: "end" | "center" }) {
+export function PageHero({ label, title, intro, children, below, align = "end" }: { label: string; title: React.ReactNode; intro?: string; children?: React.ReactNode; below?: React.ReactNode; align?: "end" | "center" }) {
   return (
     <header className={cn("mb-10 grid gap-8 md:mb-14 md:grid-cols-[1fr_minmax(0,400px)]", align === "end" ? "md:items-end" : "md:items-center")}>
       <div>
@@ -95,6 +95,7 @@ export function PageHero({ label, title, intro, children, align = "end" }: { lab
             <h1 className="text-[44px] font-black uppercase leading-[1] tracking-tight md:text-7xl">{title}</h1>
           </SelectionFrame>
         </div>
+        {below && <div className="reveal mt-8 max-w-[560px]" style={delay(120)}>{below}</div>}
       </div>
       {(intro || children) && (
         <div className="reveal" style={delay(140)}>
@@ -226,7 +227,7 @@ export function ProjectCard({ project, index, priority, className }: { project: 
 
 export function ProjectGrid({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
   return (
-    <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3">
+    <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible md:grid-cols-3">
       {projects.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + offset} priority={i < 3} className="w-[84%] shrink-0 snap-start sm:w-auto" />)}
     </div>
   );
@@ -235,7 +236,7 @@ export function ProjectGrid({ projects, offset = 0 }: { projects: Project[]; off
 /** Smaller projects as compact horizontal cards */
 export function ProjectList({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
   return (
-    <ul className="grid gap-3 md:grid-cols-2">
+    <ul className="grid gap-3 min-[640px]:grid-cols-2 min-[900px]:grid-cols-3">
       {projects.map((p, i) => {
         const pastel = PASTELS[(i + offset) % PASTELS.length];
         return (
