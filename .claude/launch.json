@@ -1,24 +1,50 @@
 {
-  "version": "0.0.1",
-  "configurations": [
-    { "name": "portfolio", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 },
-    {
-      "name": "strata-web",
-      "runtimeExecutable": "/bin/sh",
-      "runtimeArgs": ["-c", "cd /Users/yuvraj/Documents/AN/apps/web && API_URL=https://strata-api-3by2.onrender.com npx next dev -p 3010"],
-      "port": 3010
-    },
-    {
-      "name": "trueup-api",
-      "runtimeExecutable": "/bin/sh",
-      "runtimeArgs": ["-c", "cd /Users/yuvraj/Documents/dc && cp data/ui/serve.duckdb /tmp/trueup-serve.duckdb && .venv/bin/python -m trueup serve --db /tmp/trueup-serve.duckdb --port 8000"],
-      "port": 8000
-    },
-    {
-      "name": "trueup-web",
-      "runtimeExecutable": "/bin/sh",
-      "runtimeArgs": ["-c", "cd /Users/yuvraj/Documents/dc/dashboard && TRUEUP_API=http://127.0.0.1:8000 npx next dev -p 3030"],
-      "port": 3030
-    }
-  ]
+ "version": "0.0.1",
+ "configurations": [
+  {
+   "name": "portfolio",
+   "runtimeExecutable": "npm",
+   "runtimeArgs": [
+    "run",
+    "dev"
+   ],
+   "port": 3000
+  },
+  {
+   "name": "strata-web",
+   "runtimeExecutable": "/bin/sh",
+   "runtimeArgs": [
+    "-c",
+    "cd /Users/yuvraj/Documents/AN/apps/web && API_URL=https://strata-api-3by2.onrender.com npx next dev -p 3010"
+   ],
+   "port": 3010
+  },
+  {
+   "name": "trueup-api",
+   "runtimeExecutable": "/bin/sh",
+   "runtimeArgs": [
+    "-c",
+    "cd /Users/yuvraj/Documents/dc && cp data/ui/serve.duckdb /tmp/trueup-serve.duckdb && .venv/bin/python -m trueup serve --db /tmp/trueup-serve.duckdb --port 8000"
+   ],
+   "port": 8000
+  },
+  {
+   "name": "trueup-web",
+   "runtimeExecutable": "/bin/sh",
+   "runtimeArgs": [
+    "-c",
+    "cd /Users/yuvraj/Documents/dc/dashboard && TRUEUP_API=http://127.0.0.1:8000 npx next dev -p 3030"
+   ],
+   "port": 3030
+  },
+  {
+   "name": "trueup-dash",
+   "runtimeExecutable": "bash",
+   "runtimeArgs": [
+    "-c",
+    "cd /Users/yuvraj/Documents/dc/dashboard && TRUEUP_API=http://127.0.0.1:8765 npx next dev -p 3105"
+   ],
+   "port": 3105
+  }
+ ]
 }
