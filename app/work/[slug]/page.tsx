@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { Artboard, ButtonLink, CoverArt, PASTELS, PageShell, SelectionFrame, Sticker, Tag, delay, tagHead } from "@/components/ui-bits";
+import { ScreenCarousel } from "@/components/ScreenCarousel";
 import { caseStudies, getProject } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -93,17 +94,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.gallery && (
         <Artboard name="Screens" color="sky" className="mt-10" bodyClassName="!p-2 md:!p-3">
-          <ul className="grid gap-3">
-            {project.gallery.map((g) => (
-              <li key={g.src}>
-                <figure>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={g.src} alt={g.caption} loading="lazy" decoding="async" className="w-full rounded-xl border border-line" />
-                  <figcaption className="px-1 pt-2 text-sm text-ink/60">{g.caption}</figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
+          <ScreenCarousel shots={project.gallery} />
         </Artboard>
       )}
 

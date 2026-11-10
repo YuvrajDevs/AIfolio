@@ -1,6 +1,12 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "portfolio", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 }
+    { "name": "portfolio", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 },
+    {
+      "name": "strata-web",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "cd /Users/yuvraj/Documents/AN/apps/web && API_URL=https://strata-api-3by2.onrender.com npx next dev -p 3010"],
+      "port": 3010
+    }
   ]
 }

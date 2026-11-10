@@ -40,9 +40,10 @@ export const PROJECTS: Project[] = [
       "LLM sector classification with confidence and a human review queue",
       "Kafka ingestion with idempotent upserts into MongoDB",
     ],
-    image: "/projects/strata-landscape.jpg",
+    image: "/projects/strata-dashboard.jpg",
     gallery: [
-      { src: "/projects/strata-dashboard.jpg", caption: "Dashboard: KPIs, quarterly funding by sector and the latest rounds from primary sources." },
+      { src: "/projects/strata-dashboard.jpg", caption: "Dashboard: click a quarter to see the rounds that make it up, with each one's share." },
+      { src: "/projects/strata-landscape.jpg", caption: "Legal AI landscape: KPIs and a market map of companies by subsector." },
       { src: "/projects/strata-review.jpg", caption: "Review queue: low-confidence labels, triaged from the keyboard." },
       { src: "/projects/strata-brief.jpg", caption: "Analyst brief: every claim footnoted to a stored source." },
       { src: "/projects/strata-company.jpg", caption: "Company profile: Form D funding timeline, sources and classification history." },
@@ -62,7 +63,7 @@ export const PROJECTS: Project[] = [
         "Startup databases are expensive, and their numbers are hard to check. An analyst mapping a sector needs to know which companies belong in it, what they raised and where each number came from.",
       user: "Market research analysts and investors who map a sector, track new rounds and write landscape briefs.",
       design:
-        "An analyst's workbench: a market map per sector, company profiles with a funding timeline, URL-shareable search and filters, a ⌘K palette, keyboard-driven review, watchlists and CSV export. Light and dark themes, responsive, with automated accessibility scans.",
+        "An analyst's workbench in a warm, compact pastel design system: a dashboard with computed insights, a market map per sector, company profiles with a funding timeline, URL-shareable search and filters, a ⌘K palette, keyboard-driven review, watchlists and CSV export. Click any quarter to drill into its rounds. Responsive, with automated accessibility scans.",
       tech:
         "Express 5 and TypeScript on MongoDB, with analytics written as aggregation pipelines and cached in Redis. Connectors (YC directory, SEC EDGAR, RSS, GitHub) publish to Redpanda (Kafka); a processor upserts on natural keys, and BullMQ runs classification, alerts and briefs. OpenAI, Anthropic and Gemini sit behind one provider interface. Next.js proxies the API so sessions and keys stay server-side.",
       hardProblem:
