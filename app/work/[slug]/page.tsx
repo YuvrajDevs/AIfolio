@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { ButtonLink, Folder, Hand, PageShell, Sticky, NOTE_COLORS, rot } from "@/components/ui-bits";
-import { PROJECTS, getProject } from "@/lib/projects";
+import { IconBrandGithub } from "@tabler/icons-react";
+import { Artboard, ButtonLink, CoverArt, PASTELS, PageShell, SelectionFrame, Sticker, Tag, delay, tagHead } from "@/components/ui-bits";
+import { caseStudies, getProject } from "@/lib/projects";
 
 export function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.slug }));
+  return caseStudies().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -18,85 +19,113 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) notFound();
+  if (!project?.case) notFound();
 
-  const i = PROJECTS.findIndex((p) => p.slug === slug);
-  const next = PROJECTS[(i + 1) % PROJECTS.length];
+  const list = caseStudies();
+  const i = list.findIndex((p) => p.slug === slug);
+  const next = list[(i + 1) % list.length];
   const c = project.case;
   const blocks = [
     { title: "Problem", body: c.problem },
-    { title: "Target user", body: c.user },
+    { title: "Who it's for", body: c.user },
     { title: "Design decisions", body: c.design },
     { title: "Technical decisions", body: c.tech },
     { title: "The hard problem", body: c.hardProblem },
-    { title: "Result & learnings", body: c.outcome },
+    { title: "Result", body: c.outcome },
   ];
 
   return (
     <PageShell>
-      <Link href="/work" className="mb-8 inline-flex items-center gap-2 font-pixel text-sm font-bold uppercase hover:underline">
-        <ArrowLeft className="h-4 w-4" /> All projects
+      <Link href="/work" className="group mb-8 inline-flex items-center gap-1.5 text-sm text-white/75 hover:text-white">
+        <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" /> All projects
       </Link>
 
-      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
-        <header>
-          <Hand className="reveal">{project.tag}</Hand>
-          <h1 className="reveal font-pixel text-6xl font-bold uppercase leading-[0.9] md:text-8xl" style={{ "--d": "60ms" } as React.CSSProperties}>{project.name}</h1>
-          <p className="reveal mt-5 max-w-xl text-lg leading-relaxed text-neutral-700" style={{ "--d": "140ms" } as React.CSSProperties}>{project.summary}</p>
-          <div className="reveal mt-7 flex flex-wrap gap-3" style={{ "--d": "200ms" } as React.CSSProperties}>
-            {project.links.live && <ButtonLink href={project.links.live} external>Live demo</ButtonLink>}
-            {project.links.repo && <ButtonLink href={project.links.repo} variant="ghost" external>Source</ButtonLink>}
-            {!project.links.live && !project.links.repo && <Sticky color="bg-note-rose" r="-2deg">Links coming soon</Sticky>}
+      <header className="mb-12 grid gap-8 md:grid-cols-[1fr_minmax(0,380px)] md:items-end">
+        <div>
+          <p className="reveal eyebrow mb-6 text-white/75">{project.tag.replace("//", "·")}</p>
+          <div className="reveal" style={delay(60)}>
+            <SelectionFrame>
+              <h1 className="text-[40px] font-black uppercase leading-none tracking-tight md:text-7xl">{project.name}</h1>
+            </SelectionFrame>
           </div>
-        </header>
+        </div>
+        <div className="reveal" style={delay(140)}>
+          <p className="text-[15px] leading-relaxed text-white/85 md:text-base">{project.summary}</p>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <Sticker color="bg-p-mint" r="-2deg">{project.status}</Sticker>
+            {project.links.live && <ButtonLink href={project.links.live} external>Visit live <ArrowUpRight className="h-4 w-4" /></ButtonLink>}
+            {project.links.repo && <ButtonLink href={project.links.repo} variant="ghost" external><IconBrandGithub className="h-4 w-4" stroke={1.75} /> Code</ButtonLink>}
+          </div>
+        </div>
+      </header>
 
-        {/* meta stickies */}
-        <div className="grid grid-cols-2 gap-4">
-          <div style={{ "--r": "-2deg" } as React.CSSProperties} className="relative note tape bg-note-sky p-4 pt-6">
-            <p className="font-hand text-lg text-neutral-600">status</p>
-            <p className="font-pixel text-sm font-bold uppercase">{project.status}</p>
-          </div>
-          <div style={{ "--r": "2deg" } as React.CSSProperties} className="relative note tape bg-note-sun p-4 pt-6">
-            <p className="font-hand text-lg text-neutral-600">stack</p>
-            <p className="font-pixel text-sm font-bold uppercase leading-snug">{project.stack.join(" · ")}</p>
-          </div>
+      {/* hero visual */}
+      <div className={`reveal overflow-hidden rounded-[18px] px-4 pt-4 md:px-12 md:pt-12 ${PASTELS[i % PASTELS.length]}`} style={delay(220)}>
+        <div className="aspect-[16/9] w-full overflow-hidden rounded-t-xl bg-white shadow-[0_-8px_30px_-10px_rgba(0,0,0,.35)]">
+          <CoverArt project={project} priority />
         </div>
       </div>
 
-      {project.image && (
-        <div className="neo mt-12 rounded-xl bg-white p-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.image} alt={`${project.name} screenshot`} className="w-full" decoding="async" />
-        </div>
-      )}
-
-      <div className="mt-16 grid gap-x-8 gap-y-10 md:grid-cols-2">
-        {blocks.map((b, n) => (
-          <Folder key={b.title} tab={`${String(n + 1).padStart(2, "0")} ${b.title}`} color={["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-fyellow", "bg-bubble", "bg-forange"][n % 6]} bodyClassName="bg-white">
-            <p className="leading-relaxed text-neutral-700">{b.body}</p>
-          </Folder>
-        ))}
-      </div>
-
-      <section className="mt-20">
-        <Hand>the engineering proof</Hand>
-        <h2 className="mb-8 font-pixel text-4xl font-bold uppercase md:text-5xl">How it&apos;s built</h2>
-        <ul className="grid gap-6 sm:grid-cols-3">
-          {c.built.map((b, n) => (
-            <li key={b.label} style={{ "--r": rot(n) } as React.CSSProperties} className={`relative note tape p-6 pt-8 ${NOTE_COLORS[(n + 1) % 4]}`}>
-              <p className="font-hand text-xl text-neutral-600">{b.label}</p>
-              <p className="font-pixel text-lg font-bold uppercase">{b.value}</p>
+      {project.metrics && (
+        <ul className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {project.metrics.map((m) => (
+            <li key={m.label} className="ui-panel p-4 md:p-5">
+              <p className="text-3xl font-extrabold tracking-tight text-lime tabular-nums md:text-4xl">{m.value}</p>
+              <p className="mt-1 text-sm text-white/65">{m.label}</p>
             </li>
           ))}
         </ul>
-      </section>
+      )}
 
-      <Link href={`/work/${next.slug}`} className="neo group mt-20 flex items-center justify-between gap-4 rounded-2xl bg-fyellow p-7 transition-transform hover:-translate-y-1">
-        <div>
-          <Hand className="leading-none">next up</Hand>
-          <p className="font-pixel text-4xl font-bold uppercase md:text-5xl">{next.name}</p>
+      <Artboard name="Case study" meta={tagHead(project.tag)} className="mt-10">
+        <div className="mb-6 flex flex-wrap gap-2">
+          {project.stack.map((s) => <Tag key={s} className="bg-white">{s}</Tag>)}
         </div>
-        <ArrowUpRight className="h-8 w-8 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+        <dl className="divide-y divide-line">
+          {blocks.map((b) => (
+            <div key={b.title} className="grid gap-1.5 py-5 md:grid-cols-[220px_1fr] md:gap-8">
+              <dt className="font-semibold tracking-tight">{b.title}</dt>
+              <dd className="max-w-[65ch] text-[15px] leading-relaxed text-ink/70">{b.body}</dd>
+            </div>
+          ))}
+        </dl>
+      </Artboard>
+
+      {project.gallery && (
+        <Artboard name="Screens" color="sky" className="mt-10" bodyClassName="!p-2 md:!p-3">
+          <ul className="grid gap-3">
+            {project.gallery.map((g) => (
+              <li key={g.src}>
+                <figure>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={g.src} alt={g.caption} loading="lazy" decoding="async" className="w-full rounded-xl border border-line" />
+                  <figcaption className="px-1 pt-2 text-sm text-ink/60">{g.caption}</figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </Artboard>
+      )}
+
+      <Artboard name="How it's built" className="mt-10" bodyClassName="!p-2">
+        <ul className="grid gap-2 sm:grid-cols-3">
+          {c.built.map((b, n) => (
+            <li key={b.label} className={`rounded-xl p-5 ${PASTELS[(n + 1) % PASTELS.length]}`}>
+              <p className="eyebrow text-ink/60">{b.label}</p>
+              <p className="mt-2 font-semibold">{b.value}</p>
+            </li>
+          ))}
+        </ul>
+      </Artboard>
+
+      <Link href={`/work/${next.slug}`} className="group mt-10 flex items-center justify-between gap-4 rounded-[18px] bg-panel p-6 shadow-[0_24px_50px_-24px_rgba(0,8,50,.7)] md:p-8">
+        <div>
+          <p className="eyebrow mb-2 text-white/50">Next project</p>
+          <p className="text-3xl font-extrabold uppercase leading-none tracking-tight md:text-5xl">{next.name}</p>
+        </div>
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-lime text-ink transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
+          <ArrowUpRight className="h-5 w-5" />
+        </span>
       </Link>
     </PageShell>
   );

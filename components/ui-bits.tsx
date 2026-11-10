@@ -1,74 +1,123 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Frame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/projects";
+import { BlueprintCover, CitableCover } from "@/components/ProjectCovers";
 
 type CSSVars = React.CSSProperties & Record<`--${string}`, string>;
+export const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSVars;
+export const vars = (v: Record<`--${string}`, string>) => v as CSSVars;
 
-export const NOTE_COLORS = ["bg-note-sun", "bg-note-sky", "bg-note-mint", "bg-note-rose"];
-const ROT = ["-2deg", "1.5deg", "-1deg", "2deg"];
-export const rot = (i: number) => ROT[i % ROT.length];
+/** Category part of a tag like "AI workflow // multi-agent" */
+export const tagHead = (tag: string) => tag.split("//")[0].trim();
 
-/** Handwritten aside, like the little captions in the reference */
-export function Hand({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <p className={cn("font-hand text-xl text-neutral-600 md:text-2xl", className)}>{children}</p>;
-}
+export const PASTELS = ["bg-p-sky", "bg-p-lemon", "bg-p-pink", "bg-p-mint", "bg-p-peach", "bg-p-lilac"];
 
-export function Sticky({ children, color = "bg-note-sun", r = "-2deg", className }: {
-  children: React.ReactNode; color?: string; r?: string; className?: string;
+export const FRAME_COLORS = {
+  lime: { tab: "bg-lime", ring: "border-lime" },
+  pink: { tab: "bg-p-pink", ring: "border-p-pink" },
+  sky: { tab: "bg-p-sky", ring: "border-p-sky" },
+  mint: { tab: "bg-p-mint", ring: "border-p-mint" },
+  lemon: { tab: "bg-p-lemon", ring: "border-p-lemon" },
+  peach: { tab: "bg-p-peach", ring: "border-p-peach" },
+};
+export type FrameColor = keyof typeof FRAME_COLORS;
+
+/** A named frame on the canvas: coloured name tab over a light dot-grid sheet, or a dark panel */
+export function Artboard({ name, meta, children, className, bodyClassName, id, color = "lime", tone = "light" }: {
+  name: string; meta?: React.ReactNode; children: React.ReactNode; className?: string; bodyClassName?: string; id?: string; color?: FrameColor; tone?: "light" | "dark" | "outline";
 }) {
+  const c = FRAME_COLORS[color];
   return (
-    <span style={{ "--r": r } as CSSVars} className={cn("relative note inline-block px-3 py-1.5 font-pixel text-xs font-bold uppercase tracking-wide", color, className)}>
-      {children}
-    </span>
-  );
-}
-
-export function Polaroid({ letter, caption, r = "-4deg", tint = "bg-note-sky", className }: {
-  letter: string; caption: string; r?: string; tint?: string; className?: string;
-}) {
-  return (
-    <figure style={{ "--r": r } as CSSVars} className={cn("relative note tape w-36 bg-white p-2 pb-3 md:w-44", className)} aria-hidden>
-      <div className={cn("flex aspect-[4/5] items-center justify-center", tint)}>
-        <span className="font-pixel text-7xl font-bold">{letter}</span>
+    <section id={id} className={className}>
+      <span className={cn("relative z-10 -mb-[2px] inline-flex h-[34px] self-start items-center gap-2 rounded-t-xl px-3.5 text-[13px] font-semibold text-ink", c.tab)}>
+        <Frame className="h-3.5 w-3.5" strokeWidth={2.25} />
+        {name}
+        {meta && <span className="rounded-full bg-ink/10 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider">{meta}</span>}
+      </span>
+      <div className={cn("relative rounded-2xl rounded-tl-none p-3 md:p-5", tone === "dark" ? "ui-panel" : tone === "outline" ? cn("border-2 border-dashed text-white", c.ring) : "sheet", bodyClassName)}>
+        {children}
       </div>
-      <figcaption className="mt-2 text-center font-hand text-lg leading-none text-neutral-500">{caption}</figcaption>
-    </figure>
+    </section>
   );
 }
 
-export function SectionHeading({ label, title, className }: { label?: string; title: string; className?: string }) {
+/** Heading inside an artboard */
+export function BoardHeading({ title, sub, aside }: { title: string; sub?: string; aside?: React.ReactNode }) {
   return (
-    <div className={cn("mb-8 md:mb-12", className)}>
-      {label && <Hand className="mb-1">{label}</Hand>}
-      <h2 className="font-pixel text-4xl font-bold uppercase leading-none md:text-6xl">{title}</h2>
+    <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight md:text-[28px]">{title}</h2>
+        {sub && <p className="mt-1 text-sm text-muted">{sub}</p>}
+      </div>
+      {aside}
     </div>
   );
 }
 
-export function PageShell({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={cn("mx-auto max-w-6xl px-5 pb-28 pt-14 md:px-6 md:pt-20", className)}>{children}</div>;
+export function TextLink({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) {
+  return (
+    <Link href={href} className={cn("group inline-flex items-center gap-1.5 text-sm font-medium", className)}>
+      <span className="link-u">{children}</span>
+      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+    </Link>
+  );
 }
 
-export function PageTitle({ label, title, intro }: { label: string; title: string; intro?: string }) {
+export function PageShell({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className={cn("wrap pb-10 pt-6 md:pt-10", className)}>{children}</div>;
+}
+
+/** Lime selection frame with square handles and an optional size badge */
+export function SelectionFrame({ children, size, className }: { children: React.ReactNode; size?: string; className?: string }) {
   return (
-    <header className="mb-14 max-w-3xl md:mb-20">
-      <Hand className="reveal mb-2">{label}</Hand>
-      <h1 className="reveal font-pixel text-5xl font-bold uppercase leading-[0.95] md:text-8xl" style={{ "--d": "60ms" } as CSSVars}>{title}</h1>
-      {intro && (
-        <p className="reveal mt-6 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg" style={{ "--d": "140ms" } as CSSVars}>{intro}</p>
+    <div className={cn("relative inline-block border-2 border-lime px-4 py-1 md:px-7 md:py-2", className)}>
+      <span aria-hidden className="absolute -left-[9px] -top-[9px] h-4 w-4 bg-lime md:-left-[11px] md:-top-[11px] md:h-5 md:w-5" />
+      <span aria-hidden className="absolute -right-[6px] -top-[6px] h-2.5 w-2.5 border-2 border-lime bg-canvas" />
+      <span aria-hidden className="absolute -bottom-[6px] -left-[6px] h-2.5 w-2.5 border-2 border-lime bg-canvas" />
+      <span aria-hidden className="absolute -bottom-[9px] -right-[9px] h-4 w-4 bg-lime md:-bottom-[11px] md:-right-[11px] md:h-5 md:w-5" />
+      {children}
+      {size && (
+        <span aria-hidden className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-lime px-1.5 py-0.5 font-mono text-[10px] font-medium text-ink">{size}</span>
+      )}
+    </div>
+  );
+}
+
+/** Page header on the canvas: label, framed title, intro */
+export function PageHero({ label, title, intro, children, align = "end" }: { label: string; title: string; intro?: string; children?: React.ReactNode; align?: "end" | "center" }) {
+  return (
+    <header className={cn("mb-10 grid gap-8 md:mb-14 md:grid-cols-[1fr_minmax(0,400px)]", align === "end" ? "md:items-end" : "md:items-center")}>
+      <div>
+        <p className="reveal eyebrow mb-6 text-white/75">{label}</p>
+        <div className="reveal" style={delay(60)}>
+          <SelectionFrame>
+            <h1 className="text-[44px] font-black uppercase leading-[1] tracking-tight md:text-7xl">{title}</h1>
+          </SelectionFrame>
+        </div>
+      </div>
+      {(intro || children) && (
+        <div className="reveal" style={delay(140)}>
+          {intro && <p className="text-[15px] leading-relaxed text-white/85 md:text-base">{intro}</p>}
+          {children}
+        </div>
       )}
     </header>
   );
 }
 
-export function ButtonLink({ href, children, variant = "primary", external }: {
-  href: string; children: React.ReactNode; variant?: "primary" | "ghost"; external?: boolean;
+const BTN = {
+  lime: "bg-lime text-ink hover:bg-white",
+  light: "bg-white text-ink hover:bg-lime",
+  ghost: "border border-white/35 text-white hover:bg-white/10",
+  dark: "bg-ink text-white hover:bg-canvas",
+  outline: "border border-ink/15 text-ink hover:border-ink",
+};
+
+export function ButtonLink({ href, children, variant = "lime", external, className }: {
+  href: string; children: React.ReactNode; variant?: keyof typeof BTN; external?: boolean; className?: string;
 }) {
-  const cls = cn(
-    "inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-pixel text-sm uppercase tracking-wider transition-all hover:-translate-y-0.5 active:translate-y-0",
-    variant === "primary" ? "bg-ink text-white hover:bg-ocean" : "border border-ink/20 bg-white hover:bg-fyellow"
-  );
+  const cls = cn("group inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors", BTN[variant], className);
   return external ? (
     <a href={href} className={cls} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{children}</a>
   ) : (
@@ -76,107 +125,150 @@ export function ButtonLink({ href, children, variant = "primary", external }: {
   );
 }
 
-const FOLDER_COLORS = ["bg-fpurple", "bg-fblue", "bg-fgreen", "bg-fyellow", "bg-bubble", "bg-forange", "bg-lime"];
+export function Tag({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <span className={cn("inline-flex items-center rounded-full bg-paper px-2.5 py-1 text-xs font-medium text-ink/80", className)}>{children}</span>;
+}
 
-/** A flat folder panel: tab on top, body below. No outlines, soft shadow. */
-export function Folder({ tab, color = "bg-fyellow", children, className, bodyClassName }: {
-  tab: string; color?: string; children: React.ReactNode; className?: string; bodyClassName?: string;
-}) {
+/** Tilted pastel label stuck on the canvas */
+export function Sticker({ children, color = "bg-p-lemon", r = "-4deg", className }: { children: React.ReactNode; color?: string; r?: string; className?: string }) {
   return (
-    <div className={className}>
-      <span className={cn("relative z-10 inline-block rounded-t-xl px-5 pb-1 pt-1.5 font-pixel text-xs uppercase", color)}>{tab}</span>
-      <div className={cn("rounded-b-2xl rounded-tr-2xl p-6 shadow-[0_14px_32px_-16px_rgba(0,0,0,.35)] md:p-8", color, bodyClassName)}>
-        {children}
-      </div>
-    </div>
+    <span style={{ rotate: r }} className={cn("inline-block rounded-md px-2.5 py-1 text-xs font-semibold text-ink shadow-[0_6px_14px_-6px_rgba(0,8,50,.5)]", color, className)}>
+      {children}
+    </span>
   );
 }
 
-/** Soft UI-card chip floating around the hero (decorative) */
-export function Chip({ children, className, r = "0deg", lime, d = "0s" }: {
-  children: React.ReactNode; className?: string; r?: string; lime?: boolean; d?: string;
-}) {
+/** Multiplayer cursor with a name tag */
+export function CursorTag({ name, color = "#ff6a3d", className, flip }: { name: string; color?: string; className?: string; flip?: boolean }) {
   return (
-    <div aria-hidden style={{ "--r": r, "--d": d } as CSSVars}
-      className={cn("float pointer-events-none absolute z-10 select-none rounded-2xl px-4 py-3 shadow-[0_6px_18px_-6px_rgba(0,0,0,.25)]",
-        lime ? "border-2 border-ink bg-lime" : "border border-ink/10 bg-white/90", className)}>
-      <div style={{ transform: `rotate(${r})` }}>{children}</div>
-    </div>
-  );
-}
-
-/** Tiny hand-drawn style sticker shapes */
-export function Doodle({ kind, className }: { kind: "asterisk" | "heart" | "diamond" | "cloud" | "spark"; className?: string }) {
-  const c = cn("pointer-events-none absolute select-none", className);
-  const common = { width: 44, height: 44, viewBox: "0 0 44 44", "aria-hidden": true, className: c } as const;
-  if (kind === "asterisk") return <svg {...common}><path d="M22 4v36M6 13l32 18M38 13L6 31" stroke="#F4B93E" strokeWidth="5" strokeLinecap="round" /></svg>;
-  if (kind === "heart") return <svg {...common}><path d="M22 38C8 28 5 20 8 14c3-6 11-5 14 1 3-6 11-7 14-1 3 6 0 14-14 24z" fill="#EF86B1" stroke="#111" strokeWidth="2" strokeLinejoin="round" /></svg>;
-  if (kind === "diamond") return <svg {...common}><path d="M10 6h24l8 12-20 22L2 18z" fill="#1ABCFE" stroke="#111" strokeWidth="2" strokeLinejoin="round" /><path d="M2 18h40M16 6l6 34M28 6l-6 34" stroke="#111" strokeWidth="1.5" /></svg>;
-  if (kind === "cloud") return <svg {...common}><path d="M12 34a8 8 0 010-16 10 10 0 0119-3 8 8 0 011 19z" fill="#fff" stroke="#111" strokeWidth="2" strokeLinejoin="round" /></svg>;
-  return <svg {...common}><path d="M22 3c1 11 8 18 19 19-11 1-18 8-19 19-1-11-8-18-19-19 11-1 18-8 19-19z" fill="#D9F34A" stroke="#111" strokeWidth="2" strokeLinejoin="round" /></svg>;
-}
-
-/** Named multiplayer-style cursor, purely decorative */
-export function FigCursor({ name, color, className, d = "0s" }: { name: string; color: string; className?: string; d?: string }) {
-  return (
-    <div aria-hidden style={{ "--d": d } as CSSVars} className={cn("float pointer-events-none absolute z-20 select-none", className)}>
-      <svg width="22" height="22" viewBox="0 0 22 22" className="drop-shadow-[2px_2px_0_rgba(0,0,0,.25)]">
-        <path d="M2 2l6.5 17 2.6-7.2L19 9z" fill={color} stroke="#111" strokeWidth="1.6" strokeLinejoin="round" />
+    <div aria-hidden className={cn("pointer-events-none select-none", className)}>
+      <svg width="20" height="20" viewBox="0 0 22 22" className={cn("drop-shadow-[0_3px_4px_rgba(0,8,50,.35)]", flip && "-scale-x-100")}>
+        <path d="M2 2l6.5 17 2.6-7.2L19 9z" fill={color} stroke="#fff" strokeWidth="1.4" strokeLinejoin="round" />
       </svg>
-      <span style={{ background: color }} className="ml-4 -mt-1 inline-block rounded-full border-2 border-ink px-3 py-0.5 font-pixel text-[11px] font-bold uppercase text-ink">{name}</span>
+      <span style={{ background: color }} className="ml-4 inline-block rounded-md px-2 py-0.5 text-[11px] font-semibold text-white shadow-[0_6px_14px_-6px_rgba(0,8,50,.5)]">{name}</span>
     </div>
   );
 }
 
-/** Project as a file folder: tab, papers poking out, front flap with the title */
-export function ProjectCard({ project, index, size = "lg" }: { project: Project; index: number; size?: "lg" | "sm" }) {
-  const color = FOLDER_COLORS[index % FOLDER_COLORS.length];
-  const lg = size === "lg";
+/** Project card: tag + title, highlight bullets, screenshot peeking out of a pastel panel */
+/** Screenshot when there is one, otherwise the project's illustrated cover */
+export function CoverArt({ project, priority }: { project: Project; priority?: boolean }) {
+  if (project.image)
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={project.image} alt="" loading={priority ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover object-top" />;
+  if (project.cover === "citable") return <CitableCover />;
+  if (project.cover === "blueprint") return <BlueprintCover />;
+  return <div className="grid h-full place-items-center text-5xl font-black text-ink/10">{project.name[0]}</div>;
+}
+
+/** A project still being built: blueprint styling, no case-study link */
+function BuildingCard({ project, className }: { project: Project; className?: string }) {
   return (
-    <Link href={`/work/${project.slug}`} className="group block">
-      <span className={cn("relative z-10 inline-block rounded-t-xl px-4 pb-1 pt-1.5 font-pixel uppercase", lg ? "text-xs" : "text-[10px]", color)}>
-        Project {String(index + 1).padStart(2, "0")}
-      </span>
-      <div className={cn("relative overflow-hidden rounded-tr-2xl", color, lg ? "h-56 md:h-72" : "h-52 md:h-60")}>
-        <div className={cn("absolute rotate-2 bg-white/70", lg ? "inset-x-10 top-7 -bottom-10" : "inset-x-5 top-5 -bottom-10")} />
-        <div className={cn("absolute -rotate-1 overflow-hidden bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,.35)] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-0", lg ? "inset-x-6 top-6 -bottom-10" : "inset-x-3 top-4 -bottom-10")}>
-          {project.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
-          ) : (
-            <div className="flex h-full items-start justify-center bg-[repeating-linear-gradient(45deg,#fff_0_10px,#f3f3ee_10px_20px)] pt-6">
-              <span className={cn("font-pixel text-ink/15", lg ? "text-7xl" : "text-4xl")}>{project.name[0]}</span>
-            </div>
-          )}
+    <div className={cn("flex flex-col rounded-2xl border-2 border-dashed border-lime/80 bg-canvas-deep/50 p-2 text-white shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)]", className)}>
+      <div className="px-3 pb-4 pt-3">
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-ink">
+            <span aria-hidden className="pulse-dot h-1.5 w-1.5 rounded-full bg-live" /> {project.status}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-white/50">Work in progress</span>
         </div>
+        <h3 className="mt-3.5 text-xl font-bold leading-tight tracking-tight">{project.name}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-white/70">{project.summary}</p>
+        <ul className="mt-3.5 space-y-1.5 border-t border-dashed border-white/20 pt-3.5">
+          {project.highlights.map((h) => (
+            <li key={h} className="flex gap-2 text-[13px] leading-snug text-white/85">
+              <span className="mt-px grid h-4 w-4 shrink-0 place-items-center rounded-full border border-dashed border-lime" />
+              {h}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3.5 truncate font-mono text-[10.5px] uppercase tracking-wider text-white/55">{project.stack.join(" · ")}</p>
       </div>
-      <div className={cn("relative -mt-10 rounded-2xl shadow-[0_-8px_18px_-8px_rgba(0,0,0,.25),0_14px_28px_-16px_rgba(0,0,0,.35)] transition-transform duration-300 group-hover:translate-y-1", color, lg ? "p-6" : "p-4")}>
-        <div className="flex items-start justify-between gap-3">
-          <h3 className={cn("font-pixel uppercase leading-none", lg ? "text-3xl md:text-4xl" : "text-xl")}>{project.name}</h3>
-          <span className={cn("flex shrink-0 items-center justify-center rounded-full bg-white transition-colors group-hover:bg-ink group-hover:text-white", lg ? "h-9 w-9" : "h-7 w-7")}>
-            <ArrowUpRight className={lg ? "h-4 w-4" : "h-3.5 w-3.5"} />
+      <div className="mt-auto overflow-hidden rounded-xl">
+        <div className="aspect-[16/10] overflow-hidden"><CoverArt project={project} /></div>
+      </div>
+    </div>
+  );
+}
+
+export function ProjectCard({ project, index, priority, className }: { project: Project; index: number; priority?: boolean; className?: string }) {
+  if (project.tier === "building") return <BuildingCard project={project} className={className} />;
+  const pastel = PASTELS[index % PASTELS.length];
+  return (
+    <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1", className)}>
+      <div className="px-3 pb-4 pt-3">
+        <div className="flex items-center justify-between">
+          <span className={cn("rounded-full px-2.5 py-1 text-[11px] font-semibold text-ink", pastel)}>{tagHead(project.tag)}</span>
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-paper transition-colors group-hover:bg-ink group-hover:text-white">
+            <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
-        <p className={cn("mt-2 text-ink/80", lg ? "line-clamp-2 text-sm leading-relaxed" : "line-clamp-1 text-xs")}>{project.summary}</p>
+        <h3 className="mt-3.5 text-xl font-bold leading-tight tracking-tight">{project.name}</h3>
+        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted">{project.summary}</p>
+        <ul className="mt-3.5 space-y-1.5 border-t border-dashed border-ink/15 pt-3.5">
+          {project.highlights.slice(0, 3).map((h) => (
+            <li key={h} className="flex gap-2 text-[13px] leading-snug text-ink/85">
+              <span className={cn("mt-px grid h-4 w-4 shrink-0 place-items-center rounded-full", pastel)}><Check className="h-2.5 w-2.5" strokeWidth={3} /></span>
+              {h}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3.5 truncate font-mono text-[10.5px] uppercase tracking-wider text-muted">{project.stack.join(" · ")}</p>
+      </div>
+      <div className={cn("mt-auto overflow-hidden rounded-xl px-5 pt-5", pastel)}>
+        <div className="aspect-[16/10] overflow-hidden rounded-t-lg bg-white shadow-[0_-4px_20px_-6px_rgba(0,0,0,.25)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1.5">
+          <CoverArt project={project} priority={priority} />
+        </div>
       </div>
     </Link>
   );
 }
 
-/** 3 big folders on top, the rest smaller underneath */
-export function ProjectGrid({ projects }: { projects: Project[] }) {
-  const top = projects.slice(0, 3);
-  const rest = projects.slice(3);
+export function ProjectGrid({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
   return (
-    <div className="space-y-14 md:space-y-16">
-      <div className="grid gap-x-8 gap-y-12 md:grid-cols-3">
-        {top.map((p, i) => <ProjectCard key={p.slug} project={p} index={i} />)}
-      </div>
-      {rest.length > 0 && (
-        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {rest.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + 3} size="sm" />)}
-        </div>
-      )}
+    <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3">
+      {projects.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + offset} priority={i < 3} className="w-[84%] shrink-0 snap-start sm:w-auto" />)}
     </div>
+  );
+}
+
+/** Smaller projects as compact horizontal cards */
+export function ProjectList({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
+  return (
+    <ul className="grid gap-3 md:grid-cols-2">
+      {projects.map((p, i) => {
+        const pastel = PASTELS[(i + offset) % PASTELS.length];
+        return (
+          <li key={p.slug}>
+            <Link href={`/work/${p.slug}`} className="group flex h-full gap-4 rounded-2xl border border-line bg-white p-2 pr-4 text-ink shadow-[0_14px_30px_-22px_rgba(0,8,50,.5)] transition-transform hover:-translate-y-0.5">
+              <span className={cn("block aspect-square w-24 shrink-0 overflow-hidden rounded-xl p-2 md:w-28", pastel)}>
+                <span className="block h-full w-full overflow-hidden rounded-lg transition-transform duration-500 group-hover:scale-105">
+                  {p.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-left-top" />
+                  ) : (
+                    <span className="block h-[200%] w-[200%] origin-top-left scale-50"><CoverArt project={p} /></span>
+                  )}
+                </span>
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col py-1.5">
+                <span className="flex items-start justify-between gap-2">
+                  <span className="font-bold tracking-tight">{p.name}</span>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
+                </span>
+                <span className="text-xs text-muted">{tagHead(p.tag)} · {p.status}</span>
+                <span className="mt-2 space-y-1">
+                  {p.highlights.slice(0, 2).map((h) => (
+                    <span key={h} className="flex gap-1.5 text-[13px] leading-snug text-ink/80">
+                      <Check className="mt-0.5 h-3 w-3 shrink-0" strokeWidth={3} />{h}
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

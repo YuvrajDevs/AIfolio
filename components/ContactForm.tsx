@@ -1,9 +1,11 @@
 "use client";
+import { ArrowUp, AtSign, Smile } from "lucide-react";
 import { SITE } from "@/lib/site";
 
 const field =
-  "w-full rounded-xl border border-ink/15 bg-white px-4 py-3 placeholder:text-neutral-400 focus:border-ink focus:outline-none";
+  "w-full rounded-xl border border-white/10 bg-panel-2 px-3.5 py-2.5 text-[15px] text-white placeholder:text-white/35 transition-colors focus:border-figma focus:outline-none";
 
+/** Comment-composer style form. Submitting opens the visitor's email app, prefilled. */
 export function ContactForm() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,17 +17,23 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <input name="name" required placeholder="Your name" aria-label="Your name" autoComplete="name" className={field} />
-        <input name="email" type="email" required placeholder="Email" aria-label="Email" autoComplete="email" className={field} />
+    <form onSubmit={onSubmit} className="space-y-2.5">
+      <div className="grid gap-2.5 sm:grid-cols-2">
+        <input id="cf-name" name="name" required placeholder="Your name" aria-label="Your name" autoComplete="name" className={field} />
+        <input id="cf-email" name="email" type="email" required placeholder="Email" aria-label="Email" autoComplete="email" className={field} />
       </div>
-      <textarea name="message" required rows={6} placeholder="Tell me what's on your mind..." aria-label="Message" className={field} />
+      <div className="rounded-xl border border-white/10 bg-panel-2 transition-colors focus-within:border-figma">
+        <textarea id="cf-message" name="message" required rows={4} placeholder="Reply to Yuvraj..." aria-label="Message"
+          className="block w-full resize-none bg-transparent px-3.5 pt-3 text-[15px] text-white placeholder:text-white/35 focus:outline-none" />
+        <div className="flex items-center gap-3 border-t border-white/10 px-3.5 py-2 text-white/40">
+          <Smile className="h-4 w-4" aria-hidden /><AtSign className="h-4 w-4" aria-hidden />
+          <span className="hidden text-xs sm:inline">Opens your email app, prefilled</span>
+          <button type="submit" className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-full bg-figma pl-3 pr-2 text-sm font-semibold text-white transition-colors hover:bg-lime hover:text-ink">
+            Send <ArrowUp className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute left-[-9999px] h-0 w-0 opacity-0" />
-      <button type="submit" className="rounded-lg bg-ink px-6 py-3 font-pixel text-sm uppercase tracking-wider text-white transition-all hover:-translate-y-0.5 hover:bg-ocean">
-        Send message
-      </button>
-      <p className="font-hand text-lg text-neutral-600">opens your email app with everything filled in (a hosted form comes later)</p>
     </form>
   );
 }

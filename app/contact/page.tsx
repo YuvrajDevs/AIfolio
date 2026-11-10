@@ -1,100 +1,63 @@
 import type { Metadata } from "next";
-import { CalendarHeart, Coffee, Heart, MessageCircle, Send, Sparkles, Eye } from "lucide-react";
-import { IconMail, IconBrandLinkedin, IconBrandGithub, IconFileText } from "@tabler/icons-react";
+import { MessageCircle } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
-import { Chip, Doodle, FigCursor, Folder, Hand, PageShell } from "@/components/ui-bits";
-import { SITE } from "@/lib/site";
+import { ContactTiles } from "@/components/ContactTiles";
+import { PageHero, PageShell, Sticker } from "@/components/ui-bits";
 
 export const metadata: Metadata = { title: "Let's talk", description: "Get in touch about a project, a role, or just to say hi." };
 
-const LINKS = [
-  { label: "Email", value: SITE.email, href: `mailto:${SITE.email}`, icon: IconMail, bg: "bg-fyellow" },
-  { label: "LinkedIn", value: "Yuvraj Singh Shekhawat", href: SITE.linkedin, icon: IconBrandLinkedin, bg: "bg-fblue" },
-  { label: "GitHub", value: "YuvrajDevs", href: SITE.github, icon: IconBrandGithub, bg: "bg-fgreen" },
-  { label: "Resume", value: "Download PDF", href: SITE.resume, icon: IconFileText, bg: "bg-bubble" },
-];
-
 const STEPS = [
-  { icon: Send, title: "You send a note", desc: "A few lines about what you have in mind is plenty.", bg: "bg-fpurple" },
-  { icon: Eye, title: "I read it properly", desc: "Every message gets read and a real reply.", bg: "bg-fblue" },
-  { icon: Coffee, title: "We talk it through", desc: "A short chat to see if we're a fit.", bg: "bg-fyellow" },
+  { title: "You send a note", desc: "A few lines about what you have in mind is plenty." },
+  { title: "I read it properly", desc: "Every message gets read and a real reply." },
+  { title: "We talk it through", desc: "A short call to see if we're a fit." },
 ];
-
-const TILES = [
-  { icon: IconMail, cls: "left-[3%] top-6 bg-fyellow", r: "-8deg" },
-  { icon: MessageCircle, cls: "left-[15%] top-40 bg-bubble", r: "6deg" },
-  { icon: Sparkles, cls: "right-[4%] top-8 bg-fgreen", r: "8deg" },
-  { icon: Heart, cls: "right-[16%] top-44 bg-fblue", r: "-6deg" },
-  { icon: CalendarHeart, cls: "left-[25%] top-0 bg-lime", r: "4deg" },
-  { icon: Coffee, cls: "right-[25%] top-0 bg-fpurple", r: "-4deg" },
-];
-
 
 export default function ContactPage() {
   return (
     <PageShell>
-      {/* Hero */}
-      <div className="relative mb-20 text-center md:mb-28">
-        <div className="hidden lg:block" aria-hidden>
-          {TILES.map((t, i) => (
-            <div key={i} style={{ "--r": t.r, "--d": `${i * 0.7}s` } as React.CSSProperties}
-                 className={`float absolute flex h-16 w-16 items-center justify-center rounded-2xl shadow-[0_10px_24px_-10px_rgba(0,0,0,.35)] ${t.cls}`}>
-              <t.icon className="h-7 w-7" strokeWidth={1.75} style={{ transform: `rotate(${t.r})` }} />
-            </div>
-          ))}
-          <Doodle kind="asterisk" className="left-[9%] top-[62%]" />
-          <Doodle kind="spark" className="right-[10%] top-[70%]" />
-          <FigCursor name="You" color="#A259FF" className="left-[26%] top-[74%]" d="0.4s" />
-        </div>
+      <PageHero label="Contact" title="Let's talk" intro="Got a project, a role, or just want to say hello? Tell me what you have in mind. I read every message.">
+        <p className="eyebrow mt-4 flex items-center gap-2 text-white/70">
+          <span aria-hidden className="pulse-dot h-1.5 w-1.5 rounded-full bg-live" /> Available for freelance & remote roles
+        </p>
+      </PageHero>
 
-        <Hand className="relative">got a project, a role, or just a hello?</Hand>
-        <h1 className="relative mx-auto mt-2 inline-block border-2 border-fblue bg-white px-8 py-2 font-pixel text-5xl uppercase md:text-8xl">
-          Let&apos;s talk
-          {["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((p) => (
-            <span key={p} aria-hidden className={`absolute h-3 w-3 border-2 border-ink bg-white ${p}`} />
-          ))}
-        </h1>
-        <Hand className="relative mx-auto mt-5 max-w-md">tell me what you have in mind. i read every message.</Hand>
-        <div className="relative mt-6 flex flex-wrap justify-center gap-2">
-          <Chip className="!relative" r="-2deg"><span className="font-hand text-2xl">📍 Pune, India · works worldwide</span></Chip>
-        </div>
-      </div>
-
-      {/* Form + links */}
       <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr]">
-        <Folder tab="New message" color="bg-fyellow"><ContactForm /></Folder>
-        <div>
-          <Hand className="mb-3">or find me here ↓</Hand>
-          <ul className="space-y-3">
-            {LINKS.map((l) => (
-              <li key={l.label}>
-                <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
-                   className="group flex items-center gap-4 rounded-2xl bg-white p-3 shadow-[0_8px_22px_-14px_rgba(0,0,0,.4)] transition-transform hover:-translate-y-0.5">
-                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:rotate-6 ${l.bg}`}>
-                    <l.icon className="h-6 w-6" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block font-pixel text-sm uppercase">{l.label}</span>
-                    <span className="block break-all text-sm text-neutral-600">{l.value}</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* comment thread */}
+        <section>
+          <span className="inline-flex h-[34px] items-center gap-2 rounded-t-xl bg-panel px-3.5 text-[13px] font-semibold">
+            <MessageCircle className="h-3.5 w-3.5 text-lime" strokeWidth={2.25} /> New message
+          </span>
+          <div className="ui-panel !rounded-2xl !rounded-tl-none p-4 md:p-5">
+            <div className="mb-4 flex gap-3">
+              <span aria-hidden className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-lime text-sm font-extrabold text-ink">Y</span>
+              <div className="min-w-0">
+                <p className="text-sm"><span className="font-semibold">Yuvraj</span> <span className="ml-1 font-mono text-[11px] text-white/40">pinned</span></p>
+                <p className="mt-1 inline-block rounded-2xl rounded-tl-sm bg-white/[.07] px-3.5 py-2 text-[15px] leading-relaxed text-white/90">
+                  Hey! What are you working on? A few lines is plenty, and I&apos;ll get back to you.
+                </p>
+              </div>
+            </div>
+            <ContactForm />
+          </div>
+        </section>
+
+        {/* link tiles: offset by the tab height so they line up with the message panel */}
+        <section className="flex flex-col lg:pt-[34px]">
+          <ContactTiles />
+        </section>
       </div>
 
-      {/* What happens next */}
-      <section className="mt-24">
-        <Hand>what happens next</Hand>
-        <h2 className="mb-8 font-pixel text-4xl uppercase md:text-5xl">Three simple steps</h2>
-        <ol className="grid gap-5 md:grid-cols-3">
+      <section className="mt-12">
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <Sticker color="bg-lime" r="-3deg">What happens next</Sticker>
+          <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Three simple steps</h2>
+        </div>
+        <ol className="grid gap-3 md:grid-cols-3">
           {STEPS.map((st, i) => (
-            <li key={st.title} className={`relative rounded-3xl p-7 ${st.bg}`}>
-              <span className="absolute right-5 top-4 font-pixel text-5xl text-ink/15">0{i + 1}</span>
-              <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white"><st.icon className="h-7 w-7" strokeWidth={1.75} /></span>
-              <h3 className="font-pixel text-xl uppercase">{st.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink/80">{st.desc}</p>
+            <li key={st.title} className="ui-panel p-5">
+              <span className="font-mono text-xs text-lime">0{i + 1}</span>
+              <h3 className="mt-2 font-semibold tracking-tight">{st.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-white/65">{st.desc}</p>
             </li>
           ))}
         </ol>

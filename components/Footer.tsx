@@ -1,55 +1,47 @@
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
-import { IconBrandGithub, IconBrandLinkedin, IconMail } from "@tabler/icons-react";
+import { ArrowUpRight } from "lucide-react";
 import { SITE, NAV } from "@/lib/site";
 
 const SOCIALS = [
-  { href: `mailto:${SITE.email}`, label: "Email", I: IconMail },
-  { href: SITE.linkedin, label: "LinkedIn", I: IconBrandLinkedin },
-  { href: SITE.github, label: "GitHub", I: IconBrandGithub },
+  { href: SITE.linkedin, label: "LinkedIn" },
+  { href: SITE.github, label: "GitHub" },
+  { href: SITE.resume, label: "Resume" },
 ];
 
 export function Footer() {
   return (
-    <footer className="px-4 pb-24 pt-8 md:px-8 md:pb-8">
-      <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[28px] bg-ink px-6 py-12 text-white md:px-14 md:py-16">
-        {/* soft colour blobs */}
-        <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-fpurple/60 blur-2xl" />
-        <div aria-hidden className="absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-fblue/40 blur-3xl" />
-
-        <div className="relative grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end">
+    <footer className="wrap pb-28 pt-10">
+      <div className="rounded-[18px] bg-panel p-6 shadow-[0_30px_60px_-30px_rgba(0,8,50,.7)] md:p-10">
+        <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            <p className="font-hand text-3xl text-lime md:text-4xl">thanks for stopping by ✦</p>
-            <p className="mt-2 font-pixel text-4xl uppercase leading-[0.95] md:text-6xl">Let&apos;s make something good.</p>
-            <Link href="/contact" className="mt-7 inline-flex rounded-lg bg-lime px-6 py-3 font-pixel text-sm uppercase tracking-wider text-ink transition-transform hover:-translate-y-0.5">
-              Say hello
-            </Link>
+            <p className="eyebrow text-white/50">Have a project in mind?</p>
+            <a href={`mailto:${SITE.email}`} className="group mt-3 inline-flex items-start gap-2 text-4xl font-extrabold uppercase leading-none tracking-tight md:text-6xl">
+              Let&apos;s talk
+              <ArrowUpRight className="h-8 w-8 shrink-0 text-lime transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 md:h-12 md:w-12" />
+            </a>
+            <p className="mt-4 select-all text-sm text-white/60">{SITE.email}</p>
           </div>
-
-          <div className="flex flex-col gap-6 md:items-end">
-            <ul className="flex flex-wrap gap-2 md:justify-end">
-              {[...NAV, { label: "Resume", href: SITE.resume }].map((n) => (
-                <li key={n.href}>
-                  <Link href={n.href} className="inline-block rounded-full border border-white/20 px-4 py-1.5 font-pixel text-xs uppercase transition-colors hover:bg-white hover:text-ink">
-                    {n.label}
-                  </Link>
-                </li>
+          <div>
+            <p className="eyebrow text-white/50">Pages</p>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              {NAV.map((n) => (
+                <li key={n.href}><Link href={n.href} className="link-u text-white/80 hover:text-white">{n.label}</Link></li>
               ))}
             </ul>
-            <div className="flex gap-3">
-              {SOCIALS.map(({ href, label, I }) => (
-                <a key={label} href={href} aria-label={label} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
-                   className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-fyellow hover:text-ink">
-                  <I className="h-5 w-5" />
-                </a>
+          </div>
+          <div>
+            <p className="eyebrow text-white/50">Elsewhere</p>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              {SOCIALS.map((s) => (
+                <li key={s.label}><a href={s.href} target="_blank" rel="noopener noreferrer" className="link-u text-white/80 hover:text-white">{s.label}</a></li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
-
-        <div className="relative mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-5 font-pixel text-[10px] uppercase tracking-wider text-white/50">
-          <span>© 2026 {SITE.name} · {SITE.location}</span>
-          <a href="#top" className="inline-flex items-center gap-1.5 hover:text-white"><ArrowUp className="h-3.5 w-3.5" /> Back to top</a>
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-5 font-mono text-[11px] uppercase tracking-wider text-white/40">
+          <span>© 2026 {SITE.name}</span>
+          <span>Designed &amp; coded by me</span>
+          <a href="#top" className="hover:text-white">Back to top ↑</a>
         </div>
       </div>
     </footer>

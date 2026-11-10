@@ -1,39 +1,44 @@
-import { Globe, AppWindow, BarChart3, Sparkles } from "lucide-react";
+import { AppWindow, BarChart3, PenTool, Sparkles } from "lucide-react";
 
+/** The four skill areas shown on the home page and the Skills page. `mock` picks the sketch on the Skills page. */
 export const SERVICES = [
   {
-    icon: Globe,
-    title: "Website design & build",
-    short: "Fast, polished marketing sites and portfolios.",
-    long: "A clear message, strong visual design and a site that loads quickly and ranks.",
-    gets: ["Design in the browser, not just mockups", "Responsive and accessible", "SEO and social previews set up"],
+    icon: Sparkles,
+    mock: "ai" as const,
+    title: "AI & agents",
+    short: "LLM features and multi-agent workflows that hold up in production.",
+    long: "From a single smart feature to multi-step agent workflows, with the cost tracking, guardrails and human review that real use needs.",
+    gets: ["OpenAI, Anthropic and Gemini APIs", "Agents with budgets, traces and human review", "Evals and guardrails, not demos only"],
   },
   {
     icon: AppWindow,
-    title: "Web app / MVP",
-    short: "From idea to a working product you can show users.",
-    long: "End-to-end product work: scoping, UI, database, auth and deployment.",
-    gets: ["Scoped to what you need to learn first", "Next.js, TypeScript, Supabase", "Deployed, with docs for handover"],
+    mock: "app" as const,
+    title: "Full-stack apps",
+    short: "From idea to a deployed product, frontend to database.",
+    long: "End-to-end product work: data model, APIs, auth, billing, background jobs, the interface and deployment.",
+    gets: ["Next.js, React, TypeScript, Node.js", "Postgres, Supabase, Prisma, Firebase", "Auth, billing, jobs, security headers"],
   },
   {
     icon: BarChart3,
-    title: "Dashboards",
-    short: "Turn messy data into screens people actually use.",
-    long: "Internal dashboards and reporting, drawing on experience with CRM Analytics and Power BI.",
-    gets: ["Data modelling and SQL", "Clear, decision-first layouts", "Built for the people who read them"],
+    mock: "data" as const,
+    title: "Data & dashboards",
+    short: "Pipelines, warehouses and dashboards people can trust.",
+    long: "Data pipelines and reporting with accuracy that is measured, drawing on enterprise CRM Analytics and Power BI work.",
+    gets: ["Python, SQL, DuckDB and dbt", "Power BI and Salesforce CRM Analytics", "Accuracy measured, not assumed"],
   },
   {
-    icon: Sparkles,
-    title: "AI features",
-    short: "Add LLM-powered workflows to an existing product.",
-    long: "Practical AI integration: extraction, classification, agents and automation with sensible guardrails.",
-    gets: ["Right model for the job and budget", "Evaluation and fallbacks, not demos only", "Human-in-the-loop where it matters"],
+    icon: PenTool,
+    mock: "web" as const,
+    title: "Product design",
+    short: "Interfaces that make complicated things feel simple.",
+    long: "UX flows, interface design and design systems, taken all the way to production code.",
+    gets: ["UX flows and UI in Figma", "Design systems that ship", "Prototypes built as real code"],
   },
 ];
 
 export const PROCESS = [
   { step: "01", title: "Discover", desc: "A short call or written brief to understand the problem, users and constraints." },
   { step: "02", title: "Design", desc: "Flows and UI direction agreed before heavy build work starts." },
-  { step: "03", title: "Build", desc: "Iterative delivery with regular working previews you can click through." },
+  { step: "03", title: "Build", desc: "Fast, AI-assisted delivery with regular working previews you can click through." },
   { step: "04", title: "Ship", desc: "Deployed, documented and handed over, with support for the first stretch." },
 ];
