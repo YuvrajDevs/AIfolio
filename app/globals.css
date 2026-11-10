@@ -111,7 +111,7 @@ h1, h2, h3 { text-wrap: balance; }
 @layer utilities {
   .reveal { animation: reveal .8s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--d, 0ms); }
   .float { animation: float 6s ease-in-out infinite; animation-delay: var(--d, 0s); }
-  .marquee { animation: marquee 38s linear infinite; }
+  .marquee { animation: marquee 90s linear infinite; }
   .pulse-dot { animation: pulse-dot 2s ease-out infinite; }
   /* mouse parallax: parent sets --mx/--my in [-1, 1] */
   .parallax { transform: translate3d(calc(var(--mx, 0) * var(--depth, 10) * 1px), calc(var(--my, 0) * var(--depth, 10) * 1px), 0); transition: transform .5s cubic-bezier(.22,1,.36,1); }

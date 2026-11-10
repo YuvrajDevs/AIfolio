@@ -7,7 +7,7 @@ import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const STACK = ["OpenAI", "Claude", "Gemini", "Next.js", "React", "TypeScript", "Node.js", "Supabase", "PostgreSQL", "Python", "DuckDB", "dbt", "Power BI", "Figma"];
+const STACK = ["Claude Code", "OpenAI", "Claude", "Gemini", "LLM evals", "Multi-agent systems", "Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Node.js", "Express", "FastAPI", "Python", "SQL", "PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis", "Kafka", "BullMQ", "DuckDB", "dbt", "Airflow", "Power BI", "Salesforce CRM Analytics", "Docker", "Playwright", "Vercel", "Render", "Figma", "Design systems"];
 
 const MENU = [
   { label: "AI & agents", key: "A", checked: true },
