@@ -166,7 +166,7 @@ export function CoverArt({ project, priority }: { project: Project; priority?: b
 function BuildingCard({ project, className }: { project: Project; className?: string }) {
   return (
     <div className={cn("flex flex-col rounded-2xl border-2 border-dashed border-lime/80 bg-canvas-deep/50 p-2 text-white shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)]", className)}>
-      <div className="px-3 pb-4 pt-3">
+      <div className="flex flex-1 flex-col px-3 pb-4 pt-3">
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-ink">
             <span aria-hidden className="pulse-dot h-1.5 w-1.5 rounded-full bg-live" /> {project.status}
@@ -183,9 +183,9 @@ function BuildingCard({ project, className }: { project: Project; className?: st
             </li>
           ))}
         </ul>
-        <p className="mt-3.5 truncate font-mono text-[10.5px] uppercase tracking-wider text-white/55">{project.stack.join(" · ")}</p>
+        <p className="mt-auto truncate pt-3.5 font-mono text-[10.5px] uppercase tracking-wider text-white/55">{project.stack.join(" · ")}</p>
       </div>
-      <div className="mt-auto overflow-hidden rounded-xl">
+      <div className="overflow-hidden rounded-xl">
         <div className="aspect-[16/10] overflow-hidden"><CoverArt project={project} /></div>
       </div>
     </div>
@@ -197,7 +197,7 @@ export function ProjectCard({ project, index, priority, className }: { project: 
   const pastel = PASTELS[index % PASTELS.length];
   return (
     <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1", className)}>
-      <div className="px-3 pb-4 pt-3">
+      <div className="flex flex-1 flex-col px-3 pb-4 pt-3">
         <div className="flex items-center justify-between">
           <span className={cn("rounded-full px-2.5 py-1 text-[11px] font-semibold text-ink", pastel)}>{tagHead(project.tag)}</span>
           <span className="grid h-8 w-8 place-items-center rounded-full bg-paper transition-colors group-hover:bg-ink group-hover:text-white">
@@ -214,9 +214,9 @@ export function ProjectCard({ project, index, priority, className }: { project: 
             </li>
           ))}
         </ul>
-        <p className="mt-3.5 truncate font-mono text-[10.5px] uppercase tracking-wider text-muted">{project.stack.join(" · ")}</p>
+        <p className="mt-auto truncate pt-3.5 font-mono text-[10.5px] uppercase tracking-wider text-muted">{project.stack.join(" · ")}</p>
       </div>
-      <div className={cn("mt-auto overflow-hidden rounded-xl px-5 pt-5", pastel)}>
+      <div className={cn("overflow-hidden rounded-xl px-5 pt-5", pastel)}>
         <div className="aspect-[16/10] overflow-hidden rounded-t-lg bg-white shadow-[0_-4px_20px_-6px_rgba(0,0,0,.25)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1.5">
           <CoverArt project={project} priority={priority} />
         </div>
