@@ -78,41 +78,6 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    slug: "hivestate",
-    name: "HiveState",
-    tag: "AI agents // orchestration",
-    summary: "Draw a workflow of AI agents, run it, and keep cost and quality under control.",
-    highlights: [
-      "Dependency-aware runner executes ready agents in parallel",
-      "Daily budget guard with token and cost tracking per step",
-      "Human-in-the-loop pause and resume on any node",
-    ],
-    image: "/projects/hivestate-visual.png",
-    gallery: [{ src: "/projects/hivestate-dashboard.jpg", caption: "Dashboard: workflow templates, live tasks and today's spend against the daily budget." }],
-    tier: "star",
-    status: "Live demo",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
-    links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
-    case: {
-      problem:
-        "Chaining a few LLM calls is easy in a script and hard to trust in production. Steps depend on each other, costs creep up unnoticed, and some decisions need a person before the next agent acts.",
-      user: "Builders and small teams who want to run multi-step agent workflows (research, reports, content, code review) without writing orchestration code for each one.",
-      design:
-        "A dense, developer-first interface in the spirit of Linear and Vercel: a React Flow canvas to draw agents and their connections, a dashboard of workflows and live tasks, step-by-step traces, and a daily budget card always in view. Its own design system keeps it sharp, dark and information-dense.",
-      tech:
-        "Next.js App Router with server actions and API routes. Supabase Postgres stores workflows, runs, step logs, providers and governance settings across 11 migrations. Agents call Gemini or OpenAI through one model layer, and provider keys never leave the server.",
-      hardProblem:
-        "Running a graph, not a list. The runner works out which nodes are ready from their dependencies, runs each ready level with Promise.all, and carries outputs forward, summarising long context into a short header. It can stop mid-graph at a human-review node, store the pending input, and later resume from that exact node.",
-      outcome:
-        "Four ready-made templates (Research Cluster, Report Factory, Content Engine, Code Auditor), per-run traces with tokens, cost and duration for every step, and a budget guard that blocks new runs once the daily limit is reached.",
-      built: [
-        { label: "Engine", value: "Parallel DAG runner with HITL pause/resume" },
-        { label: "Data model", value: "Supabase Postgres, 11 migrations" },
-        { label: "AI", value: "Gemini + OpenAI behind one interface" },
-      ],
-    },
-  },
-  {
     slug: "trueup",
     name: "TrueUp",
     tag: "Data + AI // fraud & payments",
@@ -153,6 +118,41 @@ export const PROJECTS: Project[] = [
         { label: "Warehouse", value: "DuckDB + dbt staging and marts" },
         { label: "Detectors", value: "Fraud, outage, dispute and fee rules in SQL" },
         { label: "Lab", value: "Plant attacks live, graded in seconds" },
+      ],
+    },
+  },
+  {
+    slug: "hivestate",
+    name: "HiveState",
+    tag: "AI agents // orchestration",
+    summary: "Draw a workflow of AI agents, run it, and keep cost and quality under control.",
+    highlights: [
+      "Dependency-aware runner executes ready agents in parallel",
+      "Daily budget guard with token and cost tracking per step",
+      "Human-in-the-loop pause and resume on any node",
+    ],
+    image: "/projects/hivestate-visual.png",
+    gallery: [{ src: "/projects/hivestate-dashboard.jpg", caption: "Dashboard: workflow templates, live tasks and today's spend against the daily budget." }],
+    tier: "star",
+    status: "Live demo",
+    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
+    links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
+    case: {
+      problem:
+        "Chaining a few LLM calls is easy in a script and hard to trust in production. Steps depend on each other, costs creep up unnoticed, and some decisions need a person before the next agent acts.",
+      user: "Builders and small teams who want to run multi-step agent workflows (research, reports, content, code review) without writing orchestration code for each one.",
+      design:
+        "A dense, developer-first interface in the spirit of Linear and Vercel: a React Flow canvas to draw agents and their connections, a dashboard of workflows and live tasks, step-by-step traces, and a daily budget card always in view. Its own design system keeps it sharp, dark and information-dense.",
+      tech:
+        "Next.js App Router with server actions and API routes. Supabase Postgres stores workflows, runs, step logs, providers and governance settings across 11 migrations. Agents call Gemini or OpenAI through one model layer, and provider keys never leave the server.",
+      hardProblem:
+        "Running a graph, not a list. The runner works out which nodes are ready from their dependencies, runs each ready level with Promise.all, and carries outputs forward, summarising long context into a short header. It can stop mid-graph at a human-review node, store the pending input, and later resume from that exact node.",
+      outcome:
+        "Four ready-made templates (Research Cluster, Report Factory, Content Engine, Code Auditor), per-run traces with tokens, cost and duration for every step, and a budget guard that blocks new runs once the daily limit is reached.",
+      built: [
+        { label: "Engine", value: "Parallel DAG runner with HITL pause/resume" },
+        { label: "Data model", value: "Supabase Postgres, 11 migrations" },
+        { label: "AI", value: "Gemini + OpenAI behind one interface" },
       ],
     },
   },

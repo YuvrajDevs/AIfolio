@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { IconBrandGithub } from "@tabler/icons-react";
-import { Artboard, ButtonLink, CoverArt, PASTELS, PageShell, SelectionFrame, Sticker, Tag, delay, tagHead } from "@/components/ui-bits";
+import { Artboard, ButtonLink, CoverArt, PASTELS, PageShell, SelectionFrame, Tag, delay, tagHead } from "@/components/ui-bits";
 import { ScreenCarousel } from "@/components/ScreenCarousel";
 import { caseStudies, getProject } from "@/lib/projects";
 
@@ -41,23 +41,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" /> All projects
       </Link>
 
-      <header className="mb-12 grid gap-8 md:grid-cols-[1fr_minmax(0,380px)] md:items-end">
-        <div>
+      <header className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-10">
+        <div className="min-w-0 max-w-[720px]">
           <p className="reveal eyebrow mb-6 text-white/75">{project.tag.replace("//", "·")}</p>
           <div className="reveal" style={delay(60)}>
             <SelectionFrame>
               <h1 className="text-[40px] font-black uppercase leading-none tracking-tight md:text-7xl">{project.name}</h1>
             </SelectionFrame>
           </div>
+          <p className="reveal mt-8 text-[15px] leading-relaxed text-white/85 md:text-lg" style={delay(120)}>{project.summary}</p>
         </div>
-        <div className="reveal" style={delay(140)}>
-          <p className="text-[15px] leading-relaxed text-white/85 md:text-base">{project.summary}</p>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <Sticker color="bg-p-mint" r="-2deg">{project.status}</Sticker>
+        {(project.links.live || project.links.repo) && (
+          <div className="reveal flex shrink-0 flex-wrap items-center gap-2" style={delay(160)}>
             {project.links.live && <ButtonLink href={project.links.live} external>Visit live <ArrowUpRight className="h-4 w-4" /></ButtonLink>}
             {project.links.repo && <ButtonLink href={project.links.repo} variant="ghost" external><IconBrandGithub className="h-4 w-4" stroke={1.75} /> Code</ButtonLink>}
           </div>
-        </div>
+        )}
       </header>
 
       {/* hero visual */}
