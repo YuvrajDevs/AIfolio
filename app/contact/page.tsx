@@ -27,7 +27,7 @@ export default function ContactPage() {
           <span className="relative z-10 -mb-px inline-flex h-[34px] self-start items-center gap-2 rounded-t-xl bg-panel px-3.5 text-[13px] font-semibold">
             <MessageCircle className="h-3.5 w-3.5 text-lime" strokeWidth={2.25} /> New message
           </span>
-          <div className="ui-panel !rounded-2xl !rounded-tl-none p-4 md:p-5">
+          <div className="ui-panel flex flex-1 flex-col !rounded-2xl !rounded-tl-none p-4 md:p-5">
             <div className="mb-4 flex gap-3">
               <span aria-hidden className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-lime text-sm font-extrabold text-ink">Y</span>
               <div className="min-w-0">

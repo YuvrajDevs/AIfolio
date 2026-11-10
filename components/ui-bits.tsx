@@ -241,24 +241,24 @@ export function ProjectList({ projects, offset = 0 }: { projects: Project[]; off
         const pastel = PASTELS[(i + offset) % PASTELS.length];
         return (
           <li key={p.slug}>
-            <Link href={`/work/${p.slug}`} className="group flex h-full gap-4 rounded-2xl border border-line bg-white p-2 pr-4 text-ink shadow-[0_14px_30px_-22px_rgba(0,8,50,.5)] transition-transform hover:-translate-y-0.5">
-              <span className={cn("block aspect-square w-24 shrink-0 overflow-hidden rounded-xl p-2 md:w-28", pastel)}>
-                <span className="block h-full w-full overflow-hidden rounded-lg transition-transform duration-500 group-hover:scale-105">
+            <Link href={`/work/${p.slug}`} className="group flex h-full flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_14px_30px_-22px_rgba(0,8,50,.5)] transition-transform hover:-translate-y-0.5">
+              <span className={cn("block overflow-hidden rounded-xl px-4 pt-4", pastel)}>
+                <span className="block aspect-[16/9] overflow-hidden rounded-t-lg bg-white transition-transform duration-500 group-hover:-translate-y-1">
                   {p.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-left-top" />
+                    <img src={p.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
                   ) : (
-                    <span className="block h-[200%] w-[200%] origin-top-left scale-50"><CoverArt project={p} /></span>
+                    <CoverArt project={p} />
                   )}
                 </span>
               </span>
-              <span className="flex min-w-0 flex-1 flex-col py-1.5">
+              <span className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-3.5">
                 <span className="flex items-start justify-between gap-2">
-                  <span className="font-bold tracking-tight">{p.name}</span>
+                  <span className="text-lg font-bold tracking-tight">{p.name}</span>
                   <ArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
                 </span>
                 <span className="text-xs text-muted">{tagHead(p.tag)} · {p.status}</span>
-                <span className="mt-2 space-y-1">
+                <span className="mt-3 space-y-1.5 border-t border-dashed border-ink/15 pt-3">
                   {p.highlights.slice(0, 2).map((h) => (
                     <span key={h} className="flex gap-1.5 text-[13px] leading-snug text-ink/80">
                       <Check className="mt-0.5 h-3 w-3 shrink-0" strokeWidth={3} />{h}

@@ -17,14 +17,14 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-2.5">
+    <form onSubmit={onSubmit} className="flex flex-1 flex-col gap-2.5">
       <div className="grid gap-2.5 sm:grid-cols-2">
         <input id="cf-name" name="name" required placeholder="Your name" aria-label="Your name" autoComplete="name" className={field} />
         <input id="cf-email" name="email" type="email" required placeholder="Email" aria-label="Email" autoComplete="email" className={field} />
       </div>
-      <div className="rounded-xl border border-white/10 bg-panel-2 transition-colors focus-within:border-figma">
+      <div className="flex flex-1 flex-col rounded-xl border border-white/10 bg-panel-2 transition-colors focus-within:border-figma">
         <textarea id="cf-message" name="message" required rows={4} placeholder="Reply to Yuvraj..." aria-label="Message"
-          className="block w-full resize-none bg-transparent px-3.5 pt-3 text-[15px] text-white placeholder:text-white/35 focus:outline-none" />
+          className="block min-h-[96px] w-full flex-1 resize-none bg-transparent px-3.5 pt-3 text-[15px] text-white placeholder:text-white/35 focus:outline-none" />
         <div className="flex items-center gap-3 border-t border-white/10 px-3.5 py-2 text-white/40">
           <Smile className="h-4 w-4" aria-hidden /><AtSign className="h-4 w-4" aria-hidden />
           <span className="hidden text-xs sm:inline">Opens your email app, prefilled</span>

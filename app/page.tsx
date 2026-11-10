@@ -64,7 +64,7 @@ export default function Home() {
             </SelectionFrame>
 
             {/* context menu */}
-            <div className="parallax absolute left-full top-[-38px] ml-10 hidden min-[900px]:block" style={vars({ "--depth": "14" })}>
+            <div className="parallax absolute left-full top-[-38px] ml-10 hidden lg:block" style={vars({ "--depth": "14" })}>
               <ul className="float ui-panel w-56 p-1.5 text-left text-sm" style={vars({ "--d": "0.4s" })} aria-label="What I build">
                 {MENU.map((m) => (
                   <li key={m.label} className={cn("flex items-center gap-2.5 rounded-lg px-2.5 py-1.5", m.checked && "bg-white/[.06]")}>
