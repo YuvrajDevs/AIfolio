@@ -4,12 +4,12 @@ import { Artboard, ButtonLink, PageHero, PageShell } from "@/components/ui-bits"
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "About & resume", description: "Software engineer strongest at AI, product design and full stack, with a background in data and CRM analytics." };
+export const metadata: Metadata = { title: "About & resume", description: "Software engineer in data analytics who builds full-stack data and AI products, with a product design background." };
 
 const SKILLS = [
   { group: "AI", items: ["OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Human-in-the-loop", "Prompting & evals", "NL-to-SQL", "Claude Code & Cursor"] },
-  { group: "Full stack", items: ["Next.js", "React", "TypeScript", "Node.js", "REST APIs", "Supabase", "PostgreSQL", "Prisma", "Firebase", "Stripe", "Three.js"] },
-  { group: "Data", items: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Airflow", "Power BI", "CRM Analytics", "Einstein Discovery"] },
+  { group: "Full stack", items: ["Next.js", "React", "TypeScript", "Node.js", "Express", "MongoDB", "Kafka", "Redis", "REST APIs", "Supabase", "PostgreSQL", "Firebase"] },
+  { group: "Data", items: ["SQL", "Python", "Salesforce", "CRM Analytics", "Power BI", "dbt", "DuckDB", "FastAPI", "Airflow", "Data cleaning", "ETL pipelines"] },
   { group: "Product design", items: ["UI/UX design", "Product design", "Design systems", "Prototyping", "Figma"] },
   { group: "Ship & secure", items: ["Vercel", "Docker", "Jenkins CI", "Kubernetes", "Security headers & rules"] },
 ];
@@ -20,13 +20,13 @@ const EXPERIENCE = [
   {
     role: "Software Engineer",
     org: "Dealermatix Technologies",
-    when: "2025 – Now",
-    desc: "Salesforce CRM development, Power BI dashboards, CRM Analytics and predictive modelling with Einstein Discovery for enterprise clients in automotive and FMCG.",
+    when: "Jun 2026 – Now",
+    desc: "Full-time, data analytics on Salesforce: pipelines that take raw, unclean client data to analysis-ready datasets, data cleaning and quality checks, insights, and dashboards built around each client's requirements.",
     icon: Briefcase,
     tint: "bg-lime",
   },
-  { role: "UI/UX & Product Designer", org: "Freelance", when: "Before 2025", desc: "Interface and product design work for independent clients.", icon: PenTool, tint: "bg-p-pink" },
-  { role: "Computer Science", org: "VIT Vellore", when: "Class of 2026", desc: "Computer science degree. Freelance design work alongside.", icon: GraduationCap, tint: "bg-p-sky" },
+  { role: "Product Designer", org: "Freelance", when: "2024 – Apr 2026", desc: "End-to-end product design for web and mobile: research, Figma prototypes, design systems and developer handoff for SaaS dashboards and B2B tools.", icon: PenTool, tint: "bg-p-pink" },
+  { role: "B.Tech, Computer Science", org: "VIT Vellore", when: "2022 – 2026", desc: "Graduated in 2026, with freelance product design work alongside.", icon: GraduationCap, tint: "bg-p-sky" },
 ];
 
 export default function AboutPage() {
@@ -37,7 +37,7 @@ export default function AboutPage() {
           A designer-engineer who gets a little too excited about making complicated things feel simple. I build with AI tools like Claude Code and Cursor, so ideas reach production in days instead of weeks.
         </p>
         <p className="mt-3 text-[15px] leading-relaxed text-white/85 md:text-base">
-          <span className="rounded bg-lime px-1 font-semibold text-ink">Strongest at AI, product design and full stack</span>, with a data background from enterprise CRM analytics.
+          By day a <span className="rounded bg-lime px-1 font-semibold text-ink">software engineer in data analytics</span>; I also build full-stack data and AI products end to end.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>

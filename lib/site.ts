@@ -5,7 +5,8 @@ export const SITE = {
   email: "workwithyuvraj0712@gmail.com",
   linkedin: "https://www.linkedin.com/in/yuvraj-singh-shekhawat-4404b4283",
   github: "https://github.com/YuvrajDevs",
-  resume: "/Yuvraj_Singh-1.pdf",
+  resume: "/Yuvraj_Singh_Shekhawat_Resume.pdf",
+  website: "https://ysdevs.com",
 };
 
 export const NAV = [

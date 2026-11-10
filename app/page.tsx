@@ -80,7 +80,7 @@ export default function Home() {
             <div className="parallax absolute right-full top-[58%] mr-12 hidden xl:block" style={vars({ "--depth": "-12" })}>
               <div className="float ui-panel w-64 text-left" style={vars({ "--d": "1.2s" })}>
                 <p className="px-4 pt-3 text-sm font-semibold">Software Engineer</p>
-                <p className="px-4 text-xs text-white/55">@ Dealermatix · 2025 – now</p>
+                <p className="px-4 text-xs text-white/55">@ Dealermatix · Jun 2026 – now</p>
                 <div className="mt-3 flex items-center gap-3 border-t border-white/10 px-4 py-2.5 text-white/50">
                   <Smile className="h-4 w-4" /><AtSign className="h-4 w-4" /><ImageIcon className="h-4 w-4" />
                   <Link href="/contact" aria-label="Contact" className="ml-auto grid h-7 w-7 place-items-center rounded-full bg-figma text-white transition-transform hover:-translate-y-0.5">

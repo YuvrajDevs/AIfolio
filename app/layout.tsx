@@ -15,6 +15,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.website),
   title: { default: `${SITE.short} | AI, product design & full stack`, template: `%s | ${SITE.short}` },
   description:
     "AI, product design and full-stack engineering, with a data background. I design and build AI products like multi-agent orchestration and payments reconciliation, end to end.",
