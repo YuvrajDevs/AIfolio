@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Yuvraj Singh Shekhawat",
   short: "Yuvraj",
-  role: "AI · Product design · Full stack",
+  role: "AI · Full stack · Product design · Data",
   email: "workwithyuvraj0712@gmail.com",
   linkedin: "https://www.linkedin.com/in/yuvraj-singh-shekhawat-4404b4283",
   github: "https://github.com/YuvrajDevs",

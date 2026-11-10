@@ -16,9 +16,23 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.website),
-  title: { default: `${SITE.short} | AI, product design & full stack`, template: `%s | ${SITE.short}` },
+  title: { default: `${SITE.short} | AI, full stack, product design & data`, template: `%s | ${SITE.short}` },
   description:
-    "AI, product design and full-stack engineering, with a data background. I design and build AI products like multi-agent orchestration and payments reconciliation, end to end.",
+    "AI, full-stack engineering, product design and data. I design and build complete products end to end: payment fraud detection, startup intelligence and multi-agent AI orchestration.",
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: SITE.short,
+    title: `${SITE.short} | AI, full stack, product design & data`,
+    description: "I build AI tools that do real work, and make them a joy to use.",
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Yuvraj: AI, full stack, product design and data" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.short} | AI, full stack, product design & data`,
+    description: "I build AI tools that do real work, and make them a joy to use.",
+    images: ["/og.jpg"],
+  },
   icons: { icon: "/Portfolio-favicon.svg" },
 };
 
