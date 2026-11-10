@@ -34,14 +34,15 @@ export const PROJECTS: Project[] = [
     slug: "strata",
     name: "Strata",
     tag: "Startup intelligence // Node + MongoDB",
-    summary: "Tracks startups by sector from public data, classifies them with Gemini under human review, and writes sector briefs where every claim cites a source.",
+    summary: "Tracks startups by sector from public data, classifies them with Gemini under human review, and answers questions with RAG where every sentence cites a source.",
     highlights: [
-      "Funding rounds taken from SEC Form D filings, never guessed",
+      "Ask Strata: RAG with Gemini embeddings and Atlas Vector Search, 100% Hit@5",
       "Gemini classifier: 87.8% on hand-labelled Legal AI companies, low-confidence labels go to review",
-      "Kafka ingestion with idempotent upserts into MongoDB",
+      "Funding rounds from SEC Form D filings via Kafka, never guessed",
     ],
     image: "/projects/strata-dashboard.jpg",
     gallery: [
+      { src: "/projects/strata-ask.jpg", caption: "Ask Strata: hybrid retrieval over 594 passages, a Gemini answer, and every sentence cited to its source." },
       { src: "/projects/strata-dashboard.jpg", caption: "Dashboard: click a quarter to see the rounds that make it up, with each one's share." },
       { src: "/projects/strata-landscape.jpg", caption: "Legal AI landscape: KPIs and a market map of companies by subsector." },
       { src: "/projects/strata-review.jpg", caption: "Review queue: low-confidence labels, triaged from the keyboard." },
@@ -50,13 +51,13 @@ export const PROJECTS: Project[] = [
     ],
     metrics: [
       { value: "465", label: "Companies tracked" },
-      { value: "136", label: "Form D filings verified" },
+      { value: "100%", label: "RAG retrieval Hit@5" },
       { value: "87.8%", label: "Gemini accuracy (41 labelled)" },
-      { value: "140", label: "Automated tests" },
+      { value: "147", label: "Automated tests" },
     ],
     tier: "star",
     status: "Live demo",
-    stack: ["Node.js", "Express", "MongoDB", "Next.js", "Kafka", "Redis", "BullMQ", "Gemini"],
+    stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
     links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN` },
     case: {
       problem:
@@ -65,15 +66,15 @@ export const PROJECTS: Project[] = [
       design:
         "An analyst's workbench in a warm, compact pastel design system: a dashboard with computed insights, a market map per sector, company profiles with a funding timeline, URL-shareable search and filters, a ⌘K palette, keyboard-driven review, watchlists and CSV export. Click any quarter to drill into its rounds. Responsive, with automated accessibility scans.",
       tech:
-        "Express 5 and TypeScript on MongoDB, with analytics written as aggregation pipelines and cached in Redis. Connectors (YC directory, SEC EDGAR, RSS, GitHub) publish to Redpanda (Kafka); a processor upserts on natural keys, and BullMQ runs classification, alerts and briefs. OpenAI, Anthropic and Gemini sit behind one provider interface; the live demo runs Gemini with a model fallback chain, and drops to an offline classifier (labelled as such) when the free quota runs out. Next.js proxies the API so sessions and keys stay server-side. Hosted free: Vercel, Render and MongoDB Atlas.",
+        "Express 5 and TypeScript on MongoDB, with analytics written as aggregation pipelines and cached in Redis. Connectors (YC directory, SEC EDGAR, RSS, GitHub) publish to Redpanda (Kafka); a processor upserts on natural keys, and BullMQ runs classification, alerts and briefs. OpenAI, Anthropic and Gemini sit behind one provider interface; the live demo runs Gemini with a model fallback chain, and drops to an offline classifier (labelled as such) when the free quota runs out. Next.js proxies the API so sessions and keys stay server-side. Ask Strata is retrieval-augmented generation over the dataset: 594 passages (company profiles, Form D filings, sector snapshots) embedded with Gemini, retrieved by MongoDB Atlas Vector Search plus keyword and name matching merged with weighted reciprocal rank fusion, then answered by Gemini from those passages only. Hosted free: Vercel, Render and MongoDB Atlas.",
       hardProblem:
         "Linking SEC filings to the right company. A Form D is filed by a legal entity, not a brand, so the matcher only accepts a filing when the names match, the filer is not a fund vehicle and the dates are plausible. It kept 136 of 234 candidates, each rejection with a written reason, because a wrong funding round is worse than a missing one.",
       outcome:
-        "Live with one-click demo sign-in: 465 real YC companies across Legal AI, Climate Tech and Payments, 136 verified Form D filings, and Gemini briefs that drop any claim whose numbers are not in the cited source. Gemini scored 87.8% on the first 41 hand-labelled Legal AI companies, against 75.5% for the keyword baseline across all 102; the held-out set is still to run. 103 API tests and 37 Playwright tests pass locally and against the live site, plus a scripted recruiter walkthrough of every write path.",
+        "Live with one-click demo sign-in: 465 real YC companies across Legal AI, Climate Tech and Payments, 136 verified Form D filings, and Gemini briefs that drop any claim whose numbers are not in the cited source. Gemini scored 87.8% on the first 41 hand-labelled Legal AI companies, against 75.5% for the keyword baseline across all 102; the held-out set is still to run. Ask Strata finds the right company in the top five for all 25 evaluation questions (keyword search alone: 52%), and refuses questions the dataset cannot answer. 110 API tests and 37 Playwright tests pass locally and against the live site, plus a scripted recruiter walkthrough of every write path.",
       built: [
         { label: "Data", value: "MongoDB aggregations, Redis cache" },
         { label: "Pipeline", value: "Kafka facts + BullMQ jobs, replay-safe" },
-        { label: "AI", value: "Gemini live, review queue, cited briefs" },
+        { label: "AI", value: "RAG with Atlas Vector Search, cited answers" },
       ],
     },
   },
