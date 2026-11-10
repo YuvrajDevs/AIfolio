@@ -34,7 +34,7 @@ export default function AboutPage() {
     <PageShell>
       <PageHero
         label="About"
-        title={<span className="whitespace-nowrap">Hey, I&apos;m<br />Yuvraj</span>}
+        title={<span className="whitespace-nowrap">Hey there,<br />I&apos;m Yuvraj</span>}
         align="center"
         below={
           <p className="text-[15px] leading-relaxed text-white/85 md:text-base">

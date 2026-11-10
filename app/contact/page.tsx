@@ -21,7 +21,7 @@ export default function ContactPage() {
         </p>
       </PageHero>
 
-      <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr]">
+      <div className="grid gap-10 min-[900px]:grid-cols-[1.35fr_1fr]">
         {/* comment thread */}
         <section className="flex flex-col">
           <span className="relative z-10 -mb-px inline-flex h-[34px] self-start items-center gap-2 rounded-t-xl bg-panel px-3.5 text-[13px] font-semibold">
@@ -42,7 +42,7 @@ export default function ContactPage() {
         </section>
 
         {/* link tiles: offset by the tab height so they line up with the message panel */}
-        <section className="flex flex-col lg:pt-[34px]">
+        <section className="flex flex-col min-[900px]:pt-[34px]">
           <ContactTiles />
         </section>
       </div>

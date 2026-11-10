@@ -11,7 +11,7 @@ function Tile({ href, color, r, label, sub, icon: Icon, children, download }: {
   return (
     <li>
       <a href={href} target={external ? "_blank" : undefined} rel="noopener noreferrer" style={{ rotate: r }}
-         className={cn("group relative flex h-full min-h-[168px] flex-col overflow-hidden rounded-2xl p-3.5 text-ink shadow-[0_18px_34px_-18px_rgba(0,8,50,.6)] transition-all duration-300 hover:-translate-y-1 hover:!rotate-0 lg:min-h-0", color)}>
+         className={cn("group relative flex h-full min-h-[168px] flex-col overflow-hidden rounded-2xl p-3.5 text-ink shadow-[0_18px_34px_-18px_rgba(0,8,50,.6)] transition-all duration-300 hover:-translate-y-1 hover:!rotate-0 min-[900px]:min-h-0", color)}>
         <div aria-hidden className="relative flex flex-1 items-center justify-center">{children}</div>
         <div className="relative mt-3 flex items-end justify-between gap-2">
           <span className="min-w-0">
