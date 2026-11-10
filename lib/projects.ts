@@ -31,6 +31,52 @@ const GH = "https://github.com/YuvrajDevs";
 
 export const PROJECTS: Project[] = [
   {
+    slug: "strata",
+    name: "Strata",
+    tag: "Startup intelligence // Node + MongoDB",
+    summary: "Tracks startups by sector from public data, classifies them with LLMs and builds sector landscapes where every claim cites a source.",
+    highlights: [
+      "Funding rounds taken from SEC Form D filings, never guessed",
+      "LLM sector classification with confidence and a human review queue",
+      "Kafka ingestion with idempotent upserts into MongoDB",
+    ],
+    image: "/projects/strata-landscape.jpg",
+    gallery: [
+      { src: "/projects/strata-dashboard.jpg", caption: "Dashboard: KPIs, quarterly funding by sector and the latest rounds from primary sources." },
+      { src: "/projects/strata-review.jpg", caption: "Review queue: low-confidence labels, triaged from the keyboard." },
+      { src: "/projects/strata-brief.jpg", caption: "Analyst brief: every claim footnoted to a stored source." },
+      { src: "/projects/strata-company.jpg", caption: "Company profile: Form D funding timeline, sources and classification history." },
+    ],
+    metrics: [
+      { value: "465", label: "Companies tracked" },
+      { value: "136", label: "Form D filings verified" },
+      { value: "3", label: "Sectors mapped" },
+      { value: "129", label: "Automated tests" },
+    ],
+    tier: "star",
+    status: "Runs locally",
+    stack: ["Node.js", "Express", "MongoDB", "Next.js", "Kafka", "Redis", "BullMQ", "LLM APIs"],
+    links: { repo: `${GH}/AN` },
+    case: {
+      problem:
+        "Startup databases are expensive, and their numbers are hard to check. An analyst mapping a sector needs to know which companies belong in it, what they raised and where each number came from.",
+      user: "Market research analysts and investors who map a sector, track new rounds and write landscape briefs.",
+      design:
+        "An analyst's workbench: a market map per sector, company profiles with a funding timeline, URL-shareable search and filters, a ⌘K palette, keyboard-driven review, watchlists and CSV export. Light and dark themes, responsive, with automated accessibility scans.",
+      tech:
+        "Express 5 and TypeScript on MongoDB, with analytics written as aggregation pipelines and cached in Redis. Connectors (YC directory, SEC EDGAR, RSS, GitHub) publish to Redpanda (Kafka); a processor upserts on natural keys, and BullMQ runs classification, alerts and briefs. OpenAI, Anthropic and Gemini sit behind one provider interface. Next.js proxies the API so sessions and keys stay server-side.",
+      hardProblem:
+        "Linking SEC filings to the right company. A Form D is filed by a legal entity, not a brand, so the matcher only accepts a filing when the names match, the filer is not a fund vehicle and the dates are plausible. It kept 136 of 234 candidates, each rejection with a written reason, because a wrong funding round is worse than a missing one.",
+      outcome:
+        "A full Docker stack seeded with 465 real YC companies across Legal AI, Climate Tech and Payments, a written Legal AI landscape, and briefs that drop any claim whose numbers are not in the cited source. 97 API tests and 32 Playwright tests run in CI against the whole stack.",
+      built: [
+        { label: "Data", value: "MongoDB aggregations, Redis cache" },
+        { label: "Pipeline", value: "Kafka facts + BullMQ jobs, replay-safe" },
+        { label: "AI", value: "3 LLM providers, review queue, cited briefs" },
+      ],
+    },
+  },
+  {
     slug: "hivestate",
     name: "HiveState",
     tag: "AI agents // orchestration",
@@ -105,18 +151,6 @@ export const PROJECTS: Project[] = [
         { label: "Safety", value: "3-layer validation for generated SQL" },
       ],
     },
-  },
-  {
-    slug: "next-build",
-    name: "Next build",
-    tag: "Node.js + MongoDB // AI",
-    summary: "A new product built from scratch on Node.js, Express and MongoDB, with LLM features at its core.",
-    highlights: ["REST API on Node.js and Express", "MongoDB data model", "AI features through LLM APIs"],
-    cover: "blueprint",
-    tier: "building",
-    status: "Building now",
-    stack: ["Node.js", "Express", "MongoDB", "React", "LLM APIs"],
-    links: {},
   },
   {
     slug: "citable",
@@ -216,34 +250,6 @@ export const PROJECTS: Project[] = [
         { label: "Auth & data", value: "Firebase Auth + Firestore rules" },
         { label: "Security", value: "E2EE chat, CSP, tested rules" },
         { label: "Tests", value: "Unit + emulator rule tests" },
-      ],
-    },
-  },
-  {
-    slug: "neighboxed",
-    name: "NeighBoxed",
-    tag: "3D social game // web",
-    summary: "A cosy 3D neighbourhood where friends and couples live as floating cubes, decorate homes and play together.",
-    highlights: ["Hand-built 3D world in plain Three.js", "Accounts, saves and live play on Supabase", "Couples' homes merge into a four-room house"],
-    image: "/projects/neighboxed.jpg",
-    tier: "more",
-    status: "Playable",
-    stack: ["Vite", "React", "Three.js", "Supabase", "Tailwind"],
-    links: { live: "https://nb-chi-one.vercel.app", repo: `${GH}/lb` },
-    case: {
-      problem: "Most apps for couples and friends are lists and chats. NeighBoxed tries a shared place instead: a home you build and visit together.",
-      user: "Friends and couples who want a small, calm game to share.",
-      design:
-        "A cliff-top neighbourhood by a moonlit sea, with doll-house homes, a waterfall, floating islands and fog that hides the far edge. Guests can play straight away, saved on the device; signing in with Google keeps the home on an account.",
-      tech: "Vite and React for the interface, plain Three.js for the world (no game engine), and Supabase for accounts, saving and live play together.",
-      hardProblem:
-        "Turning two homes into one: when two players become a couple, their starter homes merge into a shared four-room house with stairs, a balcony and a shared name sign, while the Boxets economy and furniture rules stay consistent.",
-      outcome:
-        "A playable world with a Boxets economy earned by spending time and playing together, plus rooms and furniture placement. Tests cover the economy, rooms and furniture rules.",
-      built: [
-        { label: "Rendering", value: "Plain Three.js scene" },
-        { label: "Backend", value: "Supabase auth, saves, realtime" },
-        { label: "Tests", value: "Economy and placement rules" },
       ],
     },
   },
