@@ -9,11 +9,11 @@ import { SITE } from "@/lib/site";
 import { PROJECTS } from "@/lib/projects";
 
 const TOOLS = [
-  { label: "Home", href: "/", icon: MousePointer2, key: "v" },
-  { label: "Work", href: "/work", icon: Frame, key: "f" },
-  { label: "Skills", href: "/skills", icon: Shapes, key: "s" },
-  { label: "About", href: "/about", icon: PenTool, key: "p" },
-  { label: "Contact", href: "/contact", icon: MessageCircle, key: "c" },
+  { label: "Home", href: "/", icon: MousePointer2, key: "q" },
+  { label: "Work", href: "/work", icon: Frame, key: "w" },
+  { label: "Skills", href: "/skills", icon: Shapes, key: "e" },
+  { label: "About", href: "/about", icon: PenTool, key: "r" },
+  { label: "Contact", href: "/contact", icon: MessageCircle, key: "t" },
 ];
 
 const isActive = (path: string, href: string) =>
@@ -100,9 +100,9 @@ export function TopBar() {
         )}
       </div>
 
-      <Link href="/contact" className="inline-flex h-9 shrink-0 items-center rounded-full bg-white px-4 text-sm font-medium text-ink transition-colors hover:bg-lime">
+      {path !== "/contact" && <Link href="/contact" className="inline-flex h-9 shrink-0 items-center rounded-full bg-white px-4 text-sm font-medium text-ink transition-colors hover:bg-lime">
         Let&apos;s talk
-      </Link>
+      </Link>}
     </header>
   );
 }
@@ -117,7 +117,9 @@ export function Toolbar() {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const el = e.target as HTMLElement;
       if (el.closest("input, textarea, select, button, [contenteditable]")) return;
-      const tool = TOOLS.find((t) => t.key === e.key.toLowerCase());
+      const k = e.key.toLowerCase();
+      if (k === "y") { window.open(SITE.resume, "_blank", "noopener"); return; }
+      const tool = TOOLS.find((t) => t.key === k);
       if (tool) router.push(tool.href);
     };
     window.addEventListener("keydown", onKey);
@@ -152,9 +154,14 @@ export function Toolbar() {
           })}
         </ul>
         <span aria-hidden className="mx-1 h-6 w-px bg-white/10" />
-        <a href={SITE.resume} target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF)" className="flex h-10 w-10 items-center justify-center rounded-xl text-white/70 transition-colors hover:bg-white/10 hover:text-white">
-          <FileText className="h-[18px] w-[18px]" strokeWidth={1.75} />
-        </a>
+        <span className="group relative">
+          <a href={SITE.resume} target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF)" aria-keyshortcuts="Y" className="flex h-10 w-10 items-center justify-center rounded-xl text-white/70 transition-colors hover:bg-white/10 hover:text-white">
+            <FileText className="h-[18px] w-[18px]" strokeWidth={1.75} />
+          </a>
+          <span className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-lg bg-panel px-2.5 py-1.5 text-xs text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 md:flex">
+            Resume <kbd className="font-mono text-[10px] text-white/50">Y</kbd>
+          </span>
+        </span>
         <a href={SITE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hidden h-10 w-10 items-center justify-center rounded-xl text-white/70 transition-colors hover:bg-white/10 hover:text-white xs:flex">
           <IconBrandGithub className="h-[18px] w-[18px]" stroke={1.75} />
         </a>

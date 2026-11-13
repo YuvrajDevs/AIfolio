@@ -63,7 +63,7 @@ export default function AboutPage() {
           {/* timeline: dashed track, icon nodes, one white card per step */}
           <ol className="relative flex h-full flex-col justify-between gap-4">
             <span aria-hidden className="absolute bottom-6 left-[17px] top-6 border-l-2 border-dashed border-lime/60" />
-            {EXPERIENCE.map((e, i) => (
+            {EXPERIENCE.map((e) => (
               <li key={e.role} className="relative grid grid-cols-[36px_1fr] gap-3">
                 <span className={cn("relative z-10 mt-3 grid h-9 w-9 place-items-center rounded-full border-2 border-ink shadow-[0_6px_14px_-6px_rgba(0,8,50,.6)]", e.tint)}>
                   <e.icon className="h-4 w-4 text-ink" strokeWidth={2} />
@@ -73,11 +73,7 @@ export default function AboutPage() {
                     <div className="min-w-0">
                       <p className="flex flex-wrap items-center gap-2 font-bold tracking-tight">
                         {e.role}
-                        {i === 0 && (
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-p-mint px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
-                            <span aria-hidden className="pulse-dot h-1.5 w-1.5 rounded-full bg-live" /> Current
-                          </span>
-                        )}
+
                       </p>
                       <p className="text-sm text-muted">{e.org}</p>
                     </div>

@@ -126,7 +126,7 @@ export default function Home() {
           </ul>
 
           <p className="reveal eyebrow mt-6 text-white/60" style={delay(340)}>
-            Tip: press <kbd className="rounded bg-white/15 px-1">F</kbd> for work
+            Tip: press <kbd className="rounded bg-white/15 px-1">W</kbd> for work
           </p>
         </div>
       </ParallaxStage>
