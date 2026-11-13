@@ -84,13 +84,8 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
 
       {/* hero */}
       <section className="mx-auto max-w-[1240px] px-4 pb-20 pt-10 sm:px-8 lg:pt-16" aria-labelledby="cs-title">
-        <Reveal>
-          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-caption font-medium">
-            <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden="true" /> Case study · Product design and engineering
-          </p>
-        </Reveal>
         <Reveal delay={80}>
-          <h1 id="cs-title" className="mt-5 max-w-4xl text-[38px] font-semibold leading-[1.05] tracking-tight sm:text-hero">
+          <h1 id="cs-title" className="max-w-4xl text-[38px] font-semibold leading-[1.05] tracking-tight sm:text-hero">
             Strata: startup intelligence <span className="relative whitespace-nowrap">you can check<span className="absolute inset-x-0 -bottom-1 h-2 rounded-full bg-pink/80 -z-10" aria-hidden="true" /></span>.
           </h1>
         </Reveal>

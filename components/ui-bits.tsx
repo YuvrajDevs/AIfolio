@@ -204,17 +204,24 @@ export function ProjectCard({ project, index, priority, className }: { project: 
             <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
-        <h3 className="mt-3.5 text-xl font-bold leading-tight tracking-tight">{project.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted">{project.summary}</p>
-        <ul className="mt-3.5 space-y-1.5 border-t border-dashed border-ink/15 pt-3.5">
-          {project.highlights.slice(0, 3).map((h) => (
-            <li key={h} className="flex gap-2 text-[13px] leading-snug text-ink/85">
-              <span className={cn("mt-px grid h-4 w-4 shrink-0 place-items-center rounded-full", pastel)}><Check className="h-2.5 w-2.5" strokeWidth={3} /></span>
-              {h}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-auto pt-3.5 text-xs text-muted"><span className="font-semibold text-ink/80">Role:</span> {project.role}</p>
+        <h3 className="mt-4 text-2xl font-bold leading-tight tracking-tight">{project.name}</h3>
+        <p className="mt-1.5 text-[15px] leading-snug text-ink/70">{project.card?.pitch ?? project.summary}</p>
+        {project.card && (
+          <>
+            <dl className="mt-5 grid grid-cols-2 divide-x divide-ink/10 rounded-xl bg-paper py-3">
+              {project.card.proof.map((m) => (
+                <div key={m.label} className="px-3.5">
+                  <dt className="sr-only">{m.label}</dt>
+                  <dd className="text-xl font-bold tabular-nums tracking-tight">{m.value}</dd>
+                  <dd className="mt-0.5 text-[12px] leading-snug text-muted">{m.label}</dd>
+                </div>
+              ))}
+            </dl>
+            <ul className="mt-auto flex flex-wrap gap-1.5 pt-4" aria-label="Stack">
+              {project.card.stack.map((t) => <li key={t} className="rounded-full border border-ink/10 px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-ink/60">{t}</li>)}
+            </ul>
+          </>
+        )}
       </div>
       <div className={cn("overflow-hidden rounded-xl px-5 pt-5", pastel)}>
         <div className="aspect-[16/10] overflow-hidden rounded-t-lg bg-white shadow-[0_-4px_20px_-6px_rgba(0,0,0,.25)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1.5">

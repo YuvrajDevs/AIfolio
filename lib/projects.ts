@@ -17,6 +17,8 @@ export type Project = {
   stack: string[];
   /** caseStudy: path to a full case study page, rendered in the product's own design */
   links: { live?: string; repo?: string; caseStudy?: string };
+  /** Card copy: the idea in one line, two proof points and the stack that matters */
+  card?: { pitch: string; proof: { value: string; label: string }[]; stack: string[] };
   /** Who did what, e.g. "Solo · Product design, front end, back end" */
   role: string;
   /** Real limits the work was shaped by */
@@ -68,6 +70,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
     links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN`, caseStudy: "/work/strata/case-study" },
+    card: { pitch: "Startup intelligence where every number traces back to its source.", proof: [{ value: "100%", label: "right company in top 5 answers" }, { value: "87.8%", label: "AI labels correct, the rest go to review" }], stack: ["Next.js", "MongoDB", "Gemini RAG"] },
     role: "Solo \u00b7 Product design, front end, back end, data",
     constraints: "Public data only, free hosting tiers and a free AI quota that runs out.",
     decisions: [
@@ -121,6 +124,7 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Next.js", "Airflow"],
     links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc` },
+    card: { pitch: "Finds where card payments leak money, and proves each detector works.", proof: [{ value: "96.6%", label: "planted attacks caught" }, { value: "0", label: "false alarms in 200 runs" }], stack: ["Python", "dbt", "DuckDB"] },
     role: "Solo \u00b7 Product design, data engineering, front end",
     constraints: "Real card data is private, so every number has to come from synthetic data with a hidden answer key.",
     decisions: [
@@ -167,6 +171,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
     links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
+    card: { pitch: "Draw a team of AI agents, run it, and keep cost and quality in check.", proof: [{ value: "Parallel", label: "agents run as soon as inputs are ready" }, { value: "Budget", label: "daily cost cap, tracked per step" }], stack: ["Next.js", "Supabase", "React Flow"] },
     role: "Solo \u00b7 Product design, front end, back end",
     constraints: "AI costs are real money, so spend has to be visible and capped from the first run.",
     decisions: [
