@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
     links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN`, caseStudy: "/work/strata/case-study" },
-    card: { pitch: "An AI analyst for startup markets that reads SEC filings, maps every sector and answers questions with each claim cited.", points: ["Hybrid RAG: vector, keyword and name search fused with weighted RRF", "SEC Form D ingestion through Kafka with idempotent upserts and BullMQ jobs", "Citation check that drops any AI claim whose numbers are not in its source"], stack: ["Next.js", "MongoDB", "Kafka", "Gemini"] },
+    card: { pitch: "An AI analyst for startup markets that reads SEC filings, maps startup sectors and answers questions with every claim cited.", points: ["Hybrid RAG: vector, keyword and name search fused with weighted RRF", "SEC Form D ingestion through Kafka with idempotent upserts and BullMQ jobs", "Citation check that drops any AI claim whose numbers are not in its source"], stack: ["Next.js", "MongoDB", "Kafka", "Gemini"] },
     role: "Solo \u00b7 Product design, front end, back end, data",
     constraints: "Public data only, free hosting tiers and a free AI quota that runs out.",
     decisions: [
