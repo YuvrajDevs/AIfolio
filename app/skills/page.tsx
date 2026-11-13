@@ -1,44 +1,40 @@
 import type { Metadata } from "next";
-import { ArrowRight, Check, Sparkles } from "lucide-react";
-import { ButtonLink, PASTELS, PageHero, PageShell, Sticker } from "@/components/ui-bits";
+import { ArrowRight, Check } from "lucide-react";
+import { ButtonLink, PageHero, PageShell, Sticker } from "@/components/ui-bits";
 import { PROCESS, SERVICES } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Skills", description: "AI and agents, full-stack apps, data and dashboards, and product design." };
 
-/** Tiny UI sketches, one per skill, drawn on the paper sticking out of each folder */
-function Mock({ kind }: { kind: "web" | "app" | "data" | "ai" }) {
-  const bar = "rounded-full bg-ink/10";
-  if (kind === "web") // design / website
+/** A tool tile: a logo file, or a small drawn sketch for concepts without a logo */
+type Tool = { name: string; src?: string; fill?: boolean; art?: "system" | "type" | "palette" };
+
+/** Four tools per folder; logos with their own rounded background fill the tile */
+const TOOLS: Record<"ai" | "app" | "data" | "web", Tool[]> = {
+  ai: [{ name: "OpenAI", src: "openai", fill: true }, { name: "Claude", src: "claude", fill: true }, { name: "Gemini", src: "gemini" }, { name: "Cursor", src: "cursor", fill: true }],
+  app: [{ name: "React", src: "react" }, { name: "TypeScript", src: "typescript", fill: true }, { name: "Supabase", src: "supabase" }, { name: "MongoDB", src: "mongodb" }],
+  data: [{ name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "Power BI", src: "powerbi" }, { name: "MongoDB", src: "mongodb" }],
+  web: [{ name: "Figma", src: "figma" }, { name: "Design systems", art: "system" }, { name: "Typography", art: "type" }, { name: "Colour palette", art: "palette" }],
+};
+
+/** Folder backs in the site's pastels, and a slight, uneven tilt for each tile */
+const FOLDER_BACK = ["bg-p-sky", "bg-p-peach", "bg-p-mint", "bg-p-pink"];
+const TILT = ["-rotate-[5deg]", "rotate-[3deg]", "-rotate-[2deg]", "rotate-[6deg]", "rotate-[1deg]", "-rotate-[4deg]"];
+
+function ToolArt({ art }: { art: NonNullable<Tool["art"]> }) {
+  if (art === "type") return <span className="text-[clamp(28px,5vw,52px)] font-black leading-none tracking-tight">Aa</span>;
+  if (art === "palette")
     return (
-      <div className="h-full rounded-md border border-ink/10">
-        <div className="flex gap-1 border-b border-ink/10 px-2 py-1.5">{[0, 1, 2].map((d) => <span key={d} className="h-1.5 w-1.5 rounded-full bg-ink/20" />)}</div>
-        <div className="space-y-1.5 p-2.5">
-          <div className="h-2.5 w-3/4 rounded-full bg-ink/80" />
-          <div className={cn("h-1.5 w-1/2", bar)} />
-          <div className="mt-2 h-3 w-12 rounded-full bg-canvas" />
-        </div>
-      </div>
+      <span className="grid h-[62%] w-[62%] grid-cols-2 gap-[8%]">
+        {["bg-lime", "bg-canvas", "bg-orange", "bg-p-pink"].map((c) => <span key={c} className={cn("rounded-full", c)} />)}
+      </span>
     );
-  if (kind === "app") // web app
-    return (
-      <div className="flex h-full gap-1.5 rounded-md border border-ink/10 p-1.5">
-        <div className="w-1/4 space-y-1 rounded bg-ink/5 p-1">{[0, 1, 2, 3].map((d) => <div key={d} className={cn("h-1.5", d === 0 ? "rounded-full bg-canvas" : bar)} />)}</div>
-        <div className="grid flex-1 grid-cols-2 gap-1.5">{[0, 1, 2, 3].map((d) => <div key={d} className="rounded bg-ink/[.06]" />)}</div>
-      </div>
-    );
-  if (kind === "data") // dashboard
-    return (
-      <div className="flex h-full items-end gap-1.5 rounded-md border border-ink/10 px-2.5 pb-2 pt-4">
-        {[40, 65, 50, 85, 60, 95, 72].map((h, d) => <div key={d} style={{ height: `${h}%` }} className={cn("flex-1 rounded-t-sm", d === 5 ? "bg-canvas" : "bg-ink/15")} />)}
-      </div>
-    );
-  return ( // AI
-    <div className="flex h-full flex-col justify-center gap-1.5 rounded-md border border-ink/10 p-2">
-      <div className="ml-auto h-3 w-2/3 rounded-full rounded-br-sm bg-ink/10" />
-      <div className="flex items-center gap-1.5"><Sparkles className="h-3 w-3 text-canvas" /><div className="h-3 w-3/4 rounded-full rounded-bl-sm bg-canvas/80" /></div>
-      <div className="ml-auto h-3 w-1/3 rounded-full rounded-br-sm bg-ink/10" />
-    </div>
+  return ( // design system: a little set of components
+    <span className="flex h-[62%] w-[62%] flex-col justify-between">
+      <span className="h-[26%] rounded-md bg-ink" />
+      <span className="flex h-[26%] gap-[10%]"><span className="flex-1 rounded-full bg-canvas" /><span className="flex-1 rounded-full border-2 border-ink" /></span>
+      <span className="flex h-[26%] items-center gap-[10%]"><span className="aspect-square h-full rounded-[4px] bg-lime" /><span className="h-[40%] flex-1 rounded-full bg-ink/20" /></span>
+    </span>
   );
 }
 
@@ -47,37 +43,47 @@ export default function SkillsPage() {
     <PageShell>
       <PageHero label="Skills" title="What I do" intro="AI, full stack and data, with product design running through all of it. One person who can shape the product, design the interface and ship the code." />
 
-      {/* Skills as folders */}
-      <ul className="grid gap-x-5 gap-y-8 md:auto-rows-fr md:grid-cols-2">
-        {SERVICES.map((s, i) => (
-          <li key={s.title} className="group flex flex-col text-ink">
-            <span className={cn("relative z-0 -mb-px inline-flex self-start items-center gap-2 rounded-t-xl px-4 pb-1.5 pt-2 text-[13px] font-semibold text-ink", PASTELS[i])}>
-              <s.icon className="h-3.5 w-3.5" strokeWidth={2.25} /> {s.title}
-            </span>
-            <div className={cn("relative flex flex-1 flex-col overflow-hidden rounded-2xl rounded-tl-none", PASTELS[i])}>
-              <div aria-hidden className="absolute inset-0 bg-ink/[.07]" />
-              {/* paper */}
-              <div aria-hidden className="absolute inset-x-6 top-4 h-36 rotate-[-2deg] rounded-lg bg-white p-2.5 shadow-[0_6px_18px_-8px_rgba(0,0,0,.35)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-2 group-hover:rotate-0">
-                <Mock kind={s.mock} />
+      {/* Skills as folders, tools sticking out */}
+      <ul className="grid gap-x-6 gap-y-10 md:auto-rows-fr md:grid-cols-2">
+        {SERVICES.map((s, i) => {
+          const t = TOOLS[s.mock];
+          return (
+            <li key={s.title} className="group relative flex flex-col text-ink">
+              {/* tool tiles sitting in the folder; top half shows, hover lifts them one by one */}
+              <div className="relative grid grid-cols-4 gap-3 px-5 md:gap-4 md:px-6" style={{ paddingTop: "10%" }}>
+                {/* back of the folder, with its tab */}
+                <div aria-hidden className={cn("absolute inset-x-0 -bottom-10 top-[18%] rounded-[28px]", FOLDER_BACK[i % FOLDER_BACK.length])}>
+                  <span className="absolute -top-5 left-0 h-12 w-[42%] rounded-t-[24px] bg-inherit" />
+                </div>
+                {t.map((c, n) => (
+                  <span
+                    key={c.name}
+                    title={c.name}
+                   
+                    className={cn("relative grid aspect-square place-items-center overflow-hidden rounded-[24%] border-[3px] border-white bg-white shadow-[0_10px_24px_-10px_rgba(0,8,50,.45)] transition-transform duration-500 ease-[cubic-bezier(.34,1.4,.64,1)] group-hover:-translate-y-[40%]", TILT[(i + n) % TILT.length])}
+                  >
+                    {c.src ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={`/tools/${c.src}.png`} alt={c.name} loading="lazy" className={c.fill ? "h-full w-full scale-[1.06] object-cover" : "h-[68%] w-[68%] object-contain"} />
+                    ) : (
+                      <><ToolArt art={c.art!} /><span className="sr-only">{c.name}</span></>
+                    )}
+                  </span>
+                ))}
               </div>
-              {/* front pocket */}
-              <div className={cn("relative mt-[108px] flex-1 rounded-t-2xl p-5 shadow-[0_-12px_24px_-16px_rgba(0,0,0,.35)] md:p-6", PASTELS[i])}>
-                <span className="absolute -top-5 right-5 grid h-11 w-11 rotate-12 place-items-center rounded-full border-2 border-ink bg-white shadow-md transition-transform group-hover:rotate-0">
-                  <s.icon className="h-5 w-5" strokeWidth={1.75} />
-                </span>
-                <h2 className="pr-12 text-xl font-bold tracking-tight">{s.title}</h2>
-                <p className="mt-1 text-sm leading-relaxed text-ink/75">{s.long}</p>
-                <ul className="mt-4 flex flex-wrap gap-1.5">
+              {/* front of the folder */}
+              <div className="relative flex-1 rounded-[28px] bg-gradient-to-b from-white to-[#f1f2f7] p-7 pb-9 shadow-[0_-10px_30px_-18px_rgba(0,8,50,.45),0_24px_44px_-24px_rgba(0,8,50,.6)] md:p-9" style={{ marginTop: "calc(-12.5% + 12px)" }}>
+                <h2 className="text-2xl font-bold tracking-tight">{s.title}</h2>
+                <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-ink/70">{s.long}</p>
+                <ul className="mt-4 space-y-1.5">
                   {s.gets.map((g) => (
-                    <li key={g} className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium">
-                      <Check className="h-3 w-3" strokeWidth={3} /> {g}
-                    </li>
+                    <li key={g} className="flex gap-2 text-sm text-ink/85"><Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2.5} /> {g}</li>
                   ))}
                 </ul>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
 
       {/* Process as a prototype flow */}
