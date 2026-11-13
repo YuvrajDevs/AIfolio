@@ -107,11 +107,12 @@ export default function Home() {
           ))}
 
           <p className="reveal mt-16 max-w-[620px] text-xl font-medium leading-snug md:mt-20 md:text-[26px]" style={delay(200)}>
-            I build AI tools that do real work, and make them{" "}
+            I make complicated stuff{" "}
             <span className="relative whitespace-nowrap text-ink">
               <span aria-hidden className="absolute inset-x-[-4px] inset-y-0.5 -z-0 -rotate-1 rounded bg-lime" />
-              <span className="relative">a joy to use.</span>
-            </span>
+              <span className="relative">feel easy,</span>
+            </span>{" "}
+            and my designs don&rsquo;t just live in Figma.
           </p>
 
           <div className="reveal mt-8 flex flex-wrap justify-center gap-3" style={delay(280)}>
