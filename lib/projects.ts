@@ -192,40 +192,6 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    slug: "sealcloak",
-    name: "Sealcloak",
-    tag: "Marketing site // SEO + i18n",
-    summary: "Marketing site for Sealcloak, an offline photo and file vault for Android, in 11 languages.",
-    highlights: [
-      "Custom static build: every page in 11 languages, Arabic right-to-left included",
-      "Generated sitemap, hreflang links and Open Graph images",
-      "Repeatable SEO guide routine, one keyword per article",
-    ],
-    image: "/projects/sealcloak.jpg",
-    tier: "more",
-    status: "Live",
-    stack: ["Node.js build", "HTML", "CSS", "JavaScript", "Vercel"],
-    links: { live: "https://www.sealcloak.com", repo: `${GH}/sc` },
-    case: {
-      problem:
-        "A privacy app that never touches the internet still needs to be found. The site has to rank for specific searches, like hiding photos on a particular phone, in many languages, and load fast.",
-      user: "Android users looking for a private, offline vault, and people comparing vault apps.",
-      design:
-        "A dark, calm look that reuses the app's own colours, real phone screens in the hero, clear proof points (no account, no internet permission) and comparison pages against other vault apps.",
-      tech:
-        "No framework. A Node build script renders every page in every language with a shared header and footer, guide lists, language links, sitemap.xml and robots.txt. Vercel runs the build on each deploy, so only sources are committed.",
-      hardProblem:
-        "Eleven languages from one source, including right-to-left Arabic and scripts that need their own fonts (Bengali, Japanese, Korean, Vietnamese), with correct hreflang links between every version of every page.",
-      outcome:
-        "A multilingual site with feature and comparison pages, each with its own Open Graph image, and a publishing routine for SEO guides driven by Search Console data.",
-      built: [
-        { label: "Build", value: "Custom Node static site generator" },
-        { label: "i18n", value: "11 languages, RTL included" },
-        { label: "SEO", value: "Sitemap, hreflang, OG images" },
-      ],
-    },
-  },
-  {
     slug: "honest-mailbox",
     name: "Honest Mailbox",
     tag: "Consumer web app // privacy",
