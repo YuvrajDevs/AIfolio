@@ -199,13 +199,12 @@ export function ProjectCard({ project, index, priority, className }: { project: 
     <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1 sm:row-span-5 sm:grid sm:grid-rows-subgrid sm:gap-0", className)}>
       {/* Five rows shared with the other cards in the row (subgrid), so each kind of content starts at the same height */}
       <div className="px-3 pt-3">
-        <div className="flex items-center justify-between">
-          <span className={cn("rounded-full px-2.5 py-1 text-[11px] font-semibold text-ink", pastel)}>{tagHead(project.tag)}</span>
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-paper transition-colors group-hover:bg-ink group-hover:text-white">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-2xl font-bold leading-tight tracking-tight">{project.name}</h3>
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-paper transition-colors group-hover:bg-ink group-hover:text-white">
             <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
-        <h3 className="mt-3.5 text-2xl font-bold leading-tight tracking-tight">{project.name}</h3>
       </div>
       <p className="px-3 pt-1.5 text-[15px] leading-snug text-ink/70">{project.card?.pitch ?? project.summary}</p>
       <ul className="mx-3 mt-4 space-y-2 border-t border-dashed border-ink/15 pt-4">
