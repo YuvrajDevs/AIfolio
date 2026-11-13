@@ -207,7 +207,7 @@ export function ProjectCard({ project, index, priority, className }: { project: 
         </div>
       </div>
       <p className="px-3 pt-2 text-[15px] leading-snug text-ink/70">{project.card?.pitch ?? project.summary}</p>
-      <ul className="mx-3 mb-5 mt-5 space-y-2.5 border-t border-dashed border-ink/15 pt-5">
+      <ul className="mx-3 mb-5 mt-4 space-y-2 border-t border-dashed border-ink/15 pt-4">
         {(project.card?.points ?? project.highlights.slice(0, 3)).map((h) => (
           <li key={h} className="flex gap-2 text-[13px] leading-snug text-ink/85">
             <span className={cn("mt-px grid h-4 w-4 shrink-0 place-items-center rounded-full", pastel)}><Check className="h-2.5 w-2.5" strokeWidth={3} /></span>
@@ -257,7 +257,7 @@ export function ProjectList({ projects, offset = 0 }: { projects: Project[]; off
                   <ArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
                 </span>
                 <span className="text-xs text-muted">{tagHead(p.tag)} · {p.status}</span>
-                <span className="mt-3 space-y-1.5 border-t border-dashed border-ink/15 pt-3">
+                <span className="mt-4 space-y-2 border-t border-dashed border-ink/15 pt-4">
                   {p.highlights.slice(0, 2).map((h) => (
                     <span key={h} className="flex gap-1.5 text-[13px] leading-snug text-ink/80">
                       <Check className="mt-0.5 h-3 w-3 shrink-0" strokeWidth={3} />{h}
