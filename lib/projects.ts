@@ -17,8 +17,8 @@ export type Project = {
   stack: string[];
   /** caseStudy: path to a full case study page, rendered in the product's own design */
   links: { live?: string; repo?: string; caseStudy?: string };
-  /** Card copy: the idea in one line, two proof points and the stack that matters */
-  card?: { pitch: string; proof: { value: string; label: string }[]; stack: string[] };
+  /** Card copy: the idea in one line, the three hardest things built, and the stack that matters */
+  card?: { pitch: string; points: string[]; stack: string[] };
   /** Who did what, e.g. "Solo · Product design, front end, back end" */
   role: string;
   /** Real limits the work was shaped by */
@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
     links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN`, caseStudy: "/work/strata/case-study" },
-    card: { pitch: "Startup intelligence where every number traces back to its source.", proof: [{ value: "100%", label: "right company in top 5 answers" }, { value: "87.8%", label: "AI labels correct, the rest go to review" }], stack: ["Next.js", "MongoDB", "Gemini RAG"] },
+    card: { pitch: "Startup intelligence where every number traces back to its source.", points: ["Hybrid RAG: vector, keyword and name search fused with weighted RRF", "SEC Form D ingestion through Kafka with idempotent upserts and BullMQ jobs", "Citation check that drops any AI claim whose numbers are not in its source"], stack: ["Next.js", "MongoDB", "Kafka", "Gemini"] },
     role: "Solo \u00b7 Product design, front end, back end, data",
     constraints: "Public data only, free hosting tiers and a free AI quota that runs out.",
     decisions: [
@@ -124,7 +124,7 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Next.js", "Airflow"],
     links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc` },
-    card: { pitch: "Finds where card payments leak money, and proves each detector works.", proof: [{ value: "96.6%", label: "planted attacks caught" }, { value: "0", label: "false alarms in 200 runs" }], stack: ["Python", "dbt", "DuckDB"] },
+    card: { pitch: "Finds where card payments leak money, and proves each detector works.", points: ["Synthetic card network with ISO 8583 codes and a hidden answer key", "Fraud, outage, dispute and fee detectors in SQL, with exact Poisson tests", "Reconciliation rewrite: 0.561 to 0.999 precision, 1M rows in about 7s"], stack: ["Python", "DuckDB", "dbt", "Airflow"] },
     role: "Solo \u00b7 Product design, data engineering, front end",
     constraints: "Real card data is private, so every number has to come from synthetic data with a hidden answer key.",
     decisions: [
@@ -171,7 +171,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
     links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
-    card: { pitch: "Draw a team of AI agents, run it, and keep cost and quality in check.", proof: [{ value: "Parallel", label: "agents run as soon as inputs are ready" }, { value: "Budget", label: "daily cost cap, tracked per step" }], stack: ["Next.js", "Supabase", "React Flow"] },
+    card: { pitch: "Draw a team of AI agents, run it, and keep cost and quality in check.", points: ["DAG runner that resolves dependencies and runs ready agents in parallel", "Human review nodes that pause a run and resume from that exact step", "Daily budget guard with token and cost tracking for every step"], stack: ["Next.js", "Supabase", "React Flow", "Gemini"] },
     role: "Solo \u00b7 Product design, front end, back end",
     constraints: "AI costs are real money, so spend has to be visible and capped from the first run.",
     decisions: [
