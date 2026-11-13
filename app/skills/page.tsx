@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = { title: "Skills", description: "AI and agents, full-stack apps, data and dashboards, and product design." };
 
 /** A tool tile: a logo file, or a small drawn sketch for concepts without a logo */
-type Tool = { name: string; src?: string; fill?: boolean; art?: "system" | "type" | "palette" };
+type Tool = { name: string; src?: string; fill?: boolean; art?: "proto" | "type" };
 
 /** Four tools per folder; logos with their own rounded background fill the tile */
 const TOOLS: Record<"ai" | "app" | "data" | "web", Tool[]> = {
   ai: [{ name: "OpenAI", src: "openai", fill: true }, { name: "Claude", src: "claude", fill: true }, { name: "Gemini", src: "gemini" }, { name: "Cursor", src: "cursor", fill: true }],
   app: [{ name: "React", src: "react" }, { name: "TypeScript", src: "typescript", fill: true }, { name: "Supabase", src: "supabase" }, { name: "MongoDB", src: "mongodb" }],
   data: [{ name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "Power BI", src: "powerbi" }, { name: "MongoDB", src: "mongodb" }],
-  web: [{ name: "Figma", src: "figma" }, { name: "Design systems", art: "system" }, { name: "Typography", art: "type" }, { name: "Colour palette", art: "palette" }],
+  web: [{ name: "Figma", src: "figma" }, { name: "Prototyping", art: "proto" }, { name: "Typography", art: "type" }, { name: "Storybook", src: "storybook" }],
 };
 
 /** Folder backs in the site's pastels, and a slight, uneven tilt for each tile */
@@ -22,19 +22,20 @@ const FOLDER_BACK = ["bg-p-sky", "bg-p-peach", "bg-p-mint", "bg-p-pink"];
 const TILT = ["-rotate-[5deg]", "rotate-[3deg]", "-rotate-[2deg]", "rotate-[6deg]", "rotate-[1deg]", "-rotate-[4deg]"];
 
 function ToolArt({ art }: { art: NonNullable<Tool["art"]> }) {
-  if (art === "type") return <span className="text-[clamp(28px,5vw,52px)] font-black leading-none tracking-tight">Aa</span>;
-  if (art === "palette")
-    return (
-      <span className="grid h-[62%] w-[62%] grid-cols-2 gap-[8%]">
-        {["bg-lime", "bg-canvas", "bg-orange", "bg-p-pink"].map((c) => <span key={c} className={cn("rounded-full", c)} />)}
-      </span>
-    );
-  return ( // design system: a little set of components
-    <span className="flex h-[62%] w-[62%] flex-col justify-between">
-      <span className="h-[26%] rounded-md bg-ink" />
-      <span className="flex h-[26%] gap-[10%]"><span className="flex-1 rounded-full bg-canvas" /><span className="flex-1 rounded-full border-2 border-ink" /></span>
-      <span className="flex h-[26%] items-center gap-[10%]"><span className="aspect-square h-full rounded-[4px] bg-lime" /><span className="h-[40%] flex-1 rounded-full bg-ink/20" /></span>
-    </span>
+  if (art === "type") return <span className="text-[clamp(40px,8vw,84px)] font-black leading-none tracking-tighter">Aa</span>;
+  // prototyping: two screens joined by a prototype link
+  return (
+    <svg viewBox="0 0 100 100" className="h-[78%] w-[78%]" fill="none">
+      <rect x="6" y="18" width="34" height="58" rx="6" fill="#fff" stroke="#121318" strokeWidth="3" />
+      <rect x="12" y="26" width="22" height="5" rx="2.5" fill="#121318" />
+      <rect x="12" y="36" width="16" height="4" rx="2" fill="#121318" fillOpacity=".2" />
+      <rect x="12" y="62" width="22" height="7" rx="3.5" fill="#2556e8" />
+      <rect x="60" y="24" width="34" height="58" rx="6" fill="#d6ff3d" stroke="#121318" strokeWidth="3" />
+      <rect x="66" y="32" width="22" height="16" rx="3" fill="#121318" fillOpacity=".15" />
+      <path d="M34 65.5 C 48 65.5, 46 40, 58 40" stroke="#0d99ff" strokeWidth="3" strokeLinecap="round" />
+      <path d="M53 35 L59 40 L53 45" stroke="#0d99ff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="34" cy="65.5" r="3.5" fill="#0d99ff" stroke="#fff" strokeWidth="1.5" />
+    </svg>
   );
 }
 
@@ -72,12 +73,12 @@ export default function SkillsPage() {
                 ))}
               </div>
               {/* front of the folder */}
-              <div className="relative flex-1 rounded-[28px] bg-gradient-to-b from-white to-[#f1f2f7] p-7 pb-9 shadow-[0_-10px_30px_-18px_rgba(0,8,50,.45),0_24px_44px_-24px_rgba(0,8,50,.6)] md:p-9" style={{ marginTop: "calc(-12.5% + 12px)" }}>
-                <h2 className="text-2xl font-bold tracking-tight">{s.title}</h2>
-                <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-ink/70">{s.long}</p>
-                <ul className="mt-4 space-y-1.5">
+              <div className="relative flex flex-1 flex-col rounded-[28px] bg-gradient-to-b from-white to-[#f1f2f7] p-7 pb-9 shadow-[0_-10px_30px_-18px_rgba(0,8,50,.45),0_24px_44px_-24px_rgba(0,8,50,.6)] md:p-9" style={{ marginTop: "calc(-12.5% + 12px)" }}>
+                <h2 className="text-[28px] font-bold leading-tight tracking-tight md:text-[34px]">{s.title}</h2>
+                <p className="mt-3 text-base leading-relaxed text-ink/70 md:text-[17px]">{s.long}</p>
+                <ul className="mt-auto space-y-2 pt-5">
                   {s.gets.map((g) => (
-                    <li key={g} className="flex gap-2 text-sm text-ink/85"><Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2.5} /> {g}</li>
+                    <li key={g} className="flex gap-2.5 text-[15px] text-ink/85 md:text-base"><Check className="mt-1 h-4 w-4 shrink-0" strokeWidth={2.5} /> {g}</li>
                   ))}
                 </ul>
               </div>
