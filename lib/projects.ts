@@ -15,7 +15,7 @@ export type Project = {
   tier: "star" | "building" | "more";
   status: string;
   stack: string[];
-  /** caseStudy: a full case study page hosted with the product, in the product's own design */
+  /** caseStudy: path to a full case study page, rendered in the product's own design */
   links: { live?: string; repo?: string; caseStudy?: string };
   /** Who did what, e.g. "Solo · Product design, front end, back end" */
   role: string;
@@ -62,12 +62,12 @@ export const PROJECTS: Project[] = [
       { value: "465", label: "Companies tracked" },
       { value: "100%", label: "RAG retrieval Hit@5" },
       { value: "87.8%", label: "Gemini accuracy (41 labelled)" },
-      { value: "167", label: "Automated tests" },
+      { value: "166", label: "Automated tests" },
     ],
     tier: "star",
     status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
-    links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN`, caseStudy: "https://strata-weld-sigma.vercel.app/case-study" },
+    links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN`, caseStudy: "/work/strata/case-study" },
     role: "Solo \u00b7 Product design, front end, back end, data",
     constraints: "Public data only, free hosting tiers and a free AI quota that runs out.",
     decisions: [
