@@ -192,11 +192,11 @@ function BuildingCard({ project, className }: { project: Project; className?: st
   );
 }
 
-export function ProjectCard({ project, index, priority, className }: { project: Project; index: number; priority?: boolean; className?: string }) {
+export function ProjectCard({ project, index, priority, className, points = true }: { project: Project; index: number; priority?: boolean; className?: string; points?: boolean }) {
   if (project.tier === "building") return <BuildingCard project={project} className={className} />;
   const pastel = PASTELS[index % PASTELS.length];
   return (
-    <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1 sm:row-span-4 sm:grid sm:grid-rows-subgrid sm:gap-0", className)}>
+    <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1 sm:grid sm:grid-rows-subgrid", points ? "sm:row-span-4" : "sm:row-span-3", " sm:gap-0", className)}>
       {/* Four rows shared with the other cards in the row (subgrid), so each kind of content starts at the same height */}
       <div className="px-3 pt-3">
         <div className="flex items-center justify-between gap-3">
@@ -206,15 +206,15 @@ export function ProjectCard({ project, index, priority, className }: { project: 
           </span>
         </div>
       </div>
-      <p className="px-3 pt-2 text-[15px] leading-snug text-ink/70">{project.card?.pitch ?? project.summary}</p>
-      <ul className="mx-3 mb-5 mt-3 space-y-2 border-t border-dashed border-ink/15 pt-3">
+      <p className={cn("px-3 pt-2 text-[15px] leading-snug text-ink/70", !points && "pb-5")}>{project.card?.pitch ?? project.summary}</p>
+      {points && <ul className="mx-3 mb-5 mt-3 space-y-2 border-t border-dashed border-ink/15 pt-3">
         {(project.card?.points ?? project.highlights.slice(0, 3)).map((h) => (
           <li key={h} className="flex gap-2 text-[13px] leading-snug text-ink/85">
             <Check className="mt-0.5 h-3 w-3 shrink-0" strokeWidth={3} />
             {h}
           </li>
         ))}
-      </ul>
+      </ul>}
       <div className={cn("overflow-hidden rounded-xl px-5 pt-5", pastel)}>
         <div className="aspect-[16/10] overflow-hidden rounded-t-lg bg-white shadow-[0_-4px_20px_-6px_rgba(0,0,0,.25)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1.5">
           <CoverArt project={project} priority={priority} />
@@ -232,37 +232,11 @@ export function ProjectGrid({ projects, offset = 0 }: { projects: Project[]; off
   );
 }
 
-/** Smaller projects as compact horizontal cards */
+/** The rest of the work: the same card as the featured grid, without the points */
 export function ProjectList({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
   return (
-    <ul className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[900px]:grid-cols-3">
-      {projects.map((p, i) => {
-        const pastel = PASTELS[(i + offset) % PASTELS.length];
-        return (
-          <li key={p.slug} className="w-[84%] shrink-0 snap-start min-[640px]:w-auto">
-            <Link href={`/work/${p.slug}`} className="group flex h-full flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_14px_30px_-22px_rgba(0,8,50,.5)] transition-transform hover:-translate-y-0.5">
-              <span className={cn("block overflow-hidden rounded-xl px-4 pt-4", pastel)}>
-                <span className="block aspect-[16/9] overflow-hidden rounded-t-lg bg-white transition-transform duration-500 group-hover:-translate-y-1">
-                  {p.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
-                  ) : (
-                    <CoverArt project={p} />
-                  )}
-                </span>
-              </span>
-              <span className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-3.5">
-                <span className="flex items-start justify-between gap-2">
-                  <span className="text-lg font-bold tracking-tight">{p.name}</span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
-                </span>
-                <span className="text-xs text-muted">{tagHead(p.tag)} · {p.status}</span>
-                <span className="mt-3 border-t border-dashed border-ink/15 pt-3 text-[13px] leading-snug text-ink/80">{p.summary}</span>
-              </span>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+    <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible md:grid-cols-3">
+      {projects.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + offset} points={false} className="w-[84%] shrink-0 snap-start sm:w-auto" />)}
+    </div>
   );
 }
