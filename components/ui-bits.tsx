@@ -196,8 +196,8 @@ export function ProjectCard({ project, index, priority, className }: { project: 
   if (project.tier === "building") return <BuildingCard project={project} className={className} />;
   const pastel = PASTELS[index % PASTELS.length];
   return (
-    <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1 sm:row-span-5 sm:grid sm:grid-rows-subgrid sm:gap-0", className)}>
-      {/* Five rows shared with the other cards in the row (subgrid), so each kind of content starts at the same height */}
+    <Link href={`/work/${project.slug}`} className={cn("group flex flex-col rounded-2xl border border-line bg-white p-2 text-ink shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] transition-transform duration-300 hover:-translate-y-1 sm:row-span-4 sm:grid sm:grid-rows-subgrid sm:gap-0", className)}>
+      {/* Four rows shared with the other cards in the row (subgrid), so each kind of content starts at the same height */}
       <div className="px-3 pt-3">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-2xl font-bold leading-tight tracking-tight">{project.name}</h3>
@@ -206,17 +206,14 @@ export function ProjectCard({ project, index, priority, className }: { project: 
           </span>
         </div>
       </div>
-      <p className="px-3 pt-1.5 text-[15px] leading-snug text-ink/70">{project.card?.pitch ?? project.summary}</p>
-      <ul className="mx-3 mt-4 space-y-2 border-t border-dashed border-ink/15 pt-4">
+      <p className="px-3 pt-2 text-[15px] leading-snug text-ink/70">{project.card?.pitch ?? project.summary}</p>
+      <ul className="mx-3 mb-5 mt-5 space-y-2.5 border-t border-dashed border-ink/15 pt-5">
         {(project.card?.points ?? project.highlights.slice(0, 3)).map((h) => (
           <li key={h} className="flex gap-2 text-[13px] leading-snug text-ink/85">
             <span className={cn("mt-px grid h-4 w-4 shrink-0 place-items-center rounded-full", pastel)}><Check className="h-2.5 w-2.5" strokeWidth={3} /></span>
             {h}
           </li>
         ))}
-      </ul>
-      <ul className="flex flex-wrap content-start gap-1.5 px-3 pb-4 pt-4" aria-label="Tech stack">
-        {(project.card?.stack ?? project.stack.slice(0, 4)).map((t) => <li key={t} className="rounded-full border border-ink/10 px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-ink/60">{t}</li>)}
       </ul>
       <div className={cn("overflow-hidden rounded-xl px-5 pt-5", pastel)}>
         <div className="aspect-[16/10] overflow-hidden rounded-t-lg bg-white shadow-[0_-4px_20px_-6px_rgba(0,0,0,.25)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1.5">
