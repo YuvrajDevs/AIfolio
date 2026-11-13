@@ -10,7 +10,7 @@ const SOCIALS = [
 
 export function Footer() {
   return (
-    <footer className="wrap pb-28 pt-10">
+    <footer className="site-chrome wrap pb-28 pt-10">
       <div className="rounded-[18px] bg-panel p-6 shadow-[0_30px_60px_-30px_rgba(0,8,50,.7)] md:p-10">
         <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>

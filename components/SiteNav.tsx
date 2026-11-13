@@ -46,7 +46,7 @@ export function TopBar() {
   }, [open]);
 
   return (
-    <header className="wrap relative z-40 flex h-16 items-center justify-between gap-4 md:h-20">
+    <header className="site-chrome wrap relative z-40 flex h-16 items-center justify-between gap-4 md:h-20">
       <div ref={ref} className="relative flex min-w-0 items-center gap-2.5">
         <Link href="/" aria-label="Home" className="grid h-8 w-8 place-items-center rounded-lg bg-lime text-sm font-extrabold text-ink shadow-[0_6px_16px_-6px_rgba(0,0,0,.5)] transition-transform hover:-rotate-6">Y</Link>
         <button
@@ -127,7 +127,7 @@ export function Toolbar() {
   }, [router]);
 
   return (
-    <nav aria-label="Primary" className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+    <nav aria-label="Primary" className="site-chrome fixed inset-x-0 bottom-4 z-50 flex justify-center px-4" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       <div className="ui-panel flex items-center gap-1 !rounded-2xl p-1.5">
         <ul className="flex items-center gap-1">
           {TOOLS.map((t) => {

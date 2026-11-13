@@ -29,7 +29,7 @@ export function CursorTrail() {
   }, []);
 
   return (
-    <div ref={ref} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[60] opacity-0 transition-opacity duration-200 max-md:hidden">
+    <div ref={ref} aria-hidden className="site-chrome pointer-events-none fixed left-0 top-0 z-[60] opacity-0 transition-opacity duration-200 max-md:hidden">
       <svg width="16" height="16" viewBox="0 0 22 22">
         <path d="M2 2l6.5 17 2.6-7.2L19 9z" fill="#d6ff3d" stroke="#121318" strokeWidth="1.6" strokeLinejoin="round" />
       </svg>

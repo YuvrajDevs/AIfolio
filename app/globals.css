@@ -201,3 +201,8 @@ h1, h2, h3 { text-wrap: balance; }
 .strata-cs .skeleton { position: relative; overflow: hidden; background: rgb(var(--muted)); border-radius: 12px; }
 .strata-cs .skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgb(var(--surface) / .6), transparent); animation: strata-shimmer 1.4s infinite; }
 }
+
+/* The case study is a standalone page in Strata's design: no portfolio chrome, no canvas zoom. */
+body:has(.strata-cs) .site-chrome { display: none !important; }
+body:has(.strata-cs) .zoomed { zoom: 1; }
+body:has(.strata-cs) { background: rgb(246 241 231); }
