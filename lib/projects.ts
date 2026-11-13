@@ -214,7 +214,7 @@ export const PROJECTS: Project[] = [
     status: "Phases 0–4 built",
     stack: ["Next.js", "TypeScript", "Node.js worker", "Prisma", "Claude API", "Stripe"],
     links: { repo: `${GH}/every-eo` },
-    card: { pitch: "Shows how AI assistants and search engines see your site, then writes the fixes and ships them to WordPress or Shopify." },
+    card: { pitch: "Shows how AI assistants and search engines see your site, then writes the fixes and ships them to WordPress or Shopify.", points: ["Background crawler that checks a site against 15 search and AI bots", "Fix engine that ships changes to WordPress and Shopify, re-checks and rolls back", "Agency workspaces, Stripe billing and a public API"] },
     role: "Solo \u00b7 Product design, front end, back end",
     constraints: "Built for small businesses and agencies, so it has to be cheap to run and safe to point at any URL.",
     decisions: [
@@ -257,7 +257,7 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Next.js 16", "React 19", "TypeScript", "Firebase Auth", "Firestore", "Framer Motion"],
     links: { live: "https://www.honestmailbox.com", repo: `${GH}/project-hm` },
-    card: { pitch: "An end-to-end encrypted space for couples to share feelings, check in daily, play games and work through conflict." },
+    card: { pitch: "An end-to-end encrypted space for couples to share feelings, check in daily, play games and work through conflict.", points: ["End-to-end encrypted chat between partners", "Daily check-ins and guided repair after a conflict", "9 games and 26 question decks to play together"] },
     role: "Solo \u00b7 Product design, brand, front end, security",
     constraints: "Some of the most private data people have, held by a tiny product with no custom server.",
     decisions: [

@@ -232,11 +232,11 @@ export function ProjectGrid({ projects, offset = 0 }: { projects: Project[]; off
   );
 }
 
-/** The rest of the work: the same card as the featured grid, without the points */
+/** The rest of the work: the same card as the featured grid */
 export function ProjectList({ projects, offset = 0 }: { projects: Project[]; offset?: number }) {
   return (
     <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible md:grid-cols-3">
-      {projects.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + offset} points={false} className="w-[84%] shrink-0 snap-start sm:w-auto" />)}
+      {projects.map((p, i) => <ProjectCard key={p.slug} project={p} index={i + offset} className="w-[84%] shrink-0 snap-start sm:w-auto" />)}
     </div>
   );
 }
