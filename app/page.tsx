@@ -107,12 +107,13 @@ export default function Home() {
           ))}
 
           <p className="reveal mt-16 max-w-[620px] text-xl font-medium leading-snug md:mt-20 md:text-[26px]" style={delay(200)}>
-            I make complicated stuff{" "}
+            I make complicated stuff feel easy.
+            <br />
+            And my designs{" "}
             <span className="relative whitespace-nowrap text-ink">
               <span aria-hidden className="absolute inset-x-[-4px] inset-y-0.5 -z-0 -rotate-1 rounded bg-lime" />
-              <span className="relative">feel easy,</span>
-            </span>{" "}
-            and my designs don&rsquo;t just live in Figma.
+              <span className="relative">don&rsquo;t need a developer.</span>
+            </span>
           </p>
 
           <div className="reveal mt-8 flex flex-wrap justify-center gap-3" style={delay(280)}>
