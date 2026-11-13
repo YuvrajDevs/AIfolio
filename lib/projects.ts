@@ -123,7 +123,7 @@ export const PROJECTS: Project[] = [
     tier: "star",
     status: "Live",
     stack: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Next.js", "Airflow"],
-    links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc` },
+    links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc`, caseStudy: "/work/trueup/case-study" },
     card: { pitch: "A payments risk platform that catches fraud, outages and fee overcharges, and proves it live in an attack lab.", points: ["Synthetic card network with ISO 8583 codes and a hidden answer key", "Fraud, outage, dispute and fee detectors in SQL, with exact Poisson tests", "Reconciliation rewrite: 0.561 to 0.999 precision, 1M rows in about 7s"], stack: ["Python", "DuckDB", "dbt", "Airflow"] },
     role: "Solo \u00b7 Product design, data engineering, front end",
     constraints: "Real card data is private, so every number has to come from synthetic data with a hidden answer key.",

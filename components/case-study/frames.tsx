@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { cx } from './styles';
 
 /** A desktop browser window around a real screenshot of the app. */
-export function BrowserFrame({ src, alt, url = 'strata · app', priority, className }: { src: string; alt: string; url?: string; priority?: boolean; className?: string }) {
+export function BrowserFrame({ src, alt, url = 'app', priority, className }: { src: string; alt: string; url?: string; priority?: boolean; className?: string }) {
   return (
     <div className={cx('overflow-hidden rounded-2xl border border-border bg-surface shadow-[0_30px_60px_-30px_rgb(var(--ink)/0.35)]', className)}>
       <div className="flex items-center gap-2 border-b border-border/70 px-3.5 py-2.5">

@@ -135,10 +135,12 @@ h1, h2, h3 { text-wrap: balance; }
 }
 
 /* ---------------------------------------------------------------------------
-   Strata case study (/work/strata/case-study). Rendered in Strata's own design,
-   not the portfolio's: warm paper, ink, pastels, Outfit and Strata's type scale.
-   Colours the portfolio also defines (ink, surface, paper, muted) and radii are
-   re-pointed inside .strata-cs only, so nothing outside the page changes.
+   Case studies (/work/<slug>/case-study). Each is rendered in its own product's
+   design, not the portfolio's, using the shared kit in components/case-study.
+   .cs-theme holds the shared rules; .cs-strata and .cs-trueup set the product's
+   palette (as RGB triplets, so opacity works) and font. Colours the portfolio
+   also defines (ink, surface, paper, muted) and radii are re-pointed inside the
+   theme only, so nothing outside the page changes.
    --------------------------------------------------------------------------- */
 @theme inline {
   --color-bg: rgb(var(--bg));
@@ -154,6 +156,7 @@ h1, h2, h3 { text-wrap: balance; }
   --color-yellow: rgb(var(--yellow));
   --color-sage: rgb(var(--sage));
   --color-sky: rgb(var(--sky));
+  --color-violet: rgb(var(--violet));
 
   --text-micro: 11px; --text-micro--line-height: 14px;
   --text-caption: 12px; --text-caption--line-height: 16px;
@@ -169,40 +172,56 @@ h1, h2, h3 { text-wrap: balance; }
 }
 
 @layer components {
-.strata-cs {
+/* Strata: warm paper, ink, pastels, Outfit */
+.cs-strata {
   --bg: 246 241 231; --surface: 255 252 246; --muted: 237 230 216; --border: 222 212 194;
   --fg: 22 21 19; --subtle: 99 93 83; --accent: 22 21 19; --accent-fg: 255 252 246;
   --success: 52 92 22; --warning: 146 64 14; --danger: 180 24 60;
   --ink: 22 21 19; --paper: 255 252 246;
-  --pink: 242 196 221; --yellow: 244 220 140; --sage: 193 205 150; --sky: 196 211 240;
-  --color-ink: rgb(var(--ink)); --color-paper: rgb(var(--paper));
-  --color-surface: rgb(var(--surface)); --color-muted: rgb(var(--muted));
+  --pink: 242 196 221; --yellow: 244 220 140; --sage: 193 205 150; --sky: 196 211 240; --violet: 196 211 240;
+  --cs-select: var(--yellow);
   --radius-md: 8px; --radius-lg: 12px; --radius-xl: 14px; --radius-2xl: 16px; --radius-3xl: 18px;
   font-family: var(--font-strata), ui-sans-serif, system-ui, sans-serif;
+}
+/* TrueUp: cool white, deep navy, lavender surfaces, one violet accent, Urbanist */
+.cs-trueup {
+  --bg: 246 247 253; --surface: 255 255 255; --muted: 236 238 251; --border: 213 217 242;
+  --fg: 14 18 48; --subtle: 85 91 131; --accent: 16 20 58; --accent-fg: 255 255 255;
+  --success: 21 112 80; --warning: 146 64 14; --danger: 173 34 41;
+  --ink: 16 20 58; --paper: 255 255 255;
+  --pink: 222 220 255; --yellow: 214 233 255; --sage: 226 230 252; --sky: 205 208 255; --violet: 143 139 255;
+  --cs-select: var(--pink);
+  --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px; --radius-3xl: 24px;
+  font-family: var(--font-trueup), ui-sans-serif, system-ui, sans-serif;
+}
+.cs-theme {
+  --color-ink: rgb(var(--ink)); --color-paper: rgb(var(--paper));
+  --color-surface: rgb(var(--surface)); --color-muted: rgb(var(--muted));
   font-size: 14px; line-height: 22px;
   color: rgb(var(--fg));
   background: rgb(var(--bg));
   -webkit-font-smoothing: antialiased;
 }
-.strata-cs ::selection { background: rgb(var(--yellow)); color: rgb(var(--ink)); }
-.strata-cs :focus-visible { outline: 2px solid rgb(var(--fg) / .55); outline-offset: 2px; }
-.strata-cs :where(a, button) {
+.cs-theme ::selection { background: rgb(var(--cs-select)); color: rgb(var(--ink)); }
+.cs-theme :focus-visible { outline: 2px solid rgb(var(--fg) / .55); outline-offset: 2px; }
+.cs-theme :where(a, button) {
   transition-property: color, background-color, border-color, opacity, transform;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-.strata-cs .tabular { font-variant-numeric: tabular-nums; }
-.strata-cs .card { border-radius: 16px; border: 1px solid rgb(var(--border) / .7); background: rgb(var(--surface)); }
-.strata-cs .pastel { border-radius: 16px; color: rgb(var(--ink)); }
-.strata-cs .pastel .text-subtle { color: rgb(var(--ink) / .72); }
-.strata-cs .th { white-space: nowrap; padding: 8px 12px; text-align: left; font-size: 11px; line-height: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: .025em; color: rgb(var(--subtle)); }
-.strata-cs .td { padding: 8px 12px; vertical-align: middle; font-size: 13px; line-height: 20px; }
-@keyframes strata-shimmer { 100% { transform: translateX(100%); } }
-.strata-cs .skeleton { position: relative; overflow: hidden; background: rgb(var(--muted)); border-radius: 12px; }
-.strata-cs .skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgb(var(--surface) / .6), transparent); animation: strata-shimmer 1.4s infinite; }
+.cs-theme .tabular { font-variant-numeric: tabular-nums; }
+.cs-theme .card { border-radius: 16px; border: 1px solid rgb(var(--border) / .7); background: rgb(var(--surface)); }
+.cs-theme .pastel { border-radius: 16px; color: rgb(var(--ink)); }
+.cs-theme .pastel .text-subtle { color: rgb(var(--ink) / .72); }
+.cs-theme .th { white-space: nowrap; padding: 8px 12px; text-align: left; font-size: 11px; line-height: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: .025em; color: rgb(var(--subtle)); }
+.cs-theme .td { padding: 8px 12px; vertical-align: middle; font-size: 13px; line-height: 20px; }
+@keyframes cs-shimmer { 100% { transform: translateX(100%); } }
+.cs-theme .skeleton { position: relative; overflow: hidden; background: rgb(var(--muted)); border-radius: 12px; }
+.cs-theme .skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgb(var(--surface) / .6), transparent); animation: cs-shimmer 1.4s infinite; }
 }
 
 /* The case study is a standalone page in Strata's design: no portfolio chrome, no canvas zoom. */
-body:has(.strata-cs) .site-chrome { display: none !important; }
-body:has(.strata-cs) .zoomed { zoom: 1; }
-body:has(.strata-cs) { background: rgb(246 241 231); }
+body:has(.cs-theme) .site-chrome { display: none !important; }
+body:has(.cs-theme) .zoomed { zoom: 1; }
+body:has(.cs-strata) { background: rgb(246 241 231); }
+body:has(.cs-trueup) { background: rgb(246 247 253); }
