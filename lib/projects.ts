@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
     links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN`, caseStudy: "/work/strata/case-study" },
-    card: { pitch: "Startup intelligence from public data, where every funding round, label and AI answer traces back to its source.", points: ["Hybrid RAG: vector, keyword and name search fused with weighted RRF", "SEC Form D ingestion through Kafka with idempotent upserts and BullMQ jobs", "Citation check that drops any AI claim whose numbers are not in its source"], stack: ["Next.js", "MongoDB", "Kafka", "Gemini"] },
+    card: { pitch: "An AI analyst for startup markets that reads SEC filings, maps every sector and answers questions with each claim cited.", points: ["Hybrid RAG: vector, keyword and name search fused with weighted RRF", "SEC Form D ingestion through Kafka with idempotent upserts and BullMQ jobs", "Citation check that drops any AI claim whose numbers are not in its source"], stack: ["Next.js", "MongoDB", "Kafka", "Gemini"] },
     role: "Solo \u00b7 Product design, front end, back end, data",
     constraints: "Public data only, free hosting tiers and a free AI quota that runs out.",
     decisions: [
@@ -124,7 +124,7 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Next.js", "Airflow"],
     links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc` },
-    card: { pitch: "Finds where card payments leak money: fraud, outages, dispute spikes and fee overcharges, with every detector graded.", points: ["Synthetic card network with ISO 8583 codes and a hidden answer key", "Fraud, outage, dispute and fee detectors in SQL, with exact Poisson tests", "Reconciliation rewrite: 0.561 to 0.999 precision, 1M rows in about 7s"], stack: ["Python", "DuckDB", "dbt", "Airflow"] },
+    card: { pitch: "A payments risk platform that catches fraud, outages and fee overcharges, and proves it live in an attack lab.", points: ["Synthetic card network with ISO 8583 codes and a hidden answer key", "Fraud, outage, dispute and fee detectors in SQL, with exact Poisson tests", "Reconciliation rewrite: 0.561 to 0.999 precision, 1M rows in about 7s"], stack: ["Python", "DuckDB", "dbt", "Airflow"] },
     role: "Solo \u00b7 Product design, data engineering, front end",
     constraints: "Real card data is private, so every number has to come from synthetic data with a hidden answer key.",
     decisions: [
@@ -171,7 +171,7 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
     links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
-    card: { pitch: "Draw a workflow of AI agents, run it step by step, and keep cost and quality in check with budgets and human review.", points: ["DAG runner that resolves dependencies and runs ready agents in parallel", "Human review nodes that pause a run and resume from that exact step", "Daily budget guard with token and cost tracking for every step"], stack: ["Next.js", "Supabase", "React Flow", "Gemini"] },
+    card: { pitch: "A visual builder for multi-agent AI: wire up agents, run them in parallel and keep every run on budget.", points: ["DAG runner that resolves dependencies and runs ready agents in parallel", "Human review nodes that pause a run and resume from that exact step", "Daily budget guard with token and cost tracking for every step"], stack: ["Next.js", "Supabase", "React Flow", "Gemini"] },
     role: "Solo \u00b7 Product design, front end, back end",
     constraints: "AI costs are real money, so spend has to be visible and capped from the first run.",
     decisions: [
@@ -214,7 +214,7 @@ export const PROJECTS: Project[] = [
     status: "Phases 0–4 built",
     stack: ["Next.js", "TypeScript", "Node.js worker", "Prisma", "Claude API", "Stripe"],
     links: { repo: `${GH}/every-eo` },
-    card: { pitch: "Audits how a website shows up for search engines and AI assistants, then proposes fixes and applies them." },
+    card: { pitch: "Shows how AI assistants and search engines see your site, then writes the fixes and ships them to WordPress or Shopify." },
     role: "Solo \u00b7 Product design, front end, back end",
     constraints: "Built for small businesses and agencies, so it has to be cheap to run and safe to point at any URL.",
     decisions: [
@@ -257,7 +257,7 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Next.js 16", "React 19", "TypeScript", "Firebase Auth", "Firestore", "Framer Motion"],
     links: { live: "https://www.honestmailbox.com", repo: `${GH}/project-hm` },
-    card: { pitch: "A private space for couples to say how they feel, check in daily, play together and repair after conflict." },
+    card: { pitch: "An end-to-end encrypted space for couples to share feelings, check in daily, play games and work through conflict." },
     role: "Solo \u00b7 Product design, brand, front end, security",
     constraints: "Some of the most private data people have, held by a tiny product with no custom server.",
     decisions: [
