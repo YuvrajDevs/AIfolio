@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, BookOpen } from "lucide-react";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { Artboard, ButtonLink, CoverArt, PASTELS, PageShell, SelectionFrame, Tag, delay, tagHead } from "@/components/ui-bits";
 import { ScreenCarousel } from "@/components/ScreenCarousel";
@@ -59,8 +59,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </>)}
           </dl>
         </div>
-        {(project.links.live || project.links.repo) && (
+        {(project.links.live || project.links.repo || project.links.caseStudy) && (
           <div className="reveal flex shrink-0 flex-wrap items-center gap-2" style={delay(160)}>
+            {project.links.caseStudy && <ButtonLink href={project.links.caseStudy} variant="ghost" external><BookOpen className="h-4 w-4" /> Case study</ButtonLink>}
             {project.links.live && <ButtonLink href={project.links.live} external>Visit live <ArrowUpRight className="h-4 w-4" /></ButtonLink>}
             {project.links.repo && <ButtonLink href={project.links.repo} variant="ghost" external><IconBrandGithub className="h-4 w-4" stroke={1.75} /> Code</ButtonLink>}
           </div>
