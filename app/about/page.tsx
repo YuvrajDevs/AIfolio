@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Briefcase, ChevronDown, Component, Download, Frame, GraduationCap, Layers, PenTool } from "lucide-react";
+import { Briefcase, ChevronDown, Component, Download, Frame, Layers, PenTool } from "lucide-react";
 import { Artboard, ButtonLink, PageHero, PageShell } from "@/components/ui-bits";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -25,8 +25,8 @@ const EXPERIENCE = [
     icon: Briefcase,
     tint: "bg-lime",
   },
-  { role: "Product Designer", org: "Freelance", when: "2024 – Apr 2026", desc: "End-to-end product design for web and mobile: research, Figma prototypes, design systems and developer handoff for SaaS dashboards and B2B tools.", icon: PenTool, tint: "bg-p-pink" },
-  { role: "B.Tech, Computer Science", org: "VIT Vellore", when: "2022 – 2026", desc: "Graduated in 2026, with freelance product design work alongside.", icon: GraduationCap, tint: "bg-p-sky" },
+  { role: "Product Designer (Freelance)", org: "Zenia Mobile", when: "Nov 2025 – Apr 2026", desc: "Design across multiple client projects: improved UX in legacy systems, worked within existing design systems, and designed apps from scratch to each client's requirements.", icon: PenTool, tint: "bg-p-sky" },
+  { role: "Product Designer", org: "Freelance", when: "2024 – Oct 2025", desc: "End-to-end product design for web and mobile: research, Figma prototypes, design systems and developer handoff for SaaS dashboards and B2B tools.", icon: PenTool, tint: "bg-p-pink" },
 ];
 
 export default function AboutPage() {
