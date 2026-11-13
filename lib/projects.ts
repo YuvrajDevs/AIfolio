@@ -16,6 +16,14 @@ export type Project = {
   status: string;
   stack: string[];
   links: { live?: string; repo?: string };
+  /** Who did what, e.g. "Solo · Product design, front end, back end" */
+  role: string;
+  /** Real limits the work was shaped by */
+  constraints?: string;
+  /** Key decisions: what was chosen, over what, and why */
+  decisions?: { chose: string; over: string; why: string }[];
+  /** Honest next steps or what I'd change */
+  next?: string[];
   case?: {
     problem: string;
     user: string;
@@ -59,6 +67,15 @@ export const PROJECTS: Project[] = [
     status: "Live demo",
     stack: ["Node.js", "Express", "MongoDB", "Atlas Vector Search", "Gemini", "Next.js", "Kafka", "Redis"],
     links: { live: "https://strata-weld-sigma.vercel.app", repo: `${GH}/AN` },
+    role: "Solo \u00b7 Product design, front end, back end, data",
+    constraints: "Public data only, free hosting tiers and a free AI quota that runs out.",
+    decisions: [
+      { chose: "SEC Form D filings as the funding source", over: "paid startup databases", why: "A filing can be checked by anyone. A number nobody can verify is worth less than a gap." },
+      { chose: "Confidence scores with a human review queue", over: "fully automatic labels", why: "Wrong labels quietly poison a market map. Sending only the unsure ones to a person keeps review small and the data honest." },
+      { chose: "Dropping any claim whose numbers aren't in the cited source", over: "letting the model write freely", why: "For analysts, one invented figure costs more trust than a shorter brief." },
+      { chose: "Hybrid retrieval: meaning, keywords and names", over: "vector search alone", why: "Company names are exact. Plain keyword search found the right company 52% of the time; hybrid found it every time." },
+    ],
+    next: ["Run the held-out classification set; only the first 41 labelled companies are scored so far.", "Watch real analysts use it, starting with how they read the market map."],
     case: {
       problem:
         "Startup databases are expensive, and their numbers are hard to check. An analyst mapping a sector needs to know which companies belong in it, what they raised and where each number came from.",
@@ -103,6 +120,14 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Next.js", "Airflow"],
     links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc` },
+    role: "Solo \u00b7 Product design, data engineering, front end",
+    constraints: "Real card data is private, so every number has to come from synthetic data with a hidden answer key.",
+    decisions: [
+      { chose: "Synthetic data with a hidden answer key", over: "a dashboard over sample data", why: "With real data nobody knows the right answer, so there is no honest way to grade a detector." },
+      { chose: "Leading the landing page with the lab", over: "leading with the dashboard", why: "Trying it beats being told. Planting an attack and watching it get caught takes seconds." },
+      { chose: "Grading invisible incidents as too faint", over: "counting them as wins", why: "A score that flatters the detectors is useless to the person relying on them." },
+    ],
+    next: ["Design the reconciliation engine for messy references from day one; the first version fell to 0.561 precision on typos."],
     case: {
       problem:
         "Card payments leak money quietly: fraudsters test stolen cards with tiny charges, a bank stops answering for hours, one merchant's chargebacks creep up, interchange is charged above the rate card, and the ledger, processor and bank never fully agree. Most analytics demos show a dashboard and ask you to trust it.",
@@ -132,12 +157,23 @@ export const PROJECTS: Project[] = [
       "Daily budget guard with token and cost tracking per step",
       "Human-in-the-loop pause and resume on any node",
     ],
-    image: "/projects/hivestate-visual.png",
-    gallery: [{ src: "/projects/hivestate-dashboard.jpg", caption: "Dashboard: workflow templates, live tasks and today's spend against the daily budget." }],
+    image: "/projects/hivestate-canvas.jpg",
+    gallery: [
+      { src: "/projects/hivestate-canvas.jpg", caption: "Workflow editor: agents as nodes, each with its model and prompt, connected in the order they run." },
+      { src: "/projects/hivestate-dashboard.jpg", caption: "Dashboard: workflow templates, live tasks and today's spend against the daily budget." },
+    ],
     tier: "star",
     status: "Live demo",
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
     links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
+    role: "Solo \u00b7 Product design, front end, back end",
+    constraints: "AI costs are real money, so spend has to be visible and capped from the first run.",
+    decisions: [
+      { chose: "A visual canvas of agents", over: "workflows written as code", why: "Seeing what depends on what is the whole point; a canvas makes the order obvious." },
+      { chose: "A daily budget that blocks new runs", over: "alerts after the money is spent", why: "A warning after the fact doesn't protect anyone." },
+      { chose: "A human-review step that pauses mid-graph", over: "all-or-nothing runs", why: "Some decisions need a person before the next agent acts, without starting over." },
+    ],
+    next: ["Add quality checks per template, so a run reports how good its output was, not just what it cost."],
     case: {
       problem:
         "Chaining a few LLM calls is easy in a script and hard to trust in production. Steps depend on each other, costs creep up unnoticed, and some decisions need a person before the next agent acts.",
@@ -172,6 +208,14 @@ export const PROJECTS: Project[] = [
     status: "Phases 0–4 built",
     stack: ["Next.js", "TypeScript", "Node.js worker", "Prisma", "Claude API", "Stripe"],
     links: { repo: `${GH}/every-eo` },
+    role: "Solo \u00b7 Product design, front end, back end",
+    constraints: "Built for small businesses and agencies, so it has to be cheap to run and safe to point at any URL.",
+    decisions: [
+      { chose: "A database job queue", over: "Redis and a queue service", why: "One less service to run and pay for, at the volumes small sites need." },
+      { chose: "Fixes written as steps for each site builder", over: "generic SEO advice", why: "A Shopify owner needs Shopify steps. Advice they can't act on is noise." },
+      { chose: "Discarding AI verdicts that can't quote the page", over: "trusting the judge model", why: "If the quote isn't on the page, the verdict isn't evidence." },
+    ],
+    next: ["Ship the hosted version and test the onboarding with real agency users."],
     case: {
       problem:
         "People increasingly ask AI assistants instead of searching, and most site owners can't tell whether those assistants can reach their site, understand it, or describe it correctly.",
@@ -206,6 +250,15 @@ export const PROJECTS: Project[] = [
     status: "Live",
     stack: ["Next.js 16", "React 19", "TypeScript", "Firebase Auth", "Firestore", "Framer Motion"],
     links: { live: "https://www.honestmailbox.com", repo: `${GH}/project-hm` },
+    role: "Solo \u00b7 Product design, brand, front end, security",
+    constraints: "Some of the most private data people have, held by a tiny product with no custom server.",
+    decisions: [
+      { chose: "Colour by role: you red, your partner blue", over: "colour by gender", why: "The first version tinted screens by gender. It excluded couples and meant nothing; role colours mean something for everyone." },
+      { chose: "Flat pages and solid cards", over: "glass, blur and colour washes", why: "The dreamy first version hurt contrast and was heavy on phones. Colour now carries meaning, not mood." },
+      { chose: "Notes that start with a feeling and a need", over: "a blank text box", why: "When you're upset, choosing is easier than writing." },
+      { chose: "Writing down the encryption's limits plainly", over: "claiming perfect privacy", why: "Trust comes from honesty about what is and isn't protected." },
+    ],
+    next: ["Run usability tests with couples, starting with the first hard conversation."],
     case: {
       problem: "Couples need a place to say difficult things gently, and that place holds some of the most private data people have.",
       user: "Couples, including long-distance ones, who want a daily habit of checking in and a calmer way through conflict.",

@@ -4,14 +4,21 @@ import { Artboard, ButtonLink, PageHero, PageShell } from "@/components/ui-bits"
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "About & resume", description: "Software engineer in data analytics who builds full-stack data and AI products, with a product design background." };
+export const metadata: Metadata = { title: "About & resume", description: "Product designer who builds: how I work, where I have worked, and what I use." };
 
 const SKILLS = [
-  { group: "AI", items: ["OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Human-in-the-loop", "Prompting & evals", "NL-to-SQL", "Claude Code & Cursor"] },
+  { group: "AI", items: ["OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Human-in-the-loop", "Prompting & evals", "NL-to-SQL"] },
   { group: "Full stack", items: ["Next.js", "React", "TypeScript", "Node.js", "Express", "MongoDB", "Kafka", "Redis", "REST APIs", "Supabase", "PostgreSQL", "Firebase"] },
   { group: "Data", items: ["SQL", "Python", "Salesforce", "CRM Analytics", "Power BI", "dbt", "DuckDB", "FastAPI", "Airflow", "Data cleaning", "ETL pipelines"] },
-  { group: "Product design", items: ["UI/UX design", "Product design", "Design systems", "Prototyping", "Figma"] },
+  { group: "Product design", items: ["Product design", "UX research", "Interaction design", "Design systems", "Prototyping", "Accessibility", "Figma"] },
   { group: "Ship & secure", items: ["Vercel", "Docker", "Jenkins CI", "Kubernetes", "Security headers & rules"] },
+];
+
+const PRINCIPLES = [
+  { title: "Understand first", body: "I make sure I know who it's for and what's actually broken before designing anything." },
+  { title: "Decide on purpose", body: "I explore a few options and note why the chosen one won." },
+  { title: "Set the direction", body: "I design the direction and commit to it, keeping the experience and the interface clear at every step." },
+  { title: "Ship it", body: "It goes through feedback loops first. Once everything is clear, it ships for public use." },
 ];
 
 const LAYER_TINT = ["text-lime", "text-p-sky", "text-p-mint", "text-p-pink", "text-p-peach"];
@@ -20,7 +27,7 @@ const EXPERIENCE = [
   {
     role: "Software Engineer",
     org: "Dealermatix Technologies",
-    when: "Jun 2026 – Now",
+    when: "Jun 2026 – Present",
     desc: "Full-time, data analytics on Salesforce: pipelines that take raw, unclean client data to analysis-ready datasets, data cleaning and quality checks, insights, and dashboards built around each client's requirements.",
     icon: Briefcase,
     tint: "bg-lime",
@@ -38,12 +45,12 @@ export default function AboutPage() {
         align="center"
         below={
           <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-            I work where <span className="rounded bg-lime px-1 font-semibold text-ink">AI, full stack, product design and data</span> meet, and I like owning a product from the first sketch to the deployed app.
+            A product designer who loves seeing <span className="rounded bg-lime px-1 font-semibold text-ink">his designs come alive</span>.
           </p>
         }
       >
         <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-          A designer-engineer who gets a little too excited about making complicated things feel simple. I build with AI tools like Claude Code and Cursor, so ideas reach production in days instead of weeks.
+          Most of my work starts with a gap in the market or a messy problem, which I turn into something calm, clear and intuitive. Bring your ideas, and we can stir up something great.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>
@@ -116,6 +123,17 @@ export default function AboutPage() {
         </section>
       </div>
 
+      <Artboard name="How I work" meta="4 principles" color="pink" className="mt-10" bodyClassName="!p-2">
+        <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {PRINCIPLES.map((p, i) => (
+            <li key={p.title} className={cn("rounded-xl p-5 text-ink", ["bg-p-sky", "bg-p-lemon", "bg-p-pink", "bg-p-mint"][i])}>
+              <p className="font-mono text-[11px] font-medium text-ink/55">{String(i + 1).padStart(2, "0")}</p>
+              <h2 className="mt-2 text-lg font-bold leading-tight tracking-tight">{p.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-ink/75">{p.body}</p>
+            </li>
+          ))}
+        </ol>
+      </Artboard>
     </PageShell>
   );
 }

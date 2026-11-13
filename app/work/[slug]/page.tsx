@@ -29,8 +29,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const blocks = [
     { title: "Problem", body: c.problem },
     { title: "Who it's for", body: c.user },
-    { title: "Design decisions", body: c.design },
-    { title: "Technical decisions", body: c.tech },
+    { title: "Design approach", body: c.design },
+    { title: "How it works", body: c.tech },
     { title: "The hard problem", body: c.hardProblem },
     { title: "Result", body: c.outcome },
   ];
@@ -50,6 +50,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </SelectionFrame>
           </div>
           <p className="reveal mt-8 text-[15px] leading-relaxed text-white/85 md:text-lg" style={delay(120)}>{project.summary}</p>
+          <dl className="reveal mt-6 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-[auto_1fr]" style={delay(140)}>
+            <dt className="eyebrow pt-0.5 text-white/55">Role</dt>
+            <dd className="text-white/90">{project.role}</dd>
+            {project.constraints && (<>
+              <dt className="eyebrow pt-0.5 text-white/55">Constraints</dt>
+              <dd className="text-white/90">{project.constraints}</dd>
+            </>)}
+          </dl>
         </div>
         {(project.links.live || project.links.repo) && (
           <div className="reveal flex shrink-0 flex-wrap items-center gap-2" style={delay(160)}>
@@ -62,7 +70,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {/* hero visual */}
       <div className={`reveal overflow-hidden rounded-[18px] px-4 pt-4 md:px-12 md:pt-12 ${PASTELS[i % PASTELS.length]}`} style={delay(220)}>
         <div className="aspect-[16/9] w-full overflow-hidden rounded-t-xl bg-white shadow-[0_-8px_30px_-10px_rgba(0,0,0,.35)]">
-          <CoverArt project={project} priority />
+          <CoverArt project={project} priority alt={`${project.name}: ${project.gallery?.[0]?.caption ?? project.summary}`} />
         </div>
       </div>
 
@@ -75,6 +83,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </li>
           ))}
         </ul>
+      )}
+
+      {project.decisions && (
+        <Artboard name="Key decisions" meta={`${project.decisions.length} calls`} color="pink" className="mt-10" bodyClassName="!p-2">
+          <ol className="grid gap-2 md:grid-cols-2">
+            {project.decisions.map((d, n) => (
+              <li key={d.chose} className="rounded-xl bg-white p-5 text-ink">
+                <p className="font-mono text-[11px] font-medium text-ink/45">{String(n + 1).padStart(2, "0")}</p>
+                <p className="mt-2 font-semibold leading-snug tracking-tight">{d.chose}</p>
+                <p className="mt-1 text-sm text-ink/55">over {d.over}</p>
+                <p className="mt-3 border-t border-dashed border-ink/15 pt-3 text-[15px] leading-relaxed text-ink/75">{d.why}</p>
+              </li>
+            ))}
+          </ol>
+        </Artboard>
       )}
 
       <Artboard name="Case study" meta={tagHead(project.tag)} className="mt-10">
@@ -107,6 +130,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           ))}
         </ul>
       </Artboard>
+
+      {project.next && (
+        <section className="mt-10 rounded-[18px] border-2 border-dashed border-white/25 p-6 md:p-8">
+          <p className="eyebrow mb-3 text-white/55">What I&apos;d do next</p>
+          <ul className="space-y-2">
+            {project.next.map((x) => (
+              <li key={x} className="flex gap-3 text-[15px] leading-relaxed text-white/90"><span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-lime" />{x}</li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <Link href={`/work/${next.slug}`} className="group mt-10 flex items-center justify-between gap-4 rounded-[18px] bg-panel p-6 shadow-[0_24px_50px_-24px_rgba(0,8,50,.7)] md:p-8">
         <div>

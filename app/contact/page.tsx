@@ -15,11 +15,7 @@ const STEPS = [
 export default function ContactPage() {
   return (
     <PageShell>
-      <PageHero label="Contact" title="Let's talk" intro="Got a project, a role, or just want to say hello? Tell me what you have in mind. I read every message.">
-        <p className="eyebrow mt-4 flex items-center gap-2 text-white/70">
-          <span aria-hidden className="pulse-dot h-1.5 w-1.5 rounded-full bg-live" /> Available for freelance & remote roles
-        </p>
-      </PageHero>
+      <PageHero label="Contact" title="Let's talk" intro="Got a project, a role, or just want to say hello? Tell me what you have in mind. I read every message." />
 
       <div className="grid gap-10 min-[900px]:grid-cols-[1.35fr_1fr]">
         {/* comment thread */}

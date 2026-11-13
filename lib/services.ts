@@ -31,14 +31,14 @@ export const SERVICES = [
     mock: "web" as const,
     title: "Product design",
     short: "Interfaces that make complicated things feel simple.",
-    long: "UX flows, interface design and design systems, taken all the way to production code.",
-    gets: ["UX flows and UI in Figma", "Design systems that ship", "Prototypes built as real code"],
+    long: "Research, flows, interface design and design systems, with every state designed and taken all the way to production code.",
+    gets: ["Research, flows and UI", "Design systems that ship", "Accessible by default"],
   },
 ];
 
 export const PROCESS = [
   { step: "01", title: "Discover", desc: "A short call or written brief to understand the problem, users and constraints." },
   { step: "02", title: "Design", desc: "Flows and UI direction agreed before heavy build work starts." },
-  { step: "03", title: "Build", desc: "Fast, AI-assisted delivery with regular working previews you can click through." },
+  { step: "03", title: "Build", desc: "Built in small steps, with working previews you can click through." },
   { step: "04", title: "Ship", desc: "Deployed, documented and handed over, with support for the first stretch." },
 ];

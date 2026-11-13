@@ -153,10 +153,10 @@ export function CursorTag({ name, color = "#ff6a3d", className, flip }: { name: 
 
 /** Project card: tag + title, highlight bullets, screenshot peeking out of a pastel panel */
 /** Screenshot when there is one, otherwise the project's illustrated cover */
-export function CoverArt({ project, priority }: { project: Project; priority?: boolean }) {
+export function CoverArt({ project, priority, alt = "" }: { project: Project; priority?: boolean; alt?: string }) {
   if (project.image)
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={project.image} alt="" loading={priority ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover object-top" />;
+    return <img src={project.image} alt={alt} loading={priority ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover object-top" />;
   if (project.cover === "citable") return <CitableCover />;
   if (project.cover === "blueprint") return <BlueprintCover />;
   return <div className="grid h-full place-items-center text-5xl font-black text-ink/10">{project.name[0]}</div>;
@@ -214,7 +214,7 @@ export function ProjectCard({ project, index, priority, className }: { project: 
             </li>
           ))}
         </ul>
-        <p className="mt-auto truncate pt-3.5 font-mono text-[10.5px] uppercase tracking-wider text-muted">{project.stack.join(" · ")}</p>
+        <p className="mt-auto pt-3.5 text-xs text-muted"><span className="font-semibold text-ink/80">Role:</span> {project.role}</p>
       </div>
       <div className={cn("overflow-hidden rounded-xl px-5 pt-5", pastel)}>
         <div className="aspect-[16/10] overflow-hidden rounded-t-lg bg-white shadow-[0_-4px_20px_-6px_rgba(0,0,0,.25)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1.5">

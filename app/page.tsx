@@ -7,7 +7,7 @@ import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const STACK = ["Claude Code", "OpenAI", "Claude", "Gemini", "LLM evals", "Multi-agent systems", "Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Node.js", "Express", "FastAPI", "Python", "SQL", "PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis", "Kafka", "BullMQ", "DuckDB", "dbt", "Airflow", "Power BI", "Salesforce CRM Analytics", "Docker", "Playwright", "Vercel", "Render", "Figma", "Design systems"];
+const STACK = ["OpenAI", "Claude", "Gemini", "LLM evals", "Multi-agent systems", "Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Node.js", "Express", "FastAPI", "Python", "SQL", "PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis", "Kafka", "BullMQ", "DuckDB", "dbt", "Airflow", "Power BI", "Salesforce CRM Analytics", "Docker", "Playwright", "Vercel", "Render", "Figma", "Design systems", "Prototyping", "Accessibility"];
 
 const MENU = [
   { label: "AI & agents", key: "A", checked: true },
@@ -19,8 +19,8 @@ const MENU = [
 const SKILL_CHIPS = [
   { label: "AI / LLMs", icon: Sparkles, tint: "bg-lime", pos: "-left-4 bottom-36", depth: "10", r: "-4deg" },
   { label: "Full stack", icon: Layers, tint: "bg-p-sky", pos: "left-8 bottom-12", depth: "16", r: "3deg" },
-  { label: "Product Designing", icon: PenTool, tint: "bg-p-pink", pos: "-right-4 bottom-36", depth: "12", r: "4deg" },
-  { label: "Data Analysis", icon: BarChart3, tint: "bg-p-mint", pos: "right-8 bottom-12", depth: "18", r: "-3deg" },
+  { label: "Product design", icon: PenTool, tint: "bg-p-pink", pos: "-right-4 bottom-36", depth: "12", r: "4deg" },
+  { label: "Data analysis", icon: BarChart3, tint: "bg-p-mint", pos: "right-8 bottom-12", depth: "18", r: "-3deg" },
 ];
 
 /** Glassy pill with a tinted icon badge */
@@ -80,7 +80,7 @@ export default function Home() {
             <div className="parallax absolute right-full top-[58%] mr-12 hidden lg:block" style={vars({ "--depth": "-12" })}>
               <div className="float ui-panel w-64 text-left" style={vars({ "--d": "1.2s" })}>
                 <p className="px-4 pt-3 text-sm font-semibold">Have an idea worth building?</p>
-                <p className="px-4 text-xs text-white/55">Design to deploy, shipped fast</p>
+                <p className="px-4 text-xs text-white/55">From first sketch to live product</p>
                 <div className="mt-3 flex items-center gap-3 border-t border-white/10 px-4 py-2.5 text-white/50">
                   <Smile className="h-4 w-4" /><AtSign className="h-4 w-4" /><ImageIcon className="h-4 w-4" />
                   <Link href="/contact" aria-label="Contact" className="ml-auto grid h-7 w-7 place-items-center rounded-full bg-figma text-white transition-transform hover:-translate-y-0.5">
