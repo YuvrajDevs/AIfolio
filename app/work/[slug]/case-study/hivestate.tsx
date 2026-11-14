@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Outfit } from 'next/font/google';
+import { Geist, Geist_Mono } from 'next/font/google';
 import { IconBrandGithub } from '@tabler/icons-react';
 import { ArrowLeft, ArrowRight, GitBranch, LayoutDashboard, ListChecks, Route, Settings2, UserCheck } from 'lucide-react';
 import { buttonClass, cx } from '@/components/case-study/styles';
@@ -9,8 +9,8 @@ import { AccessibilitySection, GoalsSection, IterationSection } from '@/componen
 import { DrawPath, Parallax, Reveal, ScrollProgress, SectionNav } from '@/components/case-study/motion';
 
 /*
- * HiveState case study, in HiveState's own design language: quiet neutral charcoal, soft rounded tiles, one
- * blue accent and state shown as small dots (the .cs-hivestate theme in app/globals.css). Facts come from the
+ * HiveState case study, in HiveState's own design language: monochrome, white working surfaces with black
+ * panels, square corners with crosshair marks, Geist Mono headings, and colour only for small state dots (the .cs-hivestate theme in app/globals.css). Facts come from the
  * repository; screenshots show the product running on synthetic demo runs.
  */
 
@@ -19,7 +19,8 @@ export const hiveStateMeta: Metadata = {
   description: 'How HiveState was designed and built: draw a workflow of AI agents, run it, and keep cost and human review in view.',
 };
 
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-hivestate', display: 'swap' });
+const geist = Geist({ subsets: ['latin'], variable: '--font-hivestate', display: 'swap' });
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-hivestate-mono', display: 'swap' });
 
 const REPO = 'https://github.com/YuvrajDevs/HiveState';
 const LIVE = 'https://hive-state.vercel.app';
@@ -77,7 +78,7 @@ function Panel({ children, className }: { children: React.ReactNode; className?:
 
 export function HiveStateCaseStudy() {
   return (
-    <div className={cx(outfit.variable, 'cs-theme cs-hivestate min-h-screen bg-bg')}>
+    <div className={cx(geist.variable, geistMono.variable, 'cs-theme cs-hivestate min-h-screen bg-bg')}>
       <ScrollProgress />
 
       <header className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-4 sm:px-8">
@@ -238,7 +239,7 @@ export function HiveStateCaseStudy() {
             <SectionHead index="05" eyebrow="Principles" title="Five rules every screen answers to." />
             <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                ['Calm surface, loud state', 'Neutral charcoal for structure; colour only for state, as small dots, and one blue for action.'],
+                ['Monochrome by default', 'White working surfaces, black for the sidebar and canvas; colour only for state, as small dots.'],
                 ['What needs you comes first', 'Runs waiting for review or paused on an error are pinned to the top with their action.'],
                 ['Cost is always in view', 'Today’s spend against the budget, and cost per run and per step.'],
                 ['Plain words', 'A run, a step, a workflow. Sentence case. No decorative status strings.'],
@@ -310,7 +311,7 @@ export function HiveStateCaseStudy() {
                   { title: 'Live state', body: 'During a run each node shows its own state, and failed steps can be retried in place.' },
                 ] },
                 { icon: UserCheck, title: 'Run details', q: 'What happened, and what do I decide?', img: 'task', notes: [
-                  { title: 'One primary action', body: 'Approve and continue is the only blue button; reject sits beside it with a note.' },
+                  { title: 'One primary action', body: 'Approve and continue is the only filled button; reject sits beside it with a note.' },
                   { title: 'Progress that adds up', body: 'Steps done over steps in the workflow, with cost and runtime beside it.' },
                   { title: 'Payload inspector', body: 'Prompt, input and output per step, told apart by colour.' },
                 ] },
@@ -352,7 +353,7 @@ export function HiveStateCaseStudy() {
             <SectionHead
               index="09"
               eyebrow="Design system"
-              title="Quiet by default, one colour for action."
+              title="Black and white, colour only for state."
               lead="Tokens for every colour, size and radius, one status vocabulary shared by every screen, and the rules written down in docs/DESIGN_SYSTEM.md."
             />
             <div className="grid gap-4 lg:grid-cols-2">
@@ -361,14 +362,14 @@ export function HiveStateCaseStudy() {
                   <p className="text-micro font-medium uppercase tracking-wide text-subtle">Colour</p>
                   <ul className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
                     {[
-                      ['Page', '#181818', 'Background'],
-                      ['Surface', '#212121', 'Panels'],
-                      ['Surface 2', '#2a2a2a', 'Tiles, hover'],
-                      ['Text', '#f0f0f0', '15.6:1'],
-                      ['Accent', '#3b7bff', 'Action, selection'],
-                      ['Success', '#4ade80', 'Completed'],
-                      ['Warning', '#facc15', 'Needs review'],
-                      ['Danger', '#f87171', 'Failed'],
+                      ['Page', '#ffffff', 'Working surface'],
+                      ['Card', '#f2f2f2', 'Cards in panels'],
+                      ['Ink', '#0a0a0a', 'Text 19.8:1, action'],
+                      ['Ink panel', '#0a0a0a', 'Sidebar, canvas'],
+                      ['Muted', '#5c5c5c', 'Secondary 6.7:1'],
+                      ['Success', '#15803d', 'Completed'],
+                      ['Warning', '#8a5a00', 'Needs review'],
+                      ['Danger', '#b91c1c', 'Failed'],
                     ].map(([n, hex, use]) => (
                       <li key={n}>
                         <span className="block h-12 rounded-xl border border-border" style={{ background: hex }} aria-hidden="true" />
@@ -399,7 +400,7 @@ export function HiveStateCaseStudy() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-4 text-micro font-medium uppercase tracking-wide text-subtle">Type · Outfit, JetBrains Mono for data</p>
+                  <p className="mt-4 text-micro font-medium uppercase tracking-wide text-subtle">Type · Geist Mono for headings and data, Geist for text</p>
                   <p className="mt-2 text-body-sm text-subtle">Sentence case everywhere. Mono only for ids, tokens, costs and payloads.</p>
                 </div>
               </Reveal>
@@ -426,7 +427,7 @@ export function HiveStateCaseStudy() {
             index="10"
             title="From everything shouting to one thing leading."
             before={{ src: `${IMG}/before.jpg`, alt: 'HiveState dashboard before the redesign: pure black, all-caps monospace labels, tinted panels' }}
-            after={{ src: `${IMG}/dashboard.jpg`, alt: 'HiveState dashboard after: neutral charcoal, sentence case, state as small dots, one blue action' }}
+            after={{ src: `${IMG}/dashboard.jpg`, alt: 'HiveState dashboard after: black and white, mono headings, crosshair-marked panels, state as small dots' }}
             changes={[
               { what: 'All-caps monospace labels became sentence case', why: 'Every label had the same loud weight, so nothing led. Mono is now kept for ids, tokens and costs.' },
               { what: 'Fake telemetry text was removed', why: 'Strings like “NODE_CLUSTER_SYNCED” looked technical but meant nothing, and competed with real state.' },
@@ -464,7 +465,7 @@ export function HiveStateCaseStudy() {
           <AccessibilitySection
             index="12"
             items={[
-              ['Measured contrast', 'Body text is 15.6:1, secondary 7.0:1 and hints 5.1:1 on the page.'],
+              ['Measured contrast', 'Text is 19.8:1, secondary 6.7:1 and hints 5.7:1 on white; state words stay above 4.5:1.'],
               ['State is never colour alone', 'Every dot and chip carries a word: Running, Needs review, Failed.'],
               ['Phones', 'Toolbars scroll sideways instead of clipping; wide tables scroll inside their card.'],
               ['Keyboard', 'A skip link, a command palette (⌘K) and visible focus rings.'],
