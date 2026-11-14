@@ -169,8 +169,8 @@ export const PROJECTS: Project[] = [
     ],
     tier: "star",
     status: "Live demo",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini", "OpenAI"],
-    links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState` },
+    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini"],
+    links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState`, caseStudy: "/work/hivestate/case-study" },
     card: { pitch: "A visual builder for multi-agent AI: wire up agents, run them in parallel and keep every run on budget.", points: ["DAG runner that resolves dependencies and runs ready agents in parallel", "Human review nodes that pause a run and resume from that exact step", "Daily budget guard with token and cost tracking for every step"], stack: ["Next.js", "Supabase", "React Flow", "Gemini"] },
     role: "Solo \u00b7 Product design, front end, back end",
     constraints: "AI costs are real money, so spend has to be visible and capped from the first run.",
@@ -187,7 +187,7 @@ export const PROJECTS: Project[] = [
       design:
         "A dense, developer-first interface in the spirit of Linear and Vercel: a React Flow canvas to draw agents and their connections, a dashboard of workflows and live tasks, step-by-step traces, and a daily budget card always in view. Its own design system keeps it sharp, dark and information-dense.",
       tech:
-        "Next.js App Router with server actions and API routes. Supabase Postgres stores workflows, runs, step logs, providers and governance settings across 11 migrations. Agents call Gemini or OpenAI through one model layer, and provider keys never leave the server.",
+        "Next.js App Router with server actions and API routes. Supabase Postgres stores workflows, runs, step logs, providers and governance settings across 11 migrations. Agents call Gemini through one model layer, and provider keys never leave the server.",
       hardProblem:
         "Running a graph, not a list. The runner works out which nodes are ready from their dependencies, runs each ready level with Promise.all, and carries outputs forward, summarising long context into a short header. It can stop mid-graph at a human-review node, store the pending input, and later resume from that exact node.",
       outcome:
@@ -195,7 +195,7 @@ export const PROJECTS: Project[] = [
       built: [
         { label: "Engine", value: "Parallel DAG runner with HITL pause/resume" },
         { label: "Data model", value: "Supabase Postgres, 11 migrations" },
-        { label: "AI", value: "Gemini + OpenAI behind one interface" },
+        { label: "AI", value: "Gemini with a fallback model" },
       ],
     },
   },

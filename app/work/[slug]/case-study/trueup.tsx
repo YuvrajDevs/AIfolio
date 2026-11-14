@@ -5,6 +5,7 @@ import { IconBrandGithub } from '@tabler/icons-react';
 import { ArrowLeft, ArrowRight, Banknote, FlaskConical, Gauge, Landmark, ReceiptText, ScaleIcon, ShieldAlert } from 'lucide-react';
 import { buttonClass, cx } from '@/components/case-study/styles';
 import { BrowserFrame, Callouts, PhoneFrame, SectionHead } from '@/components/case-study/frames';
+import { AccessibilitySection, GoalsSection, IterationSection } from '@/components/case-study/sections';
 import { CountUp, DrawPath, Parallax, Reveal, ScrollProgress, SectionNav } from '@/components/case-study/motion';
 
 /*
@@ -27,6 +28,7 @@ const IMG = '/case-study/trueup';
 
 const SECTIONS = [
   { id: 'overview', label: 'Overview' },
+  { id: 'goals', label: 'Goals' },
   { id: 'problem', label: 'Problem' },
   { id: 'users', label: 'Users and needs' },
   { id: 'principles', label: 'Principles' },
@@ -34,7 +36,9 @@ const SECTIONS = [
   { id: 'decisions', label: 'Key decisions' },
   { id: 'walkthrough', label: 'The product' },
   { id: 'system', label: 'Design system' },
+  { id: 'iteration', label: 'Iteration' },
   { id: 'edges', label: 'Edge cases' },
+  { id: 'access', label: 'Accessibility' },
   { id: 'evidence', label: 'Evidence' },
   { id: 'retro', label: 'What went wrong' },
   { id: 'next', label: 'Next' },
@@ -201,10 +205,21 @@ export function TrueUpCaseStudy() {
             </Reveal>
           </section>
 
+          <GoalsSection
+            index="02"
+            items={[
+              { goal: 'Prove detectors work', measure: 'Recall and false alarms over 200 random lab runs, against planted incidents', result: '96.6% found, 0 false alarms' },
+              { goal: 'Trustworthy reconciliation', measure: 'Error precision and recall on the hard world, 8 seeds per profile', result: '0.999 precision, 0.994 recall (seed 42)' },
+              { goal: 'Fast enough for a daily close', measure: 'Time to reconcile one million ledger rows', result: '7.21s on one machine' },
+              { goal: 'A finding an analyst can act on', measure: 'Every finding names an owner, an amount and links to its rows', result: 'Nine findings on the dashboard, each linked' },
+              { goal: 'No regressions', measure: 'Accuracy floors enforced in CI; a crippled engine must fail them', result: '225 tests; floors never lowered' },
+            ]}
+          />
+
           {/* 02 problem */}
           <section id="problem" className="scroll-mt-10">
             <SectionHead
-              index="02"
+              index="03"
               eyebrow="Problem"
               title="Three records of the same money never agree."
               lead="The internal ledger, the payment processor and the bank all record the same payments. Payments are booked twice, arrive late, settle in batches, get split, carry fees and rounding differences, and lose their references. On top of that sit the card network’s own leaks: declines, fraud, chargebacks and interchange."
@@ -237,7 +252,7 @@ export function TrueUpCaseStudy() {
           {/* 03 users */}
           <section id="users" className="scroll-mt-10">
             <SectionHead
-              index="03"
+              index="04"
               eyebrow="Users and needs"
               title="Built for the analyst who answers for the money."
               lead="The primary user is a payment operations or risk analyst at a processor or a merchant: someone who closes the books, watches approval rates and owns disputes. This is a proto-persona drawn from how the job is done, not from interviews; testing it with real analysts is the next step."
@@ -284,7 +299,7 @@ export function TrueUpCaseStudy() {
 
           {/* 04 principles */}
           <section id="principles" className="scroll-mt-10">
-            <SectionHead index="04" eyebrow="Principles" title="Five rules every screen answers to." />
+            <SectionHead index="05" eyebrow="Principles" title="Five rules every screen answers to." />
             <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 ['Money first', 'A finding leads with its amount and its owner. A signed difference beats a bar that only says “not quite full”.'],
@@ -307,7 +322,7 @@ export function TrueUpCaseStudy() {
           {/* 05 structure */}
           <section id="structure" className="scroll-mt-10">
             <SectionHead
-              index="05"
+              index="06"
               eyebrow="Structure and flow"
               title="From a claim you can test to the row behind it."
               lead="A visitor meets the proof first: the lab. An analyst starts from what needs a decision and drills down to the exact records. Every step links one level deeper."
@@ -359,7 +374,7 @@ export function TrueUpCaseStudy() {
 
           {/* 06 decisions */}
           <section id="decisions" className="scroll-mt-10">
-            <SectionHead index="06" eyebrow="Key decisions" title="What was chosen, over what, and why." />
+            <SectionHead index="07" eyebrow="Key decisions" title="What was chosen, over what, and why." />
             <ol className="grid gap-4 md:grid-cols-2">
               {DECISIONS.map((d, i) => (
                 <Reveal as="li" key={d.chose} delay={(i % 2) * 90}>
@@ -376,7 +391,7 @@ export function TrueUpCaseStudy() {
 
           {/* 07 walkthrough */}
           <section id="walkthrough" className="scroll-mt-10">
-            <SectionHead index="07" eyebrow="The product" title="Six screens, each built around one question." lead="Real screenshots of the live product, annotated the way a design review would mark them up." />
+            <SectionHead index="08" eyebrow="The product" title="Six screens, each built around one question." lead="Real screenshots of the live product, annotated the way a design review would mark them up." />
             <div className="space-y-20">
               {[
                 {
@@ -460,7 +475,7 @@ export function TrueUpCaseStudy() {
           {/* 08 design system */}
           <section id="system" className="scroll-mt-10">
             <SectionHead
-              index="08"
+              index="09"
               eyebrow="Design system"
               title="A fintech palette, tokens only."
               lead="The first version borrowed a sage-and-lime palette that read like another product of mine. The design-system pass replaced it with navy, lavender and one violet accent, moved every size and colour into tokens, and documented the rules in docs/DESIGN_SYSTEM.md."
@@ -533,9 +548,22 @@ export function TrueUpCaseStudy() {
             </Reveal>
           </section>
 
+          <IterationSection
+            index="10"
+            title="From a borrowed palette to a fintech one."
+            before={{ src: `${IMG}/before.jpg`, alt: 'TrueUp dashboard before the design-system pass: sage and lime palette, title beside the KPIs' }}
+            after={{ src: `${IMG}/dashboard.jpg`, alt: 'TrueUp dashboard after: navy, lavender and violet, one page header and a four-figure KPI row' }}
+            changes={[
+              { what: 'Sage and lime became navy, lavender and violet', why: 'The first palette read like another of my products. Navy and violet signal finance and keep colour for state.' },
+              { what: 'The dashboard got the same header as every page', why: 'A two-line title squeezed beside a ring and three numbers broke the pattern every other screen follows.' },
+              { what: 'Figures read as one token', why: '“2.5M $” became “$2.5M”, so a row of KPIs scans left to right without decoding units.' },
+              { what: 'The chart scale became honest', why: 'A fixed 80% floor hid the card-testing day; the new scale starts just under the lowest value.' },
+            ]}
+          />
+
           {/* 09 edge cases */}
           <section id="edges" className="scroll-mt-10">
-            <SectionHead index="09" eyebrow="Edge cases" title="The awkward cases, designed on purpose." />
+            <SectionHead index="11" eyebrow="Edge cases" title="The awkward cases, designed on purpose." />
             <div className="grid gap-4 lg:grid-cols-[1fr_240px]">
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
@@ -560,9 +588,19 @@ export function TrueUpCaseStudy() {
             </div>
           </section>
 
+          <AccessibilitySection
+            index="12"
+            items={[
+              ['Measured contrast', 'Secondary text is 6.5:1 on white and 6.7:1 on lavender; muted text on navy is 8.2:1.'],
+              ['State is never colour alone', 'Severity dots carry a label, chips carry words, and the incident day is named in the readout.'],
+              ['Keyboard first', 'A skip link, landmarks and one heading per page; chart bars are focusable and named with their value.'],
+              ['Works at 390px', 'Every page was checked on a phone: tables scroll inside their card, never the page.'],
+            ]}
+          />
+
           {/* 10 evidence */}
           <section id="evidence" className="scroll-mt-10">
-            <SectionHead index="10" eyebrow="Evidence" title="Measured, not asserted." lead="Every figure comes from commands in the repository and is enforced in CI. Floors are set a little below the worst value seen and are never moved to make a build pass." />
+            <SectionHead index="13" eyebrow="Evidence" title="Measured, not asserted." lead="Every figure comes from commands in the repository and is enforced in CI. Floors are set a little below the worst value seen and are never moved to make a build pass." />
             <div className="grid gap-4 lg:grid-cols-2">
               <Reveal>
                 <Navy className="h-full">
@@ -629,7 +667,7 @@ export function TrueUpCaseStudy() {
 
           {/* 11 retro */}
           <section id="retro" className="scroll-mt-10">
-            <SectionHead index="11" eyebrow="What went wrong" title="Honest about the misses." />
+            <SectionHead index="14" eyebrow="What went wrong" title="Honest about the misses." />
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 ['The first engine fell over', 'It scored a perfect 1.000 on the easy world, which proved little. On the hard world, typo’d references dragged error precision to 0.561 until the matching rules were rewritten.'],
@@ -649,7 +687,7 @@ export function TrueUpCaseStudy() {
 
           {/* 12 next */}
           <section id="next" className="scroll-mt-10">
-            <SectionHead index="12" eyebrow="Next" title="What I would do next." />
+            <SectionHead index="15" eyebrow="Next" title="What I would do next." />
             <ol className="grid gap-4 md:grid-cols-3">
               {[
                 ['Sit with three analysts', 'Watch how they work an exception queue and a dispute report before changing either, and test the proto-persona.'],

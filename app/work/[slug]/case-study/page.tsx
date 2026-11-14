@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { StrataCaseStudy, strataMeta } from './strata';
 import { TrueUpCaseStudy, trueUpMeta } from './trueup';
+import { HiveStateCaseStudy, hiveStateMeta } from './hivestate';
 
 /**
  * Full case studies, each rendered in its own product's design language (a theme class on the
@@ -10,6 +11,7 @@ import { TrueUpCaseStudy, trueUpMeta } from './trueup';
 const STUDIES = {
   strata: { Page: StrataCaseStudy, meta: strataMeta },
   trueup: { Page: TrueUpCaseStudy, meta: trueUpMeta },
+  hivestate: { Page: HiveStateCaseStudy, meta: hiveStateMeta },
 } as const;
 type Slug = keyof typeof STUDIES;
 const isSlug = (s: string): s is Slug => s in STUDIES;
