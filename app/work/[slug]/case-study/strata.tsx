@@ -8,6 +8,7 @@ import { Badge, ConfidenceBadge, EmptyState, Ring, Skeleton, SplitBars, Stat, St
 import { TONE_BG, buttonClass, cx } from '@/components/case-study/styles';
 
 import { BrowserFrame, Callouts, PhoneFrame, SectionHead } from '@/components/case-study/frames';
+import { GoalsSection, IterationSection } from '@/components/case-study/sections';
 import { CountUp, DrawPath, Parallax, Reveal, ScrollProgress, SectionNav } from '@/components/case-study/motion';
 
 export const strataMeta: Metadata = {
@@ -22,6 +23,7 @@ const outfit = Outfit({ subsets: ['latin'], variable: '--font-strata', display: 
 
 const SECTIONS = [
   { id: 'overview', label: 'Overview' },
+  { id: 'goals', label: 'Goals' },
   { id: 'problem', label: 'Problem' },
   { id: 'users', label: 'Users and needs' },
   { id: 'principles', label: 'Principles' },
@@ -29,7 +31,8 @@ const SECTIONS = [
   { id: 'decisions', label: 'Key decisions' },
   { id: 'walkthrough', label: 'The product' },
   { id: 'system', label: 'Design system' },
-  { id: 'states', label: 'States and edge cases' },
+  { id: 'iteration', label: 'Iteration' },
+  { id: 'states', label: 'Edge cases' },
   { id: 'access', label: 'Accessibility' },
   { id: 'evidence', label: 'Evidence' },
   { id: 'retro', label: 'What went wrong' },
@@ -162,10 +165,21 @@ export function StrataCaseStudy() {
             </Reveal>
           </section>
 
+          <GoalsSection
+            index="02"
+            items={[
+              { goal: 'Every number traceable', measure: 'Funding shown only when it links to an SEC Form D filing', result: '136 of 234 filings kept after linkage checks' },
+              { goal: 'Find the right company', measure: 'Right company in the top five answers, 25 test questions', result: '100% with hybrid search (keyword alone: 52%)' },
+              { goal: 'Labels you can trust', measure: 'Accuracy on hand-labelled companies; low confidence goes to review', result: '87.8% on 41 companies' },
+              { goal: 'No invented claims', measure: 'Generated claims dropped when their numbers are not in the source', result: '11 cited claims kept on 5 live questions' },
+              { goal: 'Accessible and tested', measure: 'Automated tests including accessibility scans on every page', result: '166 tests' },
+            ]}
+          />
+
           {/* 02 problem */}
           <section id="problem" className="scroll-mt-10">
             <SectionHead
-              index="02"
+              index="03"
               eyebrow="Problem"
               title="Analysts repeat numbers they cannot trace."
               lead="Mapping a sector means deciding which companies belong, what they raised and who is growing. The tools that answer this sell data behind a paywall, and rarely show their working."
@@ -198,7 +212,7 @@ export function StrataCaseStudy() {
           {/* 03 users */}
           <section id="users" className="scroll-mt-10">
             <SectionHead
-              index="03"
+              index="04"
               eyebrow="Users and needs"
               title="Built for the person who has to defend the map."
               lead="The primary user is a market-research analyst or an investor mapping a sector, tracking new rounds and writing landscape briefs. This is a proto-persona drawn from the brief and the job, not from interviews; testing it with real analysts is the next step."
@@ -245,7 +259,7 @@ export function StrataCaseStudy() {
 
           {/* 04 principles */}
           <section id="principles" className="scroll-mt-10">
-            <SectionHead index="04" eyebrow="Principles" title="Five rules every screen answers to." />
+            <SectionHead index="05" eyebrow="Principles" title="Five rules every screen answers to." />
             <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 ['Provenance is part of the interface', 'A number without a source is not shown as fact. Sources use words an analyst knows: “SEC Form D”, not a pipeline id.'],
@@ -268,7 +282,7 @@ export function StrataCaseStudy() {
           {/* 05 structure */}
           <section id="structure" className="scroll-mt-10">
             <SectionHead
-              index="05"
+              index="06"
               eyebrow="Structure and flow"
               title="Read the market in layers."
               lead="The name says it: a landscape is read from sector to subsector to company to round to source. Navigation follows the same path, and every layer links one step deeper."
@@ -319,7 +333,7 @@ export function StrataCaseStudy() {
 
           {/* 06 decisions */}
           <section id="decisions" className="scroll-mt-10">
-            <SectionHead index="06" eyebrow="Key decisions" title="What was chosen, over what, and why." lead="Eighteen decisions are logged in the repository. These six shaped the product most." />
+            <SectionHead index="07" eyebrow="Key decisions" title="What was chosen, over what, and why." lead="Eighteen decisions are logged in the repository. These six shaped the product most." />
             <ol className="grid gap-4 md:grid-cols-2">
               {DECISIONS.map((d, i) => (
                 <Reveal as="li" key={d.chose} delay={(i % 2) * 90}>
@@ -336,7 +350,7 @@ export function StrataCaseStudy() {
 
           {/* 07 walkthrough */}
           <section id="walkthrough" className="scroll-mt-10">
-            <SectionHead index="07" eyebrow="The product" title="Six screens, one promise: show your working." />
+            <SectionHead index="08" eyebrow="The product" title="Six screens, one promise: show your working." />
             <div className="space-y-20">
               {[
                 {
@@ -436,7 +450,7 @@ export function StrataCaseStudy() {
           {/* 08 design system */}
           <section id="system" className="scroll-mt-10">
             <SectionHead
-              index="08"
+              index="09"
               eyebrow="Design system"
               title="One system, written down and enforced."
               lead="Everything below is rendered live from the app's own tokens and components, not pasted in as pictures."
@@ -546,10 +560,23 @@ export function StrataCaseStudy() {
             </Reveal>
           </section>
 
+          <IterationSection
+            index="10"
+            title="From a generic dashboard to an analyst’s workbench."
+            before={{ src: '/case-study/strata-before.jpg', alt: 'Strata dashboard before the UI passes: generic indigo SaaS layout, plain KPI tiles' }}
+            after={{ src: '/case-study/dashboard.jpg', alt: 'Strata dashboard after: warm paper and ink, pastel KPI tiles with data visuals, insights beside the funding chart' }}
+            changes={[
+              { what: 'A generic indigo theme became paper, ink and pastels', why: 'The first version looked like any SaaS template. Paper and ink suit reading evidence; pastels identify sectors and never signal state.' },
+              { what: 'KPI tiles gained the data behind them', why: 'Big numbers alone left half of each tile empty. Each now carries its breakdown or trend, so it answers the next question.' },
+              { what: 'Charts became readable without hovering', why: 'A labelled scale, a total and the peak on every chart; a quarter opens its rounds when selected.' },
+              { what: 'Navigation split into reading and acting', why: 'General (dashboard, companies, funding, sectors) and Tools (ask, review, briefs, watchlists, alerts) match the two jobs.' },
+            ]}
+          />
+
           {/* 09 states */}
           <section id="states" className="scroll-mt-10">
             <SectionHead
-              index="09"
+              index="11"
               eyebrow="States and edge cases"
               title="Designed for the moments things go sideways."
               lead="Each of these is a real component from the app, rendered here as it appears there."
@@ -607,7 +634,7 @@ export function StrataCaseStudy() {
 
           {/* 10 accessibility */}
           <section id="access" className="scroll-mt-10">
-            <SectionHead index="10" eyebrow="Accessibility and responsive" title="Usable by keyboard, screen reader and thumb." />
+            <SectionHead index="12" eyebrow="Accessibility and responsive" title="Usable by keyboard, screen reader and thumb." />
             <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
               <Reveal>
                 <ul className="grid gap-3 sm:grid-cols-2">
@@ -641,7 +668,7 @@ export function StrataCaseStudy() {
 
           {/* 11 evidence */}
           <section id="evidence" className="scroll-mt-10">
-            <SectionHead index="11" eyebrow="Evidence" title="Measured, not asserted." lead="Every figure here comes from scripts in the repository and is reproducible." />
+            <SectionHead index="13" eyebrow="Evidence" title="Measured, not asserted." lead="Every figure here comes from scripts in the repository and is reproducible." />
             <div className="grid gap-4 lg:grid-cols-2">
               <Reveal>
                 <div className="card h-full overflow-hidden">
@@ -717,7 +744,7 @@ export function StrataCaseStudy() {
 
           {/* 12 retro */}
           <section id="retro" className="scroll-mt-10">
-            <SectionHead index="12" eyebrow="What went wrong" title="Honest about the gaps." />
+            <SectionHead index="14" eyebrow="What went wrong" title="Honest about the gaps." />
             <div className="grid gap-4 md:grid-cols-2">
               {[
                 ['The free AI quota shaped the evaluation', 'About 20 requests per model per day stopped the Gemini run after 41 of 162 companies. The held-out score, the honest one, is still to come.'],
@@ -737,7 +764,7 @@ export function StrataCaseStudy() {
 
           {/* 13 next */}
           <section id="next" className="scroll-mt-10">
-            <SectionHead index="13" eyebrow="Next" title="What I would do next." />
+            <SectionHead index="15" eyebrow="Next" title="What I would do next." />
             <ol className="grid gap-4 md:grid-cols-3">
               {[
                 ['Test with five analysts', 'Watch how they read the market map and the review queue before changing either.'],

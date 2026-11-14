@@ -34,10 +34,11 @@ const SECTIONS = [
   { id: 'structure', label: 'Structure and flow' },
   { id: 'decisions', label: 'Key decisions' },
   { id: 'walkthrough', label: 'The product' },
+  { id: 'system', label: 'Design system' },
   { id: 'iteration', label: 'Iteration' },
   { id: 'edges', label: 'Edge cases' },
   { id: 'access', label: 'Accessibility' },
-  { id: 'evidence', label: 'Engineering' },
+  { id: 'evidence', label: 'Evidence' },
   { id: 'retro', label: 'What went wrong' },
   { id: 'next', label: 'Next' },
 ];
@@ -347,8 +348,82 @@ export function HiveStateCaseStudy() {
             </div>
           </section>
 
+          <section id="system" className="scroll-mt-10">
+            <SectionHead
+              index="09"
+              eyebrow="Design system"
+              title="Quiet by default, one colour for action."
+              lead="Tokens for every colour, size and radius, one status vocabulary shared by every screen, and the rules written down in docs/DESIGN_SYSTEM.md."
+            />
+            <div className="grid gap-4 lg:grid-cols-2">
+              <Reveal>
+                <div className="card h-full p-6">
+                  <p className="text-micro font-medium uppercase tracking-wide text-subtle">Colour</p>
+                  <ul className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+                    {[
+                      ['Page', '#181818', 'Background'],
+                      ['Surface', '#212121', 'Panels'],
+                      ['Surface 2', '#2a2a2a', 'Tiles, hover'],
+                      ['Text', '#f0f0f0', '15.6:1'],
+                      ['Accent', '#3b7bff', 'Action, selection'],
+                      ['Success', '#4ade80', 'Completed'],
+                      ['Warning', '#facc15', 'Needs review'],
+                      ['Danger', '#f87171', 'Failed'],
+                    ].map(([n, hex, use]) => (
+                      <li key={n}>
+                        <span className="block h-12 rounded-xl border border-border" style={{ background: hex }} aria-hidden="true" />
+                        <p className="mt-1.5 text-caption font-semibold">{n}</p>
+                        <p className="tabular text-micro text-subtle">{hex}</p>
+                        <p className="text-micro text-subtle">{use}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+              <Reveal delay={100}>
+                <div className="card h-full p-6">
+                  <p className="text-micro font-medium uppercase tracking-wide text-subtle">Status vocabulary · one module for every screen</p>
+                  <ul className="mt-4 space-y-2.5">
+                    {[
+                      ['Running', 'bg-accent'],
+                      ['Needs review', 'bg-warning'],
+                      ['Paused on error', 'bg-warning'],
+                      ['Completed', 'bg-success'],
+                      ['Failed', 'bg-danger'],
+                    ].map(([label, dot]) => (
+                      <li key={label} className="flex items-center justify-between border-b border-dashed border-border pb-2 last:border-0">
+                        <span className="flex items-center gap-2 text-body">
+                          <span className={cx('h-2 w-2 rounded-full', dot)} aria-hidden="true" /> {label}
+                        </span>
+                        <span className="text-caption text-subtle">dot and word, never colour alone</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-micro font-medium uppercase tracking-wide text-subtle">Type · Outfit, JetBrains Mono for data</p>
+                  <p className="mt-2 text-body-sm text-subtle">Sentence case everywhere. Mono only for ids, tokens, costs and payloads.</p>
+                </div>
+              </Reveal>
+            </div>
+            <Reveal delay={80}>
+              <Panel className="mt-4">
+                <div className="grid gap-6 md:grid-cols-3">
+                  {[
+                    ['164', 'one-off pixel font sizes replaced by a named type scale'],
+                    ['322', 'raw palette classes (red-500, green-400…) replaced by four state tokens'],
+                    ['256', 'all-caps labels returned to sentence case'],
+                  ].map(([v, l]) => (
+                    <div key={l}>
+                      <p className="tabular text-stat font-semibold">{v}</p>
+                      <p className="mt-1 text-body-sm text-subtle">{l}</p>
+                    </div>
+                  ))}
+                </div>
+              </Panel>
+            </Reveal>
+          </section>
+
           <IterationSection
-            index="09"
+            index="10"
             title="From everything shouting to one thing leading."
             before={{ src: `${IMG}/before.jpg`, alt: 'HiveState dashboard before the redesign: pure black, all-caps monospace labels, tinted panels' }}
             after={{ src: `${IMG}/dashboard.jpg`, alt: 'HiveState dashboard after: neutral charcoal, sentence case, state as small dots, one blue action' }}
@@ -361,7 +436,7 @@ export function HiveStateCaseStudy() {
           />
 
           <section id="edges" className="scroll-mt-10">
-            <SectionHead index="10" eyebrow="Edge cases" title="The awkward cases, designed on purpose." />
+            <SectionHead index="11" eyebrow="Edge cases" title="The awkward cases, designed on purpose." />
             <div className="grid gap-4 lg:grid-cols-[1fr_240px]">
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
@@ -387,9 +462,9 @@ export function HiveStateCaseStudy() {
           </section>
 
           <AccessibilitySection
-            index="11"
+            index="12"
             items={[
-              ['Measured contrast', 'Body text is 16.5:1, secondary 7.7:1 and hints 5.6:1 on the page.'],
+              ['Measured contrast', 'Body text is 15.6:1, secondary 7.0:1 and hints 5.1:1 on the page.'],
               ['State is never colour alone', 'Every dot and chip carries a word: Running, Needs review, Failed.'],
               ['Phones', 'Toolbars scroll sideways instead of clipping; wide tables scroll inside their card.'],
               ['Keyboard', 'A skip link, a command palette (⌘K) and visible focus rings.'],
@@ -397,7 +472,7 @@ export function HiveStateCaseStudy() {
           />
 
           <section id="evidence" className="scroll-mt-10">
-            <SectionHead index="12" eyebrow="Engineering" title="Code you can trust to change." lead="The redesign was also a code review. These are the changes behind the calm surface." />
+            <SectionHead index="13" eyebrow="Engineering" title="Code you can trust to change." lead="The redesign was also a code review. These are the changes behind the calm surface." />
             <div className="grid gap-4 md:grid-cols-2">
               {[
                 ['165 → 0 lint problems', 'A typed domain model replaced 108 untyped values; a real React rules-of-hooks error and effect-driven state syncing were fixed.'],
@@ -416,7 +491,7 @@ export function HiveStateCaseStudy() {
           </section>
 
           <section id="retro" className="scroll-mt-10">
-            <SectionHead index="13" eyebrow="What went wrong" title="Honest about the misses." />
+            <SectionHead index="14" eyebrow="What went wrong" title="Honest about the misses." />
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 ['The first look fought itself', 'A “technical brutalism” style made every label loud. It took a redesign to let state lead.'],
@@ -435,7 +510,7 @@ export function HiveStateCaseStudy() {
           </section>
 
           <section id="next" className="scroll-mt-10">
-            <SectionHead index="14" eyebrow="Next" title="What I would do next." />
+            <SectionHead index="15" eyebrow="Next" title="What I would do next." />
             <ol className="grid gap-4 md:grid-cols-3">
               {[
                 ['Test the runner', 'Unit tests for dependency order, parallel levels, resume and the circuit breaker.'],
