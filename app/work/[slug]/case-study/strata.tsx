@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpenCheck, Database, FileText,
 import { Badge, ConfidenceBadge, EmptyState, Ring, Skeleton, SplitBars, Stat, StatusBadge, Wordmark } from '@/components/case-study/ui';
 import { TONE_BG, buttonClass, cx } from '@/components/case-study/styles';
 
-import { BrowserFrame, Callouts, PhoneFrame, SectionHead } from '@/components/case-study/frames';
+import { BrowserFrame, Callouts, SectionHead } from '@/components/case-study/frames';
 import { GoalsSection, IterationSection } from '@/components/case-study/sections';
 import { CountUp, DrawPath, Parallax, Reveal, ScrollProgress, SectionNav } from '@/components/case-study/motion';
 
@@ -115,11 +115,6 @@ export function StrataCaseStudy() {
               <BrowserFrame src="/case-study/dashboard.jpg" alt="Strata dashboard: KPI tiles with trends, quarterly funding chart, insights, latest funding and sectors" url="strata · dashboard" priority />
             </Parallax>
           </Reveal>
-          <Parallax strength={-0.08} className="absolute -bottom-10 right-4 hidden w-[200px] lg:block xl:-right-6">
-            <Reveal delay={480}>
-              <PhoneFrame src="/case-study/m-dashboard.jpg" alt="Strata dashboard on a phone" />
-            </Reveal>
-          </Parallax>
         </div>
       </section>
 
@@ -635,7 +630,7 @@ export function StrataCaseStudy() {
           {/* 10 accessibility */}
           <section id="access" className="scroll-mt-10">
             <SectionHead index="12" eyebrow="Accessibility and responsive" title="Usable by keyboard, screen reader and thumb." />
-            <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
+            <div className="grid items-center gap-10">
               <Reveal>
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {[
@@ -653,16 +648,6 @@ export function StrataCaseStudy() {
                   ))}
                 </ul>
               </Reveal>
-              <div className="flex justify-center gap-4">
-                {[
-                  ['/case-study/m-company.jpg', 'Company profile on a phone'],
-                  ['/case-study/m-ask.jpg', 'Ask Strata on a phone'],
-                ].map(([src, alt], i) => (
-                  <Reveal key={src} delay={i * 140}>
-                    <PhoneFrame src={src} alt={alt} className={cx('w-[150px] sm:w-[190px]', i === 1 && 'mt-10')} />
-                  </Reveal>
-                ))}
-              </div>
             </div>
           </section>
 

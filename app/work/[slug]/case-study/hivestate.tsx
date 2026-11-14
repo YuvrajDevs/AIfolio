@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { IconBrandGithub } from '@tabler/icons-react';
 import { ArrowLeft, ArrowRight, GitBranch, LayoutDashboard, ListChecks, Route, Settings2, UserCheck } from 'lucide-react';
 import { buttonClass, cx } from '@/components/case-study/styles';
-import { BrowserFrame, Callouts, PhoneFrame, SectionHead } from '@/components/case-study/frames';
+import { BrowserFrame, Callouts, SectionHead } from '@/components/case-study/frames';
 import { AccessibilitySection, GoalsSection, IterationSection } from '@/components/case-study/sections';
 import { DrawPath, Parallax, Reveal, ScrollProgress, SectionNav } from '@/components/case-study/motion';
 
@@ -64,9 +64,9 @@ function Mark() {
   return <span className="text-title font-semibold tracking-tight">HiveState</span>;
 }
 
-/** A quiet panel one step lighter than the page, as the product's own panels are. */
+/** Black panel: the case study's surface for analysis, as TrueUp uses navy. */
 function Panel({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={cx('rounded-3xl border border-border bg-surface p-6 sm:p-8', className)}>{children}</div>;
+  return <div className={cx('rounded-3xl bg-ink p-6 text-paper sm:p-8 [&_.text-subtle]:text-paper/65', className)}>{children}</div>;
 }
 
 export function HiveStateCaseStudy() {
@@ -128,11 +128,6 @@ export function HiveStateCaseStudy() {
               <BrowserFrame src={`${IMG}/canvas.jpg`} alt="HiveState workflow editor: four agents connected on a dotted canvas, each showing its model and prompt" url="hivestate · workflow editor" priority />
             </Parallax>
           </Reveal>
-          <Parallax strength={-0.08} className="absolute -bottom-10 right-4 hidden w-[200px] lg:block xl:-right-6">
-            <Reveal delay={440}>
-              <PhoneFrame src={`${IMG}/m-dashboard.jpg`} alt="HiveState dashboard on a phone" />
-            </Reveal>
-          </Parallax>
         </div>
       </section>
 
@@ -151,29 +146,26 @@ export function HiveStateCaseStudy() {
                 ['The outcome', 'A live product: workflow editor, templates, runs with step-by-step traces, human review, a daily budget and model fallback.'],
               ].map(([t, b], i) => (
                 <Reveal key={t} delay={i * 90}>
-                  <div className={cx('h-full rounded-2xl p-5', i === 2 ? 'bg-accent text-accent-fg' : 'bg-muted')}>
+                  <div className={'h-full rounded-2xl bg-muted p-5'}>
                     <p className="text-body font-semibold">{t}</p>
-                    <p className={cx('mt-2 text-body-sm leading-relaxed', i === 2 ? 'text-accent-fg/75' : 'text-subtle')}>{b}</p>
+                    <p className={'mt-2 text-body-sm leading-relaxed text-subtle'}>{b}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
             <Reveal delay={120}>
-              <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+              <ul className="mt-4 grid grid-cols-2 overflow-hidden rounded-2xl bg-ink text-paper md:grid-cols-4">
                 {[
                   ['6', 'ready-made workflow templates'],
                   ['3', 'failures in a row before the circuit breaker stops a run'],
                   ['11', 'database migrations behind the data model'],
                   ['165 → 0', 'lint problems after the redesign'],
-                ].map(([v, l], i) => {
-                  const dark = i === 0 || i === 3;
-                  return (
-                    <li key={l} className={cx('rounded-2xl p-5', dark ? 'bg-accent text-accent-fg' : 'bg-muted')}>
-                      <p className="tabular text-stat font-semibold">{v}</p>
-                      <p className={cx('mt-1 text-caption', dark ? 'text-accent-fg/70' : 'text-subtle')}>{l}</p>
-                    </li>
-                  );
-                })}
+                ].map(([v, l]) => (
+                  <li key={l} className="border-b border-r border-paper/10 p-5 last:border-r-0 md:border-b-0">
+                    <p className="tabular text-stat font-semibold">{v}</p>
+                    <p className="mt-1 text-caption text-paper/65">{l}</p>
+                  </li>
+                ))}
               </ul>
             </Reveal>
           </section>
@@ -242,7 +234,7 @@ export function HiveStateCaseStudy() {
                 ['One status vocabulary', 'Every screen labels a state the same way, from one module.'],
               ].map(([t, b], i) => (
                 <Reveal as="li" key={t} delay={i * 70}>
-                  <div className="card h-full p-5">
+                  <div className="h-full rounded-2xl bg-muted p-5">
                     <span className="tabular text-micro font-medium text-subtle">{String(i + 1).padStart(2, '0')}</span>
                     <p className="mt-2 text-body font-semibold">{t}</p>
                     <p className="mt-1 text-body-sm leading-relaxed text-subtle">{b}</p>
@@ -281,7 +273,7 @@ export function HiveStateCaseStudy() {
             <ol className="grid gap-4 md:grid-cols-2">
               {DECISIONS.map((d, i) => (
                 <Reveal as="li" key={d.chose} delay={(i % 2) * 90}>
-                  <div className="card h-full p-5">
+                  <div className="h-full rounded-2xl bg-muted p-5">
                     <span className="tabular text-micro font-medium text-subtle">{String(i + 1).padStart(2, '0')}</span>
                     <p className="mt-2 text-body font-semibold">{d.chose}</p>
                     <p className="mt-0.5 text-caption text-subtle">over {d.over}</p>
@@ -434,7 +426,7 @@ export function HiveStateCaseStudy() {
 
           <section id="edges" className="scroll-mt-10">
             <SectionHead index="11" eyebrow="Edge cases" title="The awkward cases, designed on purpose." />
-            <div className="grid gap-4 lg:grid-cols-[1fr_240px]">
+            <div className="grid gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   ['A step fails three times', 'The circuit breaker pauses the run and says why, instead of retrying into the budget.'],
@@ -445,16 +437,13 @@ export function HiveStateCaseStudy() {
                   ['A workflow loops', 'Cycles are detected before a run starts.'],
                 ].map(([t, b], i) => (
                   <Reveal key={t} delay={(i % 2) * 80}>
-                    <div className="card h-full p-5">
+                    <div className="h-full rounded-2xl bg-muted p-5">
                       <p className="text-body font-semibold">{t}</p>
                       <p className="mt-1 text-body-sm leading-relaxed text-subtle">{b}</p>
                     </div>
                   </Reveal>
                 ))}
               </div>
-              <Reveal delay={120} className="hidden lg:block">
-                <PhoneFrame src={`${IMG}/m-task.jpg`} alt="A run waiting for review, on a phone" />
-              </Reveal>
             </div>
           </section>
 
@@ -478,7 +467,7 @@ export function HiveStateCaseStudy() {
                 ['A stale polling loop', 'The run page compared each poll against the status from when polling began. Refs now keep it current.'],
               ].map(([t, b], i) => (
                 <Reveal key={t} delay={(i % 2) * 80}>
-                  <div className="card h-full p-5">
+                  <div className="h-full rounded-2xl bg-muted p-5">
                     <p className="text-body font-semibold">{t}</p>
                     <p className="mt-1 text-body-sm leading-relaxed text-subtle">{b}</p>
                   </div>
@@ -497,7 +486,7 @@ export function HiveStateCaseStudy() {
                 ['Two words for one thing', 'Tasks and runs meant the same; users had to learn that. One word now.'],
               ].map(([t, b], i) => (
                 <Reveal key={t} delay={(i % 2) * 80}>
-                  <div className="h-full rounded-2xl border-l-4 border-accent bg-surface p-5">
+                  <div className="h-full rounded-2xl border-l-4 border-accent bg-muted p-5">
                     <p className="text-body font-semibold">{t}</p>
                     <p className="mt-1 text-body-sm leading-relaxed text-subtle">{b}</p>
                   </div>
@@ -515,7 +504,7 @@ export function HiveStateCaseStudy() {
                 ['Watch three builders', 'See where they stall on the canvas before adding anything to it.'],
               ].map(([t, b], i) => (
                 <Reveal as="li" key={t} delay={i * 80}>
-                  <div className="card h-full p-5">
+                  <div className="h-full rounded-2xl bg-muted p-5">
                     <ListChecks className="h-4 w-4 text-subtle" aria-hidden="true" />
                     <p className="mt-2 text-body font-semibold">{t}</p>
                     <p className="mt-1 text-body-sm leading-relaxed text-subtle">{b}</p>
@@ -527,10 +516,10 @@ export function HiveStateCaseStudy() {
               <Panel className="mt-16 sm:p-12">
                 <h2 className="text-display font-semibold sm:text-section">Draw a workflow. Run it. Stay in charge.</h2>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a href={LIVE} target="_blank" rel="noopener noreferrer" className={buttonClass('primary', 'md')}>
+                  <a href={LIVE} target="_blank" rel="noopener noreferrer" className={'inline-flex h-10 items-center gap-2 rounded-full bg-paper px-5 text-body-sm font-semibold text-ink hover:opacity-90'}>
                     Open the live demo <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </a>
-                  <a href={REPO} target="_blank" rel="noopener noreferrer" className={buttonClass('secondary', 'md')}>
+                  <a href={REPO} target="_blank" rel="noopener noreferrer" className={'inline-flex h-10 items-center gap-2 rounded-full border border-paper/25 px-5 text-body-sm font-medium text-paper hover:bg-paper/10'}>
                     Read the source <IconBrandGithub className="h-4 w-4" aria-hidden="true" />
                   </a>
                 </div>

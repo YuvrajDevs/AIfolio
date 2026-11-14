@@ -4,7 +4,7 @@ import { Urbanist } from 'next/font/google';
 import { IconBrandGithub } from '@tabler/icons-react';
 import { ArrowLeft, ArrowRight, Banknote, FlaskConical, Gauge, Landmark, ReceiptText, ScaleIcon, ShieldAlert } from 'lucide-react';
 import { buttonClass, cx } from '@/components/case-study/styles';
-import { BrowserFrame, Callouts, PhoneFrame, SectionHead } from '@/components/case-study/frames';
+import { BrowserFrame, Callouts, SectionHead } from '@/components/case-study/frames';
 import { AccessibilitySection, GoalsSection, IterationSection } from '@/components/case-study/sections';
 import { CountUp, DrawPath, Parallax, Reveal, ScrollProgress, SectionNav } from '@/components/case-study/motion';
 
@@ -156,11 +156,6 @@ export function TrueUpCaseStudy() {
               <BrowserFrame src={`${IMG}/dashboard.jpg`} alt="TrueUp dashboard: approval rate, volume, open reconciliation errors and dispute ratio, then what needs attention" url="trueup · dashboard" priority />
             </Parallax>
           </Reveal>
-          <Parallax strength={-0.08} className="absolute -bottom-10 right-4 hidden w-[200px] lg:block xl:-right-6">
-            <Reveal delay={440}>
-              <PhoneFrame src={`${IMG}/m-dashboard.jpg`} alt="TrueUp dashboard on a phone" />
-            </Reveal>
-          </Parallax>
         </div>
       </section>
 
@@ -564,7 +559,7 @@ export function TrueUpCaseStudy() {
           {/* 09 edge cases */}
           <section id="edges" className="scroll-mt-10">
             <SectionHead index="11" eyebrow="Edge cases" title="The awkward cases, designed on purpose." />
-            <div className="grid gap-4 lg:grid-cols-[1fr_240px]">
+            <div className="grid gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   ['The chart that hid the attack', 'The daily approval chart had a fixed 80% floor. The card-testing day, at 48.9%, fell below it and drew as an empty bar. The scale now starts just under the lowest value and the day is highlighted as an incident.'],
@@ -582,9 +577,6 @@ export function TrueUpCaseStudy() {
                   </Reveal>
                 ))}
               </div>
-              <Reveal delay={120} className="hidden lg:block">
-                <PhoneFrame src={`${IMG}/m-lab.jpg`} alt="The lab on a phone, before the first run" />
-              </Reveal>
             </div>
           </section>
 
