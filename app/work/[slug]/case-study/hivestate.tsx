@@ -61,14 +61,7 @@ const DECISIONS = [
 ];
 
 function Mark() {
-  return (
-    <span className="flex items-center gap-2 text-title font-semibold tracking-tight">
-      <span className="grid h-7 w-7 place-items-center rounded-lg bg-muted" aria-hidden="true">
-        <span className="h-2.5 w-2.5 rounded-full bg-accent" />
-      </span>
-      HiveState
-    </span>
-  );
+  return <span className="text-title font-semibold tracking-tight">HiveState</span>;
 }
 
 /** A quiet panel one step lighter than the page, as the product's own panels are. */
@@ -158,26 +151,29 @@ export function HiveStateCaseStudy() {
                 ['The outcome', 'A live product: workflow editor, templates, runs with step-by-step traces, human review, a daily budget and model fallback.'],
               ].map(([t, b], i) => (
                 <Reveal key={t} delay={i * 90}>
-                  <div className="card h-full p-5">
+                  <div className={cx('h-full rounded-2xl p-5', i === 2 ? 'bg-accent text-accent-fg' : 'bg-muted')}>
                     <p className="text-body font-semibold">{t}</p>
-                    <p className="mt-2 text-body-sm leading-relaxed text-subtle">{b}</p>
+                    <p className={cx('mt-2 text-body-sm leading-relaxed', i === 2 ? 'text-accent-fg/75' : 'text-subtle')}>{b}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
             <Reveal delay={120}>
-              <ul className="mt-4 grid grid-cols-2 overflow-hidden rounded-2xl border border-border bg-surface md:grid-cols-4">
+              <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
                 {[
                   ['6', 'ready-made workflow templates'],
                   ['3', 'failures in a row before the circuit breaker stops a run'],
                   ['11', 'database migrations behind the data model'],
                   ['165 → 0', 'lint problems after the redesign'],
-                ].map(([v, l]) => (
-                  <li key={l} className="border-b border-r border-border p-5 last:border-r-0 md:border-b-0">
-                    <p className="tabular text-stat font-semibold">{v}</p>
-                    <p className="mt-1 text-caption text-subtle">{l}</p>
-                  </li>
-                ))}
+                ].map(([v, l], i) => {
+                  const dark = i === 0 || i === 3;
+                  return (
+                    <li key={l} className={cx('rounded-2xl p-5', dark ? 'bg-accent text-accent-fg' : 'bg-muted')}>
+                      <p className="tabular text-stat font-semibold">{v}</p>
+                      <p className={cx('mt-1 text-caption', dark ? 'text-accent-fg/70' : 'text-subtle')}>{l}</p>
+                    </li>
+                  );
+                })}
               </ul>
             </Reveal>
           </section>
