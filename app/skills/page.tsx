@@ -11,7 +11,7 @@ type Tool = { name: string; src?: string; fill?: boolean; art?: "proto" | "type"
 
 /** Four tools per folder; logos with their own rounded background fill the tile */
 const TOOLS: Record<"pipelines" | "analytics" | "ai" | "app", Tool[]> = {
-  pipelines: [{ name: "Apache Spark", src: "spark.svg" }, { name: "Apache Kafka", src: "kafka.svg" }, { name: "Delta Lake", art: "word", word: "Delta", tint: "bg-p-mint" }, { name: "Apache Airflow", src: "airflow.svg" }],
+  pipelines: [{ name: "Apache Spark", src: "spark.svg" }, { name: "Apache Kafka", src: "kafka.svg" }, { name: "Delta Lake", src: "deltalake" }, { name: "Apache Airflow", src: "airflow" }],
   analytics: [{ name: "SQL", art: "word", word: "SQL", tint: "bg-lime" }, { name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "SOQL", art: "word", word: "SOQL", tint: "bg-p-sky" }],
   ai: [{ name: "OpenAI", src: "openai", fill: true }, { name: "Claude", src: "claude", fill: true }, { name: "Gemini", src: "gemini" }, { name: "Cursor", src: "cursor", fill: true }],
   app: [{ name: "React", src: "react" }, { name: "TypeScript", src: "typescript", fill: true }, { name: "Supabase", src: "supabase" }, { name: "Figma", src: "figma" }],
@@ -118,7 +118,7 @@ export default function SkillsPage() {
       </section>
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-[18px] bg-panel p-6 shadow-[0_24px_50px_-24px_rgba(0,8,50,.7)] md:p-8">
-        <p className="text-lg font-semibold tracking-tight md:text-xl">Have a data idea in mind? Let&apos;s talk.</p>
+        <p className="text-lg font-semibold tracking-tight md:text-xl">Have an idea in mind? Let&apos;s talk.</p>
         <ButtonLink href="/contact">Get in touch</ButtonLink>
       </div>
     </PageShell>

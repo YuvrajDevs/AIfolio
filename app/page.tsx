@@ -79,7 +79,7 @@ export default function Home() {
             {/* comment box */}
             <div className="parallax absolute right-full top-[58%] mr-12 hidden lg:block" style={vars({ "--depth": "-12" })}>
               <div className="float ui-panel w-64 text-left" style={vars({ "--d": "1.2s" })}>
-                <p className="px-4 pt-3 text-sm font-semibold">Have a data idea in mind?</p>
+                <p className="px-4 pt-3 text-sm font-semibold">Have an idea in mind?</p>
                 <p className="px-4 text-xs text-white/55">Send it over and let&apos;s talk</p>
                 <div className="mt-3 flex items-center gap-3 border-t border-white/10 px-4 py-2.5 text-white/50">
                   <Smile className="h-4 w-4" /><AtSign className="h-4 w-4" /><ImageIcon className="h-4 w-4" />

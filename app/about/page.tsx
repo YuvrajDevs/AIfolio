@@ -51,7 +51,7 @@ export default function AboutPage() {
         }
       >
         <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-          My day job is Salesforce data: cleaning client data and building the dashboards teams report from. In my own projects I build batch and streaming pipelines on Spark, Kafka, Delta Lake and Airflow, and I check each one end to end. Before this I was a product designer, so I care about how people read the numbers.
+          I work on Salesforce data and build data pipelines in my own projects.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>
