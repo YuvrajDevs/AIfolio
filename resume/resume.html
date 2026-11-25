@@ -26,20 +26,20 @@
 </head>
 <body>
   <h1>Yuvraj Singh Shekhawat</h1>
-  <p class="title">Software Engineer | Data Analytics | Interested in Data Engineering (Spark, Kafka, Delta Lake, Airflow, SQL)</p>
+  <p class="title">Software Engineer | Data Analytics</p>
   <p class="contact">India | +91-86195-10246 | <a href="mailto:workwithyuvraj0712@gmail.com">workwithyuvraj0712@gmail.com</a></p>
   <p class="contact"><a href="https://ysdevs.com">Portfolio</a> | <a href="https://www.linkedin.com/in/yuvraj-singh-shekhawat-4404b4283">LinkedIn</a> | <a href="https://github.com/YuvrajDevs">GitHub</a></p>
 
   <h2>Summary</h2>
-  <p>Software engineer working on Salesforce data pipelines and analytics, interested in data engineering and building toward it with hands-on projects: a streaming pipeline with exactly-once delivery proven after a crash, and a batch data product in progress. Also brings AI and full-stack skills.</p>
+  <p>Software engineer working on Salesforce data pipelines and analytics, interested in data engineering and building toward it through hands-on projects.</p>
 
   <h2>Experience</h2>
   <div class="row"><span>Software Engineer, Dealermatix Technologies</span><span>Jun 2026 – Present</span></div>
   <p class="sub">Full-time | Data Analytics, Salesforce</p>
   <ul>
     <li>Build Salesforce data pipelines that turn raw, inconsistent client data into clean, analysis-ready datasets.</li>
-    <li>Clean, validate and standardise records to raise data quality and the accuracy of reported metrics, reconciling dashboard numbers against the source.</li>
-    <li>Analyse client datasets for actionable insights and build dashboards tailored to each client's reporting needs.</li>
+    <li>Clean, validate and standardise records to raise data quality and the accuracy of reported metrics.</li>
+    <li>Analyse datasets for actionable insights and build dashboards tailored to each client's reporting needs.</li>
   </ul>
   <div class="row"><span>Product Designer (Freelance), Independent Clients</span><span>2024 – Apr 2026</span></div>
   <ul>
@@ -49,7 +49,7 @@
   <h2>Projects</h2>
   <div class="proj">
     <div class="row"><span><a href="https://github.com/YuvrajDevs/tf-telemetry">Turbofan Telemetry</a>: Real-Time Predictive-Maintenance Pipeline</span><span></span></div>
-    <p class="sub">Python, Kafka, Spark Structured Streaming, PySpark, Delta Lake, Docker, Streamlit, pytest</p>
+    <p class="sub">Python, Kafka, Spark Structured Streaming, Delta Lake, Docker</p>
     <ul>
       <li>Streamed NASA's public C-MAPSS run-to-failure fleet (200 engines, 21 sensors) through Kafka into Delta Lake bronze, silver and gold tables with Spark Structured Streaming; per-engine health scores warn a median 44 cycles before failure for all 200 engines.</li>
       <li>Proved exactly-once delivery: injected duplicate, late and malformed messages, killed the Spark job mid-stream (kill -9) and verified 54,787 of 54,787 events with 0 lost and 0 duplicated; all 438 bad records kept in a dead-letter table with reason codes.</li>
@@ -58,8 +58,8 @@
     </ul>
   </div>
   <div class="proj">
-    <div class="row"><span><a href="https://github.com/YuvrajDevs/NHTSA">Vehicle Safety Intelligence</a>: Batch Data Product on NHTSA Data <span class="tag">In progress</span></span><span></span></div>
-    <p class="sub">PySpark, Delta Lake, SQL, Apache Airflow, Docker, pytest</p>
+    <div class="row"><span><a href="https://github.com/YuvrajDevs/NHTSA">Vehicle Safety Intelligence</a>: Batch Data Product on NHTSA Data (In progress)</span><span></span></div>
+    <p class="sub">PySpark, Delta Lake, SQL, Apache Airflow</p>
     <ul>
       <li>Building a governed data product on public NHTSA vehicle complaints (2.3M rows), recalls and investigations, to test whether consumer complaints could have warned of recalls.</li>
       <li>Built so far: a medallion pipeline that turns daily full snapshots into change data capture (inserts, updates, soft deletes, SCD type 2 for recalls), checked on a simulated day with 1,500 known changes (none missed, none extra); a star schema in SQL; and 89 data-contract checks run as an Airflow quality gate.</li>
@@ -67,7 +67,7 @@
   </div>
   <div class="proj">
     <div class="row"><span><a href="https://strata-weld-sigma.vercel.app">Strata</a>: Startup and Sector Intelligence Platform</span><span></span></div>
-    <p class="sub">Node.js, Kafka, MongoDB Atlas Vector Search, Redis, BullMQ, Gemini API, Next.js, Docker</p>
+    <p class="sub">Node.js, Kafka, MongoDB Atlas Vector Search, Redis, Gemini API</p>
     <ul>
       <li>Built event-driven ingestion of Y Combinator and SEC EDGAR Form D data through Kafka into MongoDB with idempotent upserts: 465 companies and 136 verified funding filings.</li>
       <li>Built RAG question answering over 594 passages: Gemini embeddings, Atlas Vector Search and keyword search fused by weighted reciprocal rank fusion, reaching 100% Hit@5 versus 52% for keyword search alone.</li>
@@ -79,12 +79,12 @@
   <div class="skills">
     <p><b>Languages:</b> SQL, Python, TypeScript, JavaScript</p>
     <p><b>Data engineering:</b> PySpark, Spark SQL, Spark Structured Streaming, Kafka, Delta Lake, Apache Airflow, dbt, batch and streaming ETL/ELT, change data capture, incremental loads, medallion lakehouse</p>
-    <p><b>Modelling and quality:</b> dimensional modelling (star schema, SCD type 2), data contracts, data validation, reconciliation, query and Spark performance tuning</p>
+    <p><b>Modelling and quality:</b> dimensional modelling (star schema, SCD type 2), data contracts, data validation, reconciliation, Spark performance tuning</p>
     <p><b>Databases:</b> PostgreSQL, DuckDB, MongoDB, Redis</p>
-    <p><b>Analytics and BI:</b> Power BI, Salesforce CRM Analytics, SOQL, dashboards</p>
+    <p><b>Analytics and BI:</b> Salesforce CRM Analytics, SOQL, dashboards</p>
     <p><b>AI:</b> AI-ready data preparation, RAG, embeddings and vector search, OpenAI, Anthropic and Gemini APIs, LLM evaluation</p>
-    <p><b>Tools:</b> Git, GitHub Actions (CI/CD), Docker, Linux, pytest, Streamlit, Next.js, React, FastAPI, Figma</p>
-    <p><b>Familiar with (coursework):</b> Azure (ADLS Gen2, Data Factory, Databricks, Synapse), Hadoop (HDFS, YARN), Hive, HBase, Scala</p>
+    <p><b>Tools:</b> Git, GitHub Actions (CI/CD), Docker, Linux, Streamlit, Next.js, React, FastAPI, Figma</p>
+    <p><b>Conceptual:</b> Azure, Hadoop, Hive, HBase, Scala</p>
   </div>
 
   <h2>Education</h2>

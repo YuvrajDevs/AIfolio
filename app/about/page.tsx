@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "About & resume", description: "Softw
 const SKILLS = [
   { group: "Data engineering", items: ["PySpark", "Spark Structured Streaming", "Spark SQL", "Kafka", "Delta Lake", "Airflow", "dbt", "Batch & streaming ETL/ELT", "CDC & incremental loads", "Medallion lakehouse", "Data contracts", "Performance tuning"] },
   { group: "SQL & modelling", items: ["Advanced SQL", "Window functions", "Query tuning", "Star schema", "SCD type 2", "PostgreSQL", "DuckDB", "Data quality", "Reconciliation"] },
-  { group: "Familiar with (coursework)", items: ["Azure Data Lake (ADLS)", "Azure Data Factory", "Databricks", "Synapse", "Hadoop (HDFS, YARN)", "Hive", "HBase", "Scala"] },
+  { group: "Conceptual", items: ["Azure", "Hadoop", "Hive", "HBase", "Scala"] },
   { group: "Analytics & BI", items: ["Power BI", "Salesforce CRM Analytics", "SOQL", "Dashboards", "Metrics definitions"] },
   { group: "AI", items: ["AI-ready data", "RAG", "Embeddings & vector search", "PII scrubbing", "OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Evals"] },
   { group: "Engineering", items: ["Python", "TypeScript", "Docker", "Linux & Bash", "Git & GitHub", "GitHub Actions CI", "pytest", "Next.js", "React", "Node.js", "FastAPI", "Figma"] },
