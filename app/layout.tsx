@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.website),
   title: { default: `${SITE.short} | Data engineering, analytics & AI`, template: `%s | ${SITE.short}` },
   description:
-    "Data engineer: batch and streaming pipelines on Spark, Kafka, Delta Lake and Airflow, with measured results. Projects: real-time jet-engine telemetry, a vehicle-safety data product and a startup-intelligence platform.",
+    "Software engineer in data analytics, interested in data engineering: batch and streaming pipeline projects on Spark, Kafka, Delta Lake and Airflow, with measured results. Projects: real-time jet-engine telemetry, a vehicle-safety data product and a startup-intelligence platform.",
   openGraph: {
     type: "website",
     url: "/",

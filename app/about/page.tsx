@@ -4,15 +4,15 @@ import { Artboard, ButtonLink, PageHero, PageShell } from "@/components/ui-bits"
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "About & resume", description: "Data engineer with analytics, AI and full-stack skills: how I work, where I have worked, and what I use." };
+export const metadata: Metadata = { title: "About & resume", description: "Software engineer in data analytics, interested in data engineering: how I work, where I have worked, and what I use." };
 
 const SKILLS = [
   { group: "Data engineering", items: ["PySpark", "Spark Structured Streaming", "Spark SQL", "Kafka", "Delta Lake", "Airflow", "dbt", "Batch & streaming ETL/ELT", "CDC & incremental loads", "Medallion lakehouse", "Data contracts", "Performance tuning"] },
   { group: "SQL & modelling", items: ["Advanced SQL", "Window functions", "Query tuning", "Star schema", "SCD type 2", "PostgreSQL", "DuckDB", "Data quality", "Reconciliation"] },
-  { group: "Cloud & big data", items: ["Azure Data Lake (ADLS)", "Azure Data Factory", "Databricks", "Synapse", "Hadoop (HDFS, YARN)", "Hive", "HBase", "Scala for Spark", "Docker", "Linux & Bash"] },
+  { group: "Familiar with (coursework)", items: ["Azure Data Lake (ADLS)", "Azure Data Factory", "Databricks", "Synapse", "Hadoop (HDFS, YARN)", "Hive", "HBase", "Scala"] },
   { group: "Analytics & BI", items: ["Power BI", "Salesforce CRM Analytics", "SOQL", "Dashboards", "Metrics definitions"] },
   { group: "AI", items: ["AI-ready data", "RAG", "Embeddings & vector search", "PII scrubbing", "OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Evals"] },
-  { group: "Engineering", items: ["Python", "TypeScript", "Git & GitHub", "GitHub Actions CI", "pytest", "Next.js", "React", "Node.js", "FastAPI", "Figma"] },
+  { group: "Engineering", items: ["Python", "TypeScript", "Docker", "Linux & Bash", "Git & GitHub", "GitHub Actions CI", "pytest", "Next.js", "React", "Node.js", "FastAPI", "Figma"] },
 ];
 
 const PRINCIPLES = [
@@ -29,7 +29,7 @@ const EXPERIENCE = [
     role: "Software Engineer",
     org: "Dealermatix Technologies",
     when: "Jun 2026 – Present",
-    desc: "Full-time, data engineering and analytics on Salesforce: pipelines that turn raw, inconsistent client data into clean, analysis-ready datasets; cleaning, validation and standardisation to raise data quality; and dashboards built around each client's reporting needs.",
+    desc: "Full-time, data analytics on Salesforce: pipelines that turn raw, inconsistent client data into clean, analysis-ready datasets; cleaning, validation and standardisation to raise data quality; and dashboards built around each client's reporting needs.",
     icon: Briefcase,
     tint: "bg-lime",
   },
@@ -46,12 +46,12 @@ export default function AboutPage() {
         align="center"
         below={
           <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-            A data engineer who loves turning messy data into <span className="rounded bg-lime px-1 font-semibold text-ink">numbers people trust</span>.
+            A software engineer in data analytics, interested in data engineering, who loves turning messy data into <span className="rounded bg-lime px-1 font-semibold text-ink">numbers people trust</span>.
           </p>
         }
       >
         <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-          I build batch and streaming pipelines and prove they are right: nothing lost, nothing duplicated, every number reconciled. I also bring analytics, AI and full-stack product skills, and a product-design background that keeps the people using the data in mind.
+          At work I build Salesforce data pipelines and dashboards. Outside work I build data engineering projects end to end, and prove they are right: nothing lost, nothing duplicated, every number reconciled. I also bring AI and full-stack skills, and a product-design background that keeps the people using the data in mind.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>

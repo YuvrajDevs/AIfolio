@@ -43,7 +43,7 @@ function ToolArt({ art, word }: { art: NonNullable<Tool["art"]>; word?: string }
 export default function SkillsPage() {
   return (
     <PageShell>
-      <PageHero label="Skills" title="What I do" intro="Data engineering first: batch and streaming pipelines, models and the checks that prove the data is right. Backed by analytics, AI and full-stack product work, so the data can be used, not just stored." />
+      <PageHero label="Skills" title="What I do" intro="Data analytics at work, data engineering in my projects and where I am heading: pipelines, models and the checks that prove the data is right. Plus AI and full-stack product work, so the data can be used, not just stored." />
 
       {/* Skills as folders, tools sticking out */}
       <ul className="grid gap-x-6 gap-y-10 md:auto-rows-fr md:grid-cols-2">
@@ -118,7 +118,7 @@ export default function SkillsPage() {
       </section>
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-[18px] bg-panel p-6 shadow-[0_24px_50px_-24px_rgba(0,8,50,.7)] md:p-8">
-        <p className="text-lg font-semibold tracking-tight md:text-xl">Hiring for data engineering? Let&apos;s talk.</p>
+        <p className="text-lg font-semibold tracking-tight md:text-xl">Hiring for a data role? Let&apos;s talk.</p>
         <ButtonLink href="/contact">Get in touch</ButtonLink>
       </div>
     </PageShell>
