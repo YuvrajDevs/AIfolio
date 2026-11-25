@@ -22,9 +22,9 @@ export const SERVICES = [
     icon: Sparkles,
     mock: "ai" as const,
     title: "AI & agents",
-    short: "LLM features built on OpenAI, Anthropic and Gemini.",
-    long: "Product features on top of LLM APIs, tested against labelled data so I know how often they get it right.",
-    gets: ["OpenAI, Anthropic and Gemini APIs", "LLM evaluation"],
+    short: "LLM features on OpenAI, Anthropic and Gemini, with retrieval.",
+    long: "LLM features on real data: preparing it for AI, retrieval with cited answers, and testing against labelled data so I know how often they get it right.",
+    gets: ["RAG and vector search", "OpenAI, Anthropic and Gemini APIs", "LLM evaluation"],
   },
   {
     icon: AppWindow,

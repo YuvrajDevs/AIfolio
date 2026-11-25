@@ -11,7 +11,7 @@ const SKILLS = [
   { group: "SQL & modelling", items: ["Advanced SQL", "Window functions", "Query tuning", "Star schema", "SCD type 2", "PostgreSQL", "DuckDB", "Data quality", "Reconciliation"] },
   { group: "Conceptual", items: ["Azure", "Hadoop", "Hive", "HBase", "Scala"] },
   { group: "Analytics & BI", items: ["Salesforce CRM Analytics", "SOQL", "Dashboards", "Metrics definitions"] },
-  { group: "AI", items: ["OpenAI API", "Anthropic API", "Gemini API", "LLM evaluation"] },
+  { group: "AI", items: ["AI-ready data", "RAG", "Embeddings & vector search", "OpenAI API", "Anthropic API", "Gemini API", "LLM evaluation"] },
   { group: "Engineering", items: ["Python", "TypeScript", "Docker", "Linux & Bash", "Git & GitHub", "GitHub Actions CI", "pytest", "Next.js", "React", "Node.js", "FastAPI", "Figma"] },
 ];
 

@@ -53,8 +53,8 @@ export const PROJECTS: Project[] = [
     ],
     image: "/projects/turbofan-explorer.jpg",
     gallery: [
-      { src: "/projects/turbofan-explorer.jpg", caption: "Engine explorer on the project page: one NASA engine's smoothed health score, cycle by cycle, with the alert thresholds and the failure point." },
-      { src: "/projects/turbofan-hero.jpg", caption: "Project page: what it does and the measured results, generated from the pipeline's own output." },
+      { src: "/projects/turbofan-explorer.jpg", caption: "Engine explorer, a static results page in the repo: one NASA engine's smoothed health score, cycle by cycle, with the alert thresholds and the failure point." },
+      { src: "/projects/turbofan-hero.jpg", caption: "Results page in the repo: what it does and the measured results, generated from the pipeline's own output." },
       { src: "/projects/turbofan-fix.jpg", caption: "The bug that mattered: fan-fault engines never alerted. Before/after calibration on all 200 engines." },
       { src: "/projects/turbofan-dashboard.jpg", caption: "Streamlit dashboard reading the gold Delta tables: fleet health, engines at risk and the latest alerts." },
     ],
@@ -94,7 +94,7 @@ export const PROJECTS: Project[] = [
         "Engines degrade slowly, and the signal is buried in noisy sensor readings arriving continuously. A useful system has to warn early enough to plan maintenance, and its data has to be trustworthy when messages arrive twice, late, broken, or while the processing job is crashing.",
       user: "Maintenance planners and reliability engineers who need to know which engines need attention, and data engineers who need to trust every number behind that alert.",
       design:
-        "A project page in the repo (site/, ready for GitHub Pages) to explore all 200 NASA engines with their health score cycle by cycle, the alert thresholds, and a toggle between the original and fixed models. A Streamlit dashboard reads the gold tables. Every result on both is measured by the pipeline, not typed by hand.",
+        "A static results page in the repo (site/), opened locally, to explore all 200 NASA engines with their health score cycle by cycle, the alert thresholds, and a toggle between the original and fixed models. A Streamlit dashboard reads the gold tables. Every result on both is measured by the pipeline, not typed by hand.",
       tech:
         "A Python producer replays NASA's C-MAPSS run-to-failure data as a live fleet into Kafka (KRaft, 6 partitions, keyed by engine), with an idempotent producer and optional chaos: 5% duplicates, 3% late by 30 s, 1% malformed. Spark Structured Streaming lands raw bytes in a bronze Delta table, validates, types and deduplicates them in silver with a watermark (bad records to a dead-letter table), and keeps per-engine state in gold with foreachBatch, applyInPandas and an idempotent MERGE: a smoothed health score (EWMA) and alerts that fire once per level.",
       hardProblem:

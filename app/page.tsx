@@ -7,7 +7,7 @@ import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const STACK = ["SQL", "Python", "PySpark", "Apache Spark", "Spark Structured Streaming", "Kafka", "Delta Lake", "Airflow", "dbt", "DuckDB", "PostgreSQL", "Data modelling", "Data quality", "Docker", "Salesforce CRM Analytics", "pytest", "GitHub Actions", "OpenAI", "Claude", "Gemini", "Next.js", "React", "TypeScript", "Node.js", "FastAPI", "MongoDB", "Redis", "Figma"];
+const STACK = ["SQL", "Python", "PySpark", "Apache Spark", "Spark Structured Streaming", "Kafka", "Delta Lake", "Airflow", "dbt", "DuckDB", "PostgreSQL", "Data modelling", "Data quality", "Docker", "Salesforce CRM Analytics", "pytest", "GitHub Actions", "OpenAI", "Claude", "Gemini", "RAG", "Next.js", "React", "TypeScript", "Node.js", "FastAPI", "MongoDB", "Redis", "Figma"];
 
 const MENU = [
   { label: "AI & agents", key: "A", checked: true },
