@@ -69,7 +69,7 @@ export const PROJECTS: Project[] = [
     stack: ["Python", "Kafka", "Spark Structured Streaming", "Delta Lake", "PySpark", "Docker", "Streamlit", "pytest"],
     links: { repo: `${GH}/tf-telemetry` },
     card: {
-      pitch: "A streaming pipeline that turns jet-engine sensor data into maintenance alerts weeks before failure, with exactly-once delivery proven after a crash.",
+      pitch: "A streaming pipeline that turns jet-engine sensor data into maintenance alerts a median 44 cycles before failure, with exactly-once delivery proven after a crash.",
       points: [
         "Kafka to Spark Structured Streaming to Delta bronze, silver and gold",
         "Exactly-once proven: kill -9 mid-stream with duplicate, late and broken data mixed in",

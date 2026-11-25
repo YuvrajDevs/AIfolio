@@ -4,15 +4,15 @@ import { ButtonLink, PageHero, PageShell, Sticker } from "@/components/ui-bits";
 import { PROCESS, SERVICES } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Skills", description: "Data engineering, analytics and data quality, AI-ready data and agents, and full-stack product work." };
+export const metadata: Metadata = { title: "Skills", description: "Data engineering, data analytics, LLM features and full-stack product work." };
 
 /** A tool tile: a logo file, or a small drawn sketch for concepts without a logo */
 type Tool = { name: string; src?: string; fill?: boolean; art?: "proto" | "type" | "word"; word?: string; tint?: string };
 
 /** Four tools per folder; logos with their own rounded background fill the tile */
 const TOOLS: Record<"pipelines" | "analytics" | "ai" | "app", Tool[]> = {
-  pipelines: [{ name: "Apache Spark", art: "word", word: "Spark", tint: "bg-p-peach" }, { name: "Apache Kafka", art: "word", word: "Kafka", tint: "bg-p-lemon" }, { name: "Delta Lake", art: "word", word: "Delta", tint: "bg-p-mint" }, { name: "Apache Airflow", art: "word", word: "Airflow", tint: "bg-p-sky" }],
-  analytics: [{ name: "SQL", art: "word", word: "SQL", tint: "bg-lime" }, { name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "Power BI", src: "powerbi" }],
+  pipelines: [{ name: "Apache Spark", src: "spark.svg" }, { name: "Apache Kafka", src: "kafka.svg" }, { name: "Delta Lake", art: "word", word: "Delta", tint: "bg-p-mint" }, { name: "Apache Airflow", src: "airflow.svg" }],
+  analytics: [{ name: "SQL", art: "word", word: "SQL", tint: "bg-lime" }, { name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "SOQL", art: "word", word: "SOQL", tint: "bg-p-sky" }],
   ai: [{ name: "OpenAI", src: "openai", fill: true }, { name: "Claude", src: "claude", fill: true }, { name: "Gemini", src: "gemini" }, { name: "Cursor", src: "cursor", fill: true }],
   app: [{ name: "React", src: "react" }, { name: "TypeScript", src: "typescript", fill: true }, { name: "Supabase", src: "supabase" }, { name: "Figma", src: "figma" }],
 };
@@ -43,7 +43,7 @@ function ToolArt({ art, word }: { art: NonNullable<Tool["art"]>; word?: string }
 export default function SkillsPage() {
   return (
     <PageShell>
-      <PageHero label="Skills" title="What I do" intro="Data analytics at work, data engineering in my projects and where I am heading: pipelines, models and the checks that prove the data is right. Plus AI and full-stack product work, so the data can be used, not just stored." />
+      <PageHero label="Skills" title="What I do" intro="Data analytics is my day job. Data engineering is what I build in my projects and what I want to do full-time. I also build LLM features and full web apps." />
 
       {/* Skills as folders, tools sticking out */}
       <ul className="grid gap-x-6 gap-y-10 md:auto-rows-fr md:grid-cols-2">
@@ -66,7 +66,7 @@ export default function SkillsPage() {
                   >
                     {c.src ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={`/tools/${c.src}.png`} alt={c.name} loading="lazy" className={c.fill ? "h-full w-full scale-[1.06] object-cover" : "h-[68%] w-[68%] object-contain"} />
+                      <img src={c.src.includes(".") ? `/tools/${c.src}` : `/tools/${c.src}.png`} alt={c.name} loading="lazy" className={c.fill ? "h-full w-full scale-[1.06] object-cover" : "h-[68%] w-[68%] object-contain"} />
                     ) : (
                       <><ToolArt art={c.art!} word={c.word} /><span className="sr-only">{c.name}</span></>
                     )}
@@ -118,7 +118,7 @@ export default function SkillsPage() {
       </section>
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-[18px] bg-panel p-6 shadow-[0_24px_50px_-24px_rgba(0,8,50,.7)] md:p-8">
-        <p className="text-lg font-semibold tracking-tight md:text-xl">Hiring for a data role? Let&apos;s talk.</p>
+        <p className="text-lg font-semibold tracking-tight md:text-xl">Have a data idea in mind? Let&apos;s talk.</p>
         <ButtonLink href="/contact">Get in touch</ButtonLink>
       </div>
     </PageShell>

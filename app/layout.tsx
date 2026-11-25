@@ -18,19 +18,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.website),
   title: { default: `${SITE.short} | Data engineering, analytics & AI`, template: `%s | ${SITE.short}` },
   description:
-    "Software engineer in data analytics, interested in data engineering: batch and streaming pipeline projects on Spark, Kafka, Delta Lake and Airflow, with measured results. Projects: real-time jet-engine telemetry, a vehicle-safety data product and a startup-intelligence platform.",
+    "Software engineer in data analytics, moving into data engineering. Projects: a real-time jet-engine telemetry pipeline, a vehicle-safety data product and a startup-intelligence platform, built on Spark, Kafka, Delta Lake and Airflow.",
   openGraph: {
     type: "website",
     url: "/",
     siteName: SITE.short,
     title: `${SITE.short} | Data engineering, analytics & AI`,
-    description: "I build data pipelines people can trust, and I prove it with numbers.",
+    description: "I build data pipelines and products, and check every number.",
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Yuvraj: AI, full stack, product design and data" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.short} | Data engineering, analytics & AI`,
-    description: "I build data pipelines people can trust, and I prove it with numbers.",
+    description: "I build data pipelines and products, and check every number.",
     images: ["/og.jpg"],
   },
   icons: { icon: "/Portfolio-favicon.svg" },
