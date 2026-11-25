@@ -165,7 +165,7 @@ export function CoverArt({ project, priority, alt = "" }: { project: Project; pr
 /** A project still being built: blueprint styling, no case-study link */
 function BuildingCard({ project, className }: { project: Project; className?: string }) {
   return (
-    <div className={cn("flex flex-col rounded-2xl border-2 border-dashed border-lime/80 bg-canvas-deep/50 p-2 text-white shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)]", className)}>
+    <div className={cn("flex flex-col rounded-2xl border-2 border-dashed border-lime/80 bg-canvas-deep/50 p-2 text-white shadow-[0_20px_40px_-24px_rgba(0,8,50,.55)] sm:row-span-4", className)}>
       <div className="flex flex-1 flex-col px-3 pb-4 pt-3">
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-ink">
@@ -183,6 +183,9 @@ function BuildingCard({ project, className }: { project: Project; className?: st
             </li>
           ))}
         </ul>
+        {project.next && (
+          <p className="mt-3 text-[12px] leading-snug text-white/60"><span className="font-semibold text-lime">Still to do:</span> {project.next.join(" · ")}</p>
+        )}
         <p className="mt-auto truncate pt-3.5 font-mono text-[10.5px] uppercase tracking-wider text-white/55">{project.stack.join(" · ")}</p>
       </div>
       <div className="overflow-hidden rounded-xl">

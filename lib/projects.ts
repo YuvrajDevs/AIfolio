@@ -42,6 +42,91 @@ const GH = "https://github.com/YuvrajDevs";
 
 export const PROJECTS: Project[] = [
   {
+    slug: "turbofan-telemetry",
+    name: "Turbofan Telemetry",
+    tag: "Data engineering // streaming",
+    summary: "A real-time pipeline for jet-engine sensor data: NASA's public run-to-failure fleet streamed through Kafka into Spark and Delta Lake, turned into maintenance alerts, with exactly-once delivery proven after a hard crash.",
+    highlights: [
+      "0 events lost or duplicated after kill -9 mid-stream (54,787 of 54,787)",
+      "All 200 NASA engines warned before failure, median 44 cycles ahead",
+      "Found and fixed a model that missed 44% of one fleet: 56% to 100%",
+    ],
+    image: "/projects/turbofan-explorer.jpg",
+    gallery: [
+      { src: "/projects/turbofan-explorer.jpg", caption: "Engine explorer on the project page: one NASA engine's smoothed health score, cycle by cycle, with the alert thresholds and the failure point." },
+      { src: "/projects/turbofan-hero.jpg", caption: "Project page: what it does and the measured results, generated from the pipeline's own output." },
+      { src: "/projects/turbofan-fix.jpg", caption: "The bug that mattered: fan-fault engines never alerted. Before/after calibration on all 200 engines." },
+      { src: "/projects/turbofan-dashboard.jpg", caption: "Streamlit dashboard reading the gold Delta tables: fleet health, engines at risk and the latest alerts." },
+    ],
+    metrics: [
+      { value: "0 / 0", label: "Lost / duplicated after a crash" },
+      { value: "200 / 200", label: "Engines warned before failure" },
+      { value: "56→100%", label: "FD003 detection after the fix" },
+      { value: "3,000/s", label: "Sustained on 4 cores" },
+    ],
+    tier: "star",
+    status: "Complete",
+    stack: ["Python", "Kafka", "Spark Structured Streaming", "Delta Lake", "PySpark", "Docker", "Streamlit", "pytest"],
+    links: { repo: `${GH}/tf-telemetry` },
+    card: {
+      pitch: "A streaming pipeline that turns jet-engine sensor data into maintenance alerts weeks before failure, with exactly-once delivery proven after a crash.",
+      points: [
+        "Kafka to Spark Structured Streaming to Delta bronze, silver and gold",
+        "Exactly-once proven: kill -9 mid-stream with duplicate, late and broken data mixed in",
+        "Load-tested on 4 cores; found the stateful gold step was the bottleneck",
+      ],
+      stack: ["Kafka", "Spark", "Delta Lake", "Python"],
+    },
+    role: "Solo · Data engineering, streaming, testing, documentation",
+    constraints: "Public data only (NASA C-MAPSS), free tools only, everything runnable on one laptop with Docker.",
+    decisions: [
+      { chose: "A deterministic event id (uuid5 of engine + cycle)", over: "a random id per message", why: "The same reading always gets the same id, so a retry or a replay can be recognised and removed anywhere downstream." },
+      { chose: "A dead-letter table with a reason code", over: "failing the stream on bad input", why: "One malformed message must never stop thousands of good ones, and nothing should disappear silently: all 438 bad records were kept and explained." },
+      { chose: "foreachBatch with an idempotent MERGE for engine state", over: "Spark's built-in state store", why: "The state lives in a queryable Delta table, the logic is a pure Python function shared with the unit tests, and replaying a batch can't raise an alert twice." },
+      { chose: "Tuning the fan-fault weight on odd engines and checking on even ones", over: "tuning on the whole fleet", why: "Reporting results on the same engines you tuned on flatters the model; held-out engines keep the number honest." },
+    ],
+    next: [
+      "Run gold as its own job with a longer trigger: removing its CPU contention cut p95 latency from 24.6 s to 10.8 s in the load test.",
+      "Schema evolution with a schema registry, and maintenance events that reset an engine's state.",
+    ],
+    case: {
+      problem:
+        "Engines degrade slowly, and the signal is buried in noisy sensor readings arriving continuously. A useful system has to warn early enough to plan maintenance, and its data has to be trustworthy when messages arrive twice, late, broken, or while the processing job is crashing.",
+      user: "Maintenance planners and reliability engineers who need to know which engines need attention, and data engineers who need to trust every number behind that alert.",
+      design:
+        "A project page in the repo (site/, ready for GitHub Pages) to explore all 200 NASA engines with their health score cycle by cycle, the alert thresholds, and a toggle between the original and fixed models. A Streamlit dashboard reads the gold tables. Every result on both is measured by the pipeline, not typed by hand.",
+      tech:
+        "A Python producer replays NASA's C-MAPSS run-to-failure data as a live fleet into Kafka (KRaft, 6 partitions, keyed by engine), with an idempotent producer and optional chaos: 5% duplicates, 3% late by 30 s, 1% malformed. Spark Structured Streaming lands raw bytes in a bronze Delta table, validates, types and deduplicates them in silver with a watermark (bad records to a dead-letter table), and keeps per-engine state in gold with foreachBatch, applyInPandas and an idempotent MERGE: a smoothed health score (EWMA) and alerts that fire once per level.",
+      hardProblem:
+        "Two of them. First, alerts silently disappeared: Spark lazily recomputed a batch after the state table had already been updated, so every event looked processed. Materialising the batch once (localCheckpoint) fixed it. Second, the health score missed 44 of 100 engines in one NASA fleet, because a second fault type moves four sensors the opposite way and cancelled the score out. Scoring both fault patterns and taking the worse raised detection from 56% to 100% with the same lead times and false-alarm rate, and each alert now says which part is failing.",
+      outcome:
+        "57,452 messages streamed with duplicates, late and malformed data mixed in; after a kill -9 of the Spark job and a restart, 54,787 of 54,787 valid events were in silver, with 0 missing and 0 duplicated, and all 438 bad records were in the dead-letter table. On all 200 NASA engines, warnings fire a median 44 cycles before failure. Load test on 4 cores: about 28,000 events/s ingest, keeps up at 3,000 events/s through all layers. 14 tests, CI, and a build log of 16 real failures with their fixes.",
+      built: [
+        { label: "Streaming", value: "Kafka + Spark Structured Streaming" },
+        { label: "Storage", value: "Delta Lake bronze, silver, gold" },
+        { label: "Proof", value: "Exactly-once check after kill -9" },
+      ],
+    },
+  },
+  {
+    slug: "vehicle-safety-intelligence",
+    name: "Vehicle Safety Intelligence",
+    tag: "Data engineering // batch data product",
+    summary: "A batch data product on public NHTSA vehicle-safety data, asking whether complaints could have warned of recalls. The core pipeline runs; write-up in progress.",
+    highlights: [
+      "Built so far: pipeline over 2.3M complaints, 330K recall and 154K investigation rows",
+      "Change detection tested: 1,500 known changes found, none missed or extra",
+      "Star schema in SQL, 89 contract checks, Airflow DAG green in Docker",
+    ],
+    image: "/projects/vsi-trend.jpg",
+    tier: "building",
+    status: "In progress",
+    stack: ["PySpark", "Delta Lake", "SQL", "Airflow", "Docker", "pytest"],
+    links: { repo: `${GH}/NHTSA` },
+    role: "Solo · Data engineering",
+    next: ["Final clean run on real data", "Publish its quality report and catalog", "Finish the write-up"],
+  },
+  {
     slug: "strata",
     name: "Strata",
     tag: "Startup intelligence // Node + MongoDB",
@@ -120,7 +205,7 @@ export const PROJECTS: Project[] = [
       { value: "0.999", label: "Reconciliation precision" },
       { value: "~7s", label: "1M ledger rows" },
     ],
-    tier: "star",
+    tier: "more",
     status: "Live",
     stack: ["Python", "SQL", "DuckDB", "dbt", "FastAPI", "Next.js", "Airflow"],
     links: { live: "https://trueup-beta.vercel.app", repo: `${GH}/dc`, caseStudy: "/work/trueup/case-study" },
@@ -167,7 +252,7 @@ export const PROJECTS: Project[] = [
       { src: "/projects/hivestate-canvas.jpg", caption: "Workflow editor: agents as nodes, each with its model and prompt, connected in the order they run." },
       { src: "/projects/hivestate-dashboard.jpg", caption: "Dashboard: workflow templates, live tasks and today's spend against the daily budget." },
     ],
-    tier: "star",
+    tier: "more",
     status: "Live demo",
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "React Flow", "Gemini"],
     links: { live: "https://hive-state.vercel.app", repo: `${GH}/HiveState`, caseStudy: "/work/hivestate/case-study" },

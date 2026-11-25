@@ -4,31 +4,32 @@ import { Artboard, ButtonLink, PageHero, PageShell } from "@/components/ui-bits"
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "About & resume", description: "Product designer who builds: how I work, where I have worked, and what I use." };
+export const metadata: Metadata = { title: "About & resume", description: "Data engineer with analytics, AI and full-stack skills: how I work, where I have worked, and what I use." };
 
 const SKILLS = [
-  { group: "AI", items: ["OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Human-in-the-loop", "Prompting & evals", "NL-to-SQL"] },
-  { group: "Full stack", items: ["Next.js", "React", "TypeScript", "Node.js", "Express", "MongoDB", "Kafka", "Redis", "REST APIs", "Supabase", "PostgreSQL", "Firebase"] },
-  { group: "Data", items: ["SQL", "Python", "Salesforce", "CRM Analytics", "Power BI", "dbt", "DuckDB", "FastAPI", "Airflow", "Data cleaning", "ETL pipelines"] },
-  { group: "Product design", items: ["Product design", "UX research", "Interaction design", "Design systems", "Prototyping", "Accessibility", "Figma"] },
-  { group: "Ship & secure", items: ["Vercel", "Docker", "Jenkins CI", "Kubernetes", "Security headers & rules"] },
+  { group: "Data engineering", items: ["PySpark", "Spark Structured Streaming", "Spark SQL", "Kafka", "Delta Lake", "Airflow", "dbt", "Batch & streaming ETL/ELT", "CDC & incremental loads", "Medallion lakehouse", "Data contracts", "Performance tuning"] },
+  { group: "SQL & modelling", items: ["Advanced SQL", "Window functions", "Query tuning", "Star schema", "SCD type 2", "PostgreSQL", "DuckDB", "Data quality", "Reconciliation"] },
+  { group: "Cloud & big data", items: ["Azure Data Lake (ADLS)", "Azure Data Factory", "Databricks", "Synapse", "Hadoop (HDFS, YARN)", "Hive", "HBase", "Scala for Spark", "Docker", "Linux & Bash"] },
+  { group: "Analytics & BI", items: ["Power BI", "Salesforce CRM Analytics", "SOQL", "Dashboards", "Metrics definitions"] },
+  { group: "AI", items: ["AI-ready data", "RAG", "Embeddings & vector search", "PII scrubbing", "OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Evals"] },
+  { group: "Engineering", items: ["Python", "TypeScript", "Git & GitHub", "GitHub Actions CI", "pytest", "Next.js", "React", "Node.js", "FastAPI", "Figma"] },
 ];
 
 const PRINCIPLES = [
-  { title: "Understand first", body: "I make sure I know who it's for and what's actually broken before designing anything." },
-  { title: "Decide on purpose", body: "I explore a few options and note why the chosen one won." },
-  { title: "Set the direction", body: "I design the direction and commit to it, keeping the experience and the interface clear at every step." },
-  { title: "Ship it", body: "It goes through feedback loops first. Once everything is clear, it ships for public use." },
+  { title: "Profile first", body: "I look at the real data before designing anything: grain, keys, gaps and duplicates usually change the design." },
+  { title: "Decide on purpose", body: "I compare a few options and write down why the chosen one won, so the next engineer knows too." },
+  { title: "Prove, don't claim", body: "Every pipeline gets a check that proves it: counts that reconcile, nothing lost, nothing duplicated." },
+  { title: "Log the failures", body: "What broke, why, and how it was fixed goes into the build log. That's where the learning is." },
 ];
 
-const LAYER_TINT = ["text-lime", "text-p-sky", "text-p-mint", "text-p-pink", "text-p-peach"];
+const LAYER_TINT = ["text-lime", "text-p-sky", "text-p-mint", "text-p-pink", "text-p-peach", "text-p-lemon"];
 
 const EXPERIENCE = [
   {
     role: "Software Engineer",
     org: "Dealermatix Technologies",
     when: "Jun 2026 – Present",
-    desc: "Full-time, data analytics on Salesforce: pipelines that take raw, unclean client data to analysis-ready datasets, data cleaning and quality checks, insights, and dashboards built around each client's requirements.",
+    desc: "Full-time, data engineering and analytics on Salesforce: pipelines that turn raw, inconsistent client data into clean, analysis-ready datasets; cleaning, validation and standardisation to raise data quality; and dashboards built around each client's reporting needs.",
     icon: Briefcase,
     tint: "bg-lime",
   },
@@ -45,12 +46,12 @@ export default function AboutPage() {
         align="center"
         below={
           <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-            A product designer who loves seeing <span className="rounded bg-lime px-1 font-semibold text-ink">his designs come alive</span>.
+            A data engineer who loves turning messy data into <span className="rounded bg-lime px-1 font-semibold text-ink">numbers people trust</span>.
           </p>
         }
       >
         <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-          Most of my work starts with a gap in the market or a messy problem, which I turn into something calm, clear and intuitive. Bring your ideas, and we can stir up something great.
+          I build batch and streaming pipelines and prove they are right: nothing lost, nothing duplicated, every number reconciled. I also bring analytics, AI and full-stack product skills, and a product-design background that keeps the people using the data in mind.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>

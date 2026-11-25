@@ -16,21 +16,21 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.website),
-  title: { default: `${SITE.short} | AI, full stack, product design & data`, template: `%s | ${SITE.short}` },
+  title: { default: `${SITE.short} | Data engineering, analytics & AI`, template: `%s | ${SITE.short}` },
   description:
-    "AI, full-stack engineering, product design and data. I design and build complete products end to end: payment fraud detection, startup intelligence and multi-agent AI orchestration.",
+    "Data engineer: batch and streaming pipelines on Spark, Kafka, Delta Lake and Airflow, with measured results. Projects: real-time jet-engine telemetry, a vehicle-safety data product and a startup-intelligence platform.",
   openGraph: {
     type: "website",
     url: "/",
     siteName: SITE.short,
-    title: `${SITE.short} | AI, full stack, product design & data`,
-    description: "I make complicated stuff feel easy. And my designs don’t need a developer.",
+    title: `${SITE.short} | Data engineering, analytics & AI`,
+    description: "I build data pipelines people can trust, and I prove it with numbers.",
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Yuvraj: AI, full stack, product design and data" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.short} | AI, full stack, product design & data`,
-    description: "I make complicated stuff feel easy. And my designs don’t need a developer.",
+    title: `${SITE.short} | Data engineering, analytics & AI`,
+    description: "I build data pipelines people can trust, and I prove it with numbers.",
     images: ["/og.jpg"],
   },
   icons: { icon: "/Portfolio-favicon.svg" },

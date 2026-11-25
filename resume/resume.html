@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yuvraj Singh Shekhawat - Resume</title>
+<!-- Source of public/Yuvraj_Singh_Shekhawat_Resume.pdf. Rebuild: node resume/build.mjs -->
+<style>
+  @page { size: A4; margin: 9mm 12mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #111; font-size: 9.1pt; line-height: 1.26; margin: 0; }
+  a { color: #111; }
+  h1 { font-size: 21pt; margin: 0; letter-spacing: -.2px; }
+  .title { font-weight: bold; font-size: 10.2pt; margin: 2px 0 2px; }
+  .contact { margin: 0; }
+  h2 { font-size: 10.6pt; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1.4px solid #111; margin: 7px 0 3px; padding-bottom: 1px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; font-weight: bold; }
+  .row span:last-child { font-weight: normal; white-space: nowrap; }
+  .sub { font-style: italic; margin: 0 0 1px; }
+  ul { margin: 1px 0 4px; padding-left: 15px; }
+  li { margin: 0 0 1.5px; }
+  p { margin: 0; }
+  .tag { display: inline-block; border: 1px solid #111; border-radius: 3px; font-size: 7.6pt; font-weight: bold; padding: 0 4px; margin-left: 5px; vertical-align: 1px; text-transform: uppercase; letter-spacing: .3px; }
+  .skills p { margin: 0 0 1.5px; }
+  .proj { margin-top: 3px; }
+</style>
+</head>
+<body>
+  <h1>Yuvraj Singh Shekhawat</h1>
+  <p class="title">Data Engineer | Spark, Kafka, Delta Lake, Airflow, SQL | Analytics and AI</p>
+  <p class="contact">India | +91-86195-10246 | <a href="mailto:workwithyuvraj0712@gmail.com">workwithyuvraj0712@gmail.com</a></p>
+  <p class="contact"><a href="https://ysdevs.com">Portfolio</a> | <a href="https://www.linkedin.com/in/yuvraj-singh-shekhawat-4404b4283">LinkedIn</a> | <a href="https://github.com/YuvrajDevs">GitHub</a></p>
+
+  <h2>Summary</h2>
+  <p>Data engineer who builds batch and streaming pipelines with Spark, Kafka, Delta Lake and Airflow, and proves they are right: exactly-once delivery verified after a crash, change detection checked against known answers, data contracts that stop bad data. Works on Salesforce data pipelines and analytics day to day, with analytics, AI and full-stack skills alongside.</p>
+
+  <h2>Experience</h2>
+  <div class="row"><span>Software Engineer, Dealermatix Technologies</span><span>Jun 2026 – Present</span></div>
+  <p class="sub">Full-time | Data Engineering and Analytics, Salesforce</p>
+  <ul>
+    <li>Build Salesforce data pipelines that turn raw, inconsistent client data into clean, analysis-ready datasets.</li>
+    <li>Clean, validate and standardise records to raise data quality and the accuracy of reported metrics, reconciling dashboard numbers against the source.</li>
+    <li>Analyse client datasets for actionable insights and build dashboards tailored to each client's reporting needs.</li>
+  </ul>
+  <div class="row"><span>Product Designer (Freelance), Independent Clients</span><span>2024 – Apr 2026</span></div>
+  <ul>
+    <li>Designed web and mobile products end to end, including SaaS dashboards and B2B tools: research, Figma prototypes, design systems and developer handoff.</li>
+  </ul>
+
+  <h2>Projects</h2>
+  <div class="proj">
+    <div class="row"><span><a href="https://github.com/YuvrajDevs/tf-telemetry">Turbofan Telemetry</a>: Real-Time Predictive-Maintenance Pipeline</span><span></span></div>
+    <p class="sub">Python, Kafka, Spark Structured Streaming, PySpark, Delta Lake, Docker, Streamlit, pytest</p>
+    <ul>
+      <li>Streamed NASA's public C-MAPSS run-to-failure fleet (200 engines, 21 sensors) through Kafka into Delta Lake bronze, silver and gold tables with Spark Structured Streaming; per-engine health scores warn a median 44 cycles before failure for all 200 engines.</li>
+      <li>Proved exactly-once delivery: injected duplicate, late and malformed messages, killed the Spark job mid-stream (kill -9) and verified 54,787 of 54,787 events with 0 lost and 0 duplicated; all 438 bad records kept in a dead-letter table with reason codes.</li>
+      <li>Found that the alert model missed 44% of one fleet (a second fault type moves sensors the opposite way); a fault-mode-aware score validated on held-out engines raised detection from 56% to 100% with no extra false alarms.</li>
+      <li>Load-tested on 4 cores (3,000 events/s sustained through all layers, ~28,000 events/s ingest) and traced the bottleneck to the stateful gold step using Delta commit history; 14 tests, CI and 16 documented failures with fixes.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <div class="row"><span><a href="https://github.com/YuvrajDevs/NHTSA">Vehicle Safety Intelligence</a>: Batch Data Product on NHTSA Data <span class="tag">In progress</span></span><span></span></div>
+    <p class="sub">PySpark, Delta Lake, SQL, Apache Airflow, Docker, pytest</p>
+    <ul>
+      <li>Building a governed data product on public NHTSA vehicle complaints (2.3M rows), recalls and investigations, to test whether consumer complaints could have warned of recalls.</li>
+      <li>Built so far: a medallion pipeline that turns daily full snapshots into change data capture (inserts, updates, soft deletes, SCD type 2 for recalls), checked on a simulated day with 1,500 known changes (none missed, none extra); a star schema in SQL; and 89 data-contract checks run as an Airflow quality gate.</li>
+    </ul>
+  </div>
+  <div class="proj">
+    <div class="row"><span><a href="https://strata-weld-sigma.vercel.app">Strata</a>: Startup and Sector Intelligence Platform</span><span></span></div>
+    <p class="sub">Node.js, Kafka, MongoDB Atlas Vector Search, Redis, BullMQ, Gemini API, Next.js, Docker</p>
+    <ul>
+      <li>Built event-driven ingestion of Y Combinator and SEC EDGAR Form D data through Kafka into MongoDB with idempotent upserts: 465 companies and 136 verified funding filings.</li>
+      <li>Built RAG question answering over 594 passages: Gemini embeddings, Atlas Vector Search and keyword search fused by weighted reciprocal rank fusion, reaching 100% Hit@5 versus 52% for keyword search alone.</li>
+      <li>Classified companies by sector with an LLM plus a human review queue: 87.8% accuracy on a hand-labelled set versus 75.5% for a keyword baseline.</li>
+    </ul>
+  </div>
+
+  <h2>Skills</h2>
+  <div class="skills">
+    <p><b>Languages:</b> SQL, Python, Scala (Spark), TypeScript, JavaScript</p>
+    <p><b>Data engineering:</b> PySpark, Spark SQL, Spark Structured Streaming, Kafka, Delta Lake, Apache Airflow, dbt, batch and streaming ETL/ELT, change data capture, incremental loads, medallion lakehouse</p>
+    <p><b>Modelling and quality:</b> dimensional modelling (star schema, SCD type 2), data contracts, data validation, reconciliation, query and Spark performance tuning</p>
+    <p><b>Databases:</b> PostgreSQL, DuckDB, MongoDB, Redis</p>
+    <p><b>Cloud and big data:</b> Azure (ADLS Gen2, Data Factory, Databricks, Synapse), Hadoop (HDFS, YARN), Hive, HBase, Docker, Linux</p>
+    <p><b>Analytics and BI:</b> Power BI, Salesforce CRM Analytics, SOQL, dashboards</p>
+    <p><b>AI:</b> AI-ready data preparation, RAG, embeddings and vector search, OpenAI, Anthropic and Gemini APIs, LLM evaluation</p>
+    <p><b>Tools:</b> Git, GitHub Actions (CI/CD), pytest, Streamlit, Next.js, React, FastAPI, Figma</p>
+  </div>
+
+  <h2>Education</h2>
+  <div class="row"><span>Bachelor of Technology (B.Tech) in Computer Science, Vellore Institute of Technology</span><span>2022 – 2026</span></div>
+</body>
+</html>

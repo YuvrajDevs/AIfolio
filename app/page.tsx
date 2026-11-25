@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUp, AtSign, BarChart3, Check, Image as ImageIcon, Layers, PenTool, Smile, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUp, AtSign, BarChart3, Check, Image as ImageIcon, Layers, Smile, Sparkles, Workflow } from "lucide-react";
 import { ButtonLink, CursorTag, PASTELS, ProjectGrid, SelectionFrame, Sticker, delay, vars } from "@/components/ui-bits";
 import { ParallaxStage } from "@/components/ParallaxStage";
 import { PROJECTS, featured } from "@/lib/projects";
@@ -7,20 +7,20 @@ import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const STACK = ["OpenAI", "Claude", "Gemini", "LLM evals", "Multi-agent systems", "Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Node.js", "Express", "FastAPI", "Python", "SQL", "PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis", "Kafka", "BullMQ", "DuckDB", "dbt", "Airflow", "Power BI", "Salesforce CRM Analytics", "Docker", "Playwright", "Vercel", "Render", "Figma", "Design systems", "Prototyping", "Accessibility"];
+const STACK = ["SQL", "Python", "PySpark", "Apache Spark", "Spark Structured Streaming", "Kafka", "Delta Lake", "Airflow", "dbt", "DuckDB", "PostgreSQL", "Data modelling", "Data quality", "Docker", "Azure Data Factory", "Databricks", "Power BI", "Salesforce CRM Analytics", "pytest", "GitHub Actions", "OpenAI", "Claude", "Gemini", "RAG", "Next.js", "React", "TypeScript", "Node.js", "FastAPI", "MongoDB", "Redis", "Figma"];
 
 const MENU = [
-  { label: "AI & agents", key: "A", checked: true },
-  { label: "Product design", key: "P", checked: true },
+  { label: "Data engineering", key: "D", checked: true },
+  { label: "Analytics & SQL", key: "S", checked: true },
+  { label: "AI-ready data", key: "A", checked: true },
   { label: "Full-stack apps", key: "F", checked: true },
-  { label: "Data & dashboards", key: "D", checked: true },
 ];
 
 const SKILL_CHIPS = [
-  { label: "AI / LLMs", icon: Sparkles, tint: "bg-lime", pos: "-left-4 bottom-36", depth: "10", r: "-4deg" },
-  { label: "Full stack", icon: Layers, tint: "bg-p-sky", pos: "left-8 bottom-12", depth: "16", r: "3deg" },
-  { label: "Product design", icon: PenTool, tint: "bg-p-pink", pos: "-right-4 bottom-36", depth: "12", r: "4deg" },
-  { label: "Data analysis", icon: BarChart3, tint: "bg-p-mint", pos: "right-8 bottom-12", depth: "18", r: "-3deg" },
+  { label: "Data pipelines", icon: Workflow, tint: "bg-lime", pos: "-left-4 bottom-36", depth: "10", r: "-4deg" },
+  { label: "Analytics", icon: BarChart3, tint: "bg-p-mint", pos: "left-8 bottom-12", depth: "16", r: "3deg" },
+  { label: "AI / LLMs", icon: Sparkles, tint: "bg-p-pink", pos: "-right-4 bottom-36", depth: "12", r: "4deg" },
+  { label: "Full stack", icon: Layers, tint: "bg-p-sky", pos: "right-8 bottom-12", depth: "18", r: "-3deg" },
 ];
 
 /** Glassy pill with a tinted icon badge */
@@ -65,7 +65,7 @@ export default function Home() {
 
             {/* context menu */}
             <div className="parallax absolute left-full top-[-38px] ml-10 hidden lg:block" style={vars({ "--depth": "14" })}>
-              <ul className="float ui-panel w-56 p-1.5 text-left text-sm" style={vars({ "--d": "0.4s" })} aria-label="What I build">
+              <ul className="float ui-panel w-56 p-1.5 text-left text-sm" style={vars({ "--d": "0.4s" })} aria-label="What I work on">
                 {MENU.map((m) => (
                   <li key={m.label} className={cn("flex items-center gap-2.5 rounded-lg px-2.5 py-1.5", m.checked && "bg-white/[.06]")}>
                     <Check className={cn("h-3.5 w-3.5", m.checked ? "text-lime" : "opacity-0")} />
@@ -79,8 +79,8 @@ export default function Home() {
             {/* comment box */}
             <div className="parallax absolute right-full top-[58%] mr-12 hidden lg:block" style={vars({ "--depth": "-12" })}>
               <div className="float ui-panel w-64 text-left" style={vars({ "--d": "1.2s" })}>
-                <p className="px-4 pt-3 text-sm font-semibold">Have an idea worth building?</p>
-                <p className="px-4 text-xs text-white/55">From first sketch to live product</p>
+                <p className="px-4 pt-3 text-sm font-semibold">Hiring a data engineer?</p>
+                <p className="px-4 text-xs text-white/55">Pipelines you can trust, with proof</p>
                 <div className="mt-3 flex items-center gap-3 border-t border-white/10 px-4 py-2.5 text-white/50">
                   <Smile className="h-4 w-4" /><AtSign className="h-4 w-4" /><ImageIcon className="h-4 w-4" />
                   <Link href="/contact" aria-label="Contact" className="ml-auto grid h-7 w-7 place-items-center rounded-full bg-figma text-white transition-transform hover:-translate-y-0.5">
@@ -95,7 +95,7 @@ export default function Home() {
               <CursorTag name="Recruiter" className="float" />
             </div>
             <div className="parallax absolute -left-4 -top-12 hidden sm:block md:-left-12" style={vars({ "--depth": "-18" })}>
-              <CursorTag name="Founder" color="#22c55e" className="float [--d:1.5s]" />
+              <CursorTag name="Hiring manager" color="#22c55e" className="float [--d:1.5s]" />
             </div>
           </div>
 
@@ -107,12 +107,12 @@ export default function Home() {
           ))}
 
           <p className="reveal mt-16 max-w-[620px] text-xl font-medium leading-snug md:mt-20 md:text-[26px]" style={delay(200)}>
-            I make complicated stuff feel easy.
+            I build data pipelines people can trust.
             <br />
-            And my designs{" "}
+            And I{" "}
             <span className="relative whitespace-nowrap text-ink">
               <span aria-hidden className="absolute inset-x-[-4px] inset-y-0.5 -z-0 -rotate-1 rounded bg-lime" />
-              <span className="relative">don&rsquo;t need a developer.</span>
+              <span className="relative">prove it with numbers.</span>
             </span>
           </p>
 
@@ -151,9 +151,9 @@ export default function Home() {
               <span className="eyebrow text-white/60">{String(work.length).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}</span>
             </div>
             <h2 className="max-w-xl text-3xl font-extrabold leading-[1.05] tracking-tight md:text-5xl">
-              Things I&apos;ve designed{" "}
+              Things I&apos;ve{" "}
               <span className="relative inline-block">
-                & built
+                built
                 <svg aria-hidden viewBox="0 0 120 12" className="absolute -bottom-2 left-0 w-full" preserveAspectRatio="none">
                   <path d="M2 8c20-6 40-6 58-2s38 4 58-3" fill="none" stroke="#d6ff3d" strokeWidth="3" strokeLinecap="round" />
                 </svg>
@@ -161,7 +161,7 @@ export default function Home() {
             </h2>
           </div>
           <div className="flex shrink-0 items-center gap-5">
-            <p className="hidden max-w-[220px] text-sm leading-relaxed text-white/75 md:block">Product thinking, interface and code, end to end.</p>
+            <p className="hidden max-w-[220px] text-sm leading-relaxed text-white/75 md:block">Data pipelines and products, each with measured results.</p>
             <ButtonLink href="/work" variant="light">All projects <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></ButtonLink>
           </div>
         </div>

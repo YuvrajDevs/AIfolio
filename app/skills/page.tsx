@@ -4,24 +4,25 @@ import { ButtonLink, PageHero, PageShell, Sticker } from "@/components/ui-bits";
 import { PROCESS, SERVICES } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Skills", description: "AI and agents, full-stack apps, data and dashboards, and product design." };
+export const metadata: Metadata = { title: "Skills", description: "Data engineering, analytics and data quality, AI-ready data and agents, and full-stack product work." };
 
 /** A tool tile: a logo file, or a small drawn sketch for concepts without a logo */
-type Tool = { name: string; src?: string; fill?: boolean; art?: "proto" | "type" };
+type Tool = { name: string; src?: string; fill?: boolean; art?: "proto" | "type" | "word"; word?: string; tint?: string };
 
 /** Four tools per folder; logos with their own rounded background fill the tile */
-const TOOLS: Record<"ai" | "app" | "data" | "web", Tool[]> = {
+const TOOLS: Record<"pipelines" | "analytics" | "ai" | "app", Tool[]> = {
+  pipelines: [{ name: "Apache Spark", art: "word", word: "Spark", tint: "bg-p-peach" }, { name: "Apache Kafka", art: "word", word: "Kafka", tint: "bg-p-lemon" }, { name: "Delta Lake", art: "word", word: "Delta", tint: "bg-p-mint" }, { name: "Apache Airflow", art: "word", word: "Airflow", tint: "bg-p-sky" }],
+  analytics: [{ name: "SQL", art: "word", word: "SQL", tint: "bg-lime" }, { name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "Power BI", src: "powerbi" }],
   ai: [{ name: "OpenAI", src: "openai", fill: true }, { name: "Claude", src: "claude", fill: true }, { name: "Gemini", src: "gemini" }, { name: "Cursor", src: "cursor", fill: true }],
-  app: [{ name: "React", src: "react" }, { name: "TypeScript", src: "typescript", fill: true }, { name: "Supabase", src: "supabase" }, { name: "MongoDB", src: "mongodb" }],
-  data: [{ name: "Python", src: "python" }, { name: "PostgreSQL", src: "postgresql" }, { name: "Power BI", src: "powerbi" }, { name: "MongoDB", src: "mongodb" }],
-  web: [{ name: "Figma", src: "figma" }, { name: "Prototyping", art: "proto" }, { name: "Typography", art: "type" }, { name: "Storybook", src: "storybook" }],
+  app: [{ name: "React", src: "react" }, { name: "TypeScript", src: "typescript", fill: true }, { name: "Supabase", src: "supabase" }, { name: "Figma", src: "figma" }],
 };
 
 /** Folder backs in the site's pastels, and a slight, uneven tilt for each tile */
 const FOLDER_BACK = ["bg-p-sky", "bg-p-peach", "bg-p-mint", "bg-p-pink"];
 const TILT = ["-rotate-[5deg]", "rotate-[3deg]", "-rotate-[2deg]", "rotate-[6deg]", "rotate-[1deg]", "-rotate-[4deg]"];
 
-function ToolArt({ art }: { art: NonNullable<Tool["art"]> }) {
+function ToolArt({ art, word }: { art: NonNullable<Tool["art"]>; word?: string }) {
+  if (art === "word") return <span className="px-1 text-center font-mono text-[clamp(13px,2.4vw,22px)] font-bold leading-none tracking-tight">{word}</span>;
   if (art === "type") return <span className="text-[clamp(40px,8vw,84px)] font-black leading-none tracking-tighter">Aa</span>;
   // prototyping: two screens joined by a prototype link
   return (
@@ -42,7 +43,7 @@ function ToolArt({ art }: { art: NonNullable<Tool["art"]> }) {
 export default function SkillsPage() {
   return (
     <PageShell>
-      <PageHero label="Skills" title="What I do" intro="AI, full stack and data, with product design running through all of it. One person who can shape the product, design the interface and ship the code." />
+      <PageHero label="Skills" title="What I do" intro="Data engineering first: batch and streaming pipelines, models and the checks that prove the data is right. Backed by analytics, AI and full-stack product work, so the data can be used, not just stored." />
 
       {/* Skills as folders, tools sticking out */}
       <ul className="grid gap-x-6 gap-y-10 md:auto-rows-fr md:grid-cols-2">
@@ -61,13 +62,13 @@ export default function SkillsPage() {
                     key={c.name}
                     title={c.name}
                    
-                    className={cn("relative grid aspect-square place-items-center overflow-hidden rounded-[24%] border-[3px] border-white bg-white shadow-[0_10px_24px_-10px_rgba(0,8,50,.45)] transition-transform duration-500 ease-[cubic-bezier(.34,1.4,.64,1)] group-hover:-translate-y-[40%]", TILT[(i + n) % TILT.length])}
+                    className={cn("relative grid aspect-square place-items-center overflow-hidden rounded-[24%] border-[3px] border-white", c.tint ?? "bg-white", " shadow-[0_10px_24px_-10px_rgba(0,8,50,.45)] transition-transform duration-500 ease-[cubic-bezier(.34,1.4,.64,1)] group-hover:-translate-y-[40%]", TILT[(i + n) % TILT.length])}
                   >
                     {c.src ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={`/tools/${c.src}.png`} alt={c.name} loading="lazy" className={c.fill ? "h-full w-full scale-[1.06] object-cover" : "h-[68%] w-[68%] object-contain"} />
                     ) : (
-                      <><ToolArt art={c.art!} /><span className="sr-only">{c.name}</span></>
+                      <><ToolArt art={c.art!} word={c.word} /><span className="sr-only">{c.name}</span></>
                     )}
                   </span>
                 ))}
@@ -91,7 +92,7 @@ export default function SkillsPage() {
       <section className="mt-16 md:mt-24">
         <div className="mb-8 flex flex-wrap items-center gap-3">
           <Sticker color="bg-lime" r="-3deg">How it goes</Sticker>
-          <h2 className="text-2xl font-extrabold tracking-tight md:text-4xl">From brief to shipped</h2>
+          <h2 className="text-2xl font-extrabold tracking-tight md:text-4xl">How I build pipelines</h2>
         </div>
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {PROCESS.map((p, i) => (
@@ -117,8 +118,8 @@ export default function SkillsPage() {
       </section>
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-[18px] bg-panel p-6 shadow-[0_24px_50px_-24px_rgba(0,8,50,.7)] md:p-8">
-        <p className="text-lg font-semibold tracking-tight md:text-xl">Have something in mind? Tell me about it.</p>
-        <ButtonLink href="/contact">Start a project</ButtonLink>
+        <p className="text-lg font-semibold tracking-tight md:text-xl">Hiring for data engineering? Let&apos;s talk.</p>
+        <ButtonLink href="/contact">Get in touch</ButtonLink>
       </div>
     </PageShell>
   );
