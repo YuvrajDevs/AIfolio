@@ -7,13 +7,13 @@ import { SERVICES } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const STACK = ["SQL", "Python", "PySpark", "Apache Spark", "Spark Structured Streaming", "Kafka", "Delta Lake", "Airflow", "dbt", "DuckDB", "PostgreSQL", "Data modelling", "Data quality", "Docker", "Azure Data Factory", "Databricks", "Power BI", "Salesforce CRM Analytics", "pytest", "GitHub Actions", "OpenAI", "Claude", "Gemini", "RAG", "Next.js", "React", "TypeScript", "Node.js", "FastAPI", "MongoDB", "Redis", "Figma"];
+const STACK = ["SQL", "Python", "PySpark", "Apache Spark", "Spark Structured Streaming", "Kafka", "Delta Lake", "Airflow", "dbt", "DuckDB", "PostgreSQL", "Data modelling", "Data quality", "Docker", "Salesforce CRM Analytics", "pytest", "GitHub Actions", "OpenAI", "Claude", "Gemini", "RAG", "Next.js", "React", "TypeScript", "Node.js", "FastAPI", "MongoDB", "Redis", "Figma"];
 
 const MENU = [
-  { label: "Data engineering", key: "D", checked: true },
-  { label: "Analytics & SQL", key: "S", checked: true },
-  { label: "AI-ready data", key: "A", checked: true },
+  { label: "AI & agents", key: "A", checked: true },
+  { label: "Product design", key: "P", checked: true },
   { label: "Full-stack apps", key: "F", checked: true },
+  { label: "Data engineering", key: "D", checked: true },
 ];
 
 const SKILL_CHIPS = [
@@ -79,8 +79,8 @@ export default function Home() {
             {/* comment box */}
             <div className="parallax absolute right-full top-[58%] mr-12 hidden lg:block" style={vars({ "--depth": "-12" })}>
               <div className="float ui-panel w-64 text-left" style={vars({ "--d": "1.2s" })}>
-                <p className="px-4 pt-3 text-sm font-semibold">Hiring for a data role?</p>
-                <p className="px-4 text-xs text-white/55">Pipelines you can trust, with proof</p>
+                <p className="px-4 pt-3 text-sm font-semibold">Have an idea in mind?</p>
+                <p className="px-4 text-xs text-white/55">Send it over and let&apos;s talk</p>
                 <div className="mt-3 flex items-center gap-3 border-t border-white/10 px-4 py-2.5 text-white/50">
                   <Smile className="h-4 w-4" /><AtSign className="h-4 w-4" /><ImageIcon className="h-4 w-4" />
                   <Link href="/contact" aria-label="Contact" className="ml-auto grid h-7 w-7 place-items-center rounded-full bg-figma text-white transition-transform hover:-translate-y-0.5">
@@ -107,12 +107,12 @@ export default function Home() {
           ))}
 
           <p className="reveal mt-16 max-w-[620px] text-xl font-medium leading-snug md:mt-20 md:text-[26px]" style={delay(200)}>
-            I build data pipelines people can trust.
+            I build data pipelines and products.
             <br />
             And I{" "}
             <span className="relative whitespace-nowrap text-ink">
               <span aria-hidden className="absolute inset-x-[-4px] inset-y-0.5 -z-0 -rotate-1 rounded bg-lime" />
-              <span className="relative">prove it with numbers.</span>
+              <span className="relative">check every number.</span>
             </span>
           </p>
 
@@ -161,7 +161,7 @@ export default function Home() {
             </h2>
           </div>
           <div className="flex shrink-0 items-center gap-5">
-            <p className="hidden max-w-[220px] text-sm leading-relaxed text-white/75 md:block">Data pipelines and products, each with measured results.</p>
+            <p className="hidden max-w-[220px] text-sm leading-relaxed text-white/75 md:block">Each one with the numbers to back it up.</p>
             <ButtonLink href="/work" variant="light">All projects <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></ButtonLink>
           </div>
         </div>

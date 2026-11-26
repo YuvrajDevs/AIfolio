@@ -48,7 +48,7 @@
 
   <h2>Projects</h2>
   <div class="proj">
-    <div class="row"><span><a href="https://github.com/YuvrajDevs/tf-telemetry">Turbofan Telemetry</a>: Real-Time Predictive-Maintenance Pipeline</span><span></span></div>
+    <div class="row"><span>Turbofan Telemetry: Real-Time Predictive-Maintenance Pipeline</span><span></span></div>
     <p class="sub">Python, Kafka, Spark Structured Streaming, Delta Lake, Docker</p>
     <ul>
       <li>Streamed NASA's public C-MAPSS run-to-failure fleet (200 engines, 21 sensors) through Kafka into Delta Lake bronze, silver and gold tables with Spark Structured Streaming; per-engine health scores warn all 200 engines before failure, a median 44 cycles ahead.</li>
@@ -63,7 +63,7 @@
     <ul>
       <li>Built event-driven ingestion of Y Combinator and SEC EDGAR Form D data through Kafka into MongoDB with idempotent upserts: 465 companies and 136 verified funding filings.</li>
       <li>Built RAG question answering over about 600 passages: Gemini embeddings, Atlas Vector Search and keyword search fused by weighted reciprocal rank fusion, reaching 100% Hit@5 on 25 evaluation questions versus 52% for keyword search alone.</li>
-      <li>Classified companies by sector with Gemini plus a human review queue for low-confidence labels: 87.8% accuracy on the first 41 hand-labelled Legal AI companies.</li>
+      <li>Classified companies by sector with an LLM plus a human review queue: 87.8% accuracy on 41 hand-labelled companies; a keyword baseline scored 75.5% on the wider 102-company set.</li>
     </ul>
   </div>
 

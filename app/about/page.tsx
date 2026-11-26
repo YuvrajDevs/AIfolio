@@ -4,22 +4,22 @@ import { Artboard, ButtonLink, PageHero, PageShell } from "@/components/ui-bits"
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "About & resume", description: "Software engineer in data analytics, interested in data engineering: how I work, where I have worked, and what I use." };
+export const metadata: Metadata = { title: "About & resume", description: "Software engineer in data analytics, moving into data engineering: where I have worked, how I work and what I use." };
 
 const SKILLS = [
-  { group: "Data engineering", items: ["PySpark", "Spark Structured Streaming", "Spark SQL", "Kafka", "Delta Lake", "Airflow", "dbt", "Batch & streaming ETL/ELT", "CDC & incremental loads", "Medallion lakehouse", "Data contracts", "Performance tuning"] },
+  { group: "Data engineering", items: ["PySpark", "Spark Structured Streaming", "Spark SQL", "Kafka", "Delta Lake", "Airflow", "dbt", "Batch & streaming pipelines", "CDC & incremental loads", "Medallion lakehouse", "Data contracts", "Performance tuning"] },
   { group: "SQL & modelling", items: ["Advanced SQL", "Window functions", "Query tuning", "Star schema", "SCD type 2", "PostgreSQL", "DuckDB", "Data quality", "Reconciliation"] },
   { group: "Conceptual", items: ["Azure", "Hadoop", "Hive", "HBase", "Scala"] },
-  { group: "Analytics & BI", items: ["Power BI", "Salesforce CRM Analytics", "SOQL", "Dashboards", "Metrics definitions"] },
-  { group: "AI", items: ["AI-ready data", "RAG", "Embeddings & vector search", "PII scrubbing", "OpenAI API", "Anthropic API", "Gemini API", "Agent workflows", "Evals"] },
+  { group: "Analytics & BI", items: ["Salesforce CRM Analytics", "SOQL", "Dashboards", "Metrics definitions"] },
+  { group: "AI", items: ["AI-ready data", "RAG", "Embeddings & vector search", "OpenAI API", "Anthropic API", "Gemini API", "LLM evaluation"] },
   { group: "Engineering", items: ["Python", "TypeScript", "Docker", "Linux & Bash", "Git & GitHub", "GitHub Actions CI", "pytest", "Next.js", "React", "Node.js", "FastAPI", "Figma"] },
 ];
 
 const PRINCIPLES = [
   { title: "Profile first", body: "I look at the real data before designing anything: grain, keys, gaps and duplicates usually change the design." },
   { title: "Decide on purpose", body: "I compare a few options and write down why the chosen one won, so the next engineer knows too." },
-  { title: "Prove, don't claim", body: "Every pipeline gets a check that proves it: counts that reconcile, nothing lost, nothing duplicated." },
-  { title: "Log the failures", body: "What broke, why, and how it was fixed goes into the build log. That's where the learning is." },
+  { title: "Prove, don't claim", body: "Every pipeline gets a check: counts that match the source, nothing lost, nothing duplicated." },
+  { title: "Log the failures", body: "What broke, why, and how I fixed it goes into a build log, so the same bug doesn't come back." },
 ];
 
 const LAYER_TINT = ["text-lime", "text-p-sky", "text-p-mint", "text-p-pink", "text-p-peach", "text-p-lemon"];
@@ -46,12 +46,12 @@ export default function AboutPage() {
         align="center"
         below={
           <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-            A software engineer in data analytics, interested in data engineering, who loves turning messy data into <span className="rounded bg-lime px-1 font-semibold text-ink">numbers people trust</span>.
+            Software engineer in data analytics, moving into <span className="rounded bg-lime px-1 font-semibold text-ink">data engineering</span>.
           </p>
         }
       >
         <p className="text-[15px] leading-relaxed text-white/85 md:text-base">
-          At work I build Salesforce data pipelines and dashboards. Outside work I build data engineering projects end to end, and prove they are right: nothing lost, nothing duplicated, every number reconciled. I also bring AI and full-stack skills, and a product-design background that keeps the people using the data in mind.
+          I work on Salesforce data and build data pipelines in my own projects.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <ButtonLink href={SITE.resume} external><Download className="h-4 w-4" /> Resume</ButtonLink>

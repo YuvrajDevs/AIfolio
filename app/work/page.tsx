@@ -9,7 +9,7 @@ export default function WorkPage() {
   const rest = more();
   return (
     <PageShell>
-      <PageHero label="Work index" title="Projects" intro="Data engineering projects first: a streaming pipeline, a batch data product in progress, and a data-heavy AI platform. Each write-up covers the problem, the decisions, the hard part and the measured result." />
+      <PageHero label="Work index" title="Projects" intro="Data engineering first: a streaming pipeline, a batch data product (in progress) and a startup-data platform. Each write-up covers the problem, the decisions, the hard part and the results." />
       <Artboard name="Featured" meta={`${top.length} projects`} tone="outline" bodyClassName="!p-3 md:!p-4">
         <ProjectGrid projects={top} />
       </Artboard>
