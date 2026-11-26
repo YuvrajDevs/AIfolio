@@ -51,18 +51,10 @@
     <div class="row"><span><a href="https://github.com/YuvrajDevs/tf-telemetry">Turbofan Telemetry</a>: Real-Time Predictive-Maintenance Pipeline</span><span></span></div>
     <p class="sub">Python, Kafka, Spark Structured Streaming, Delta Lake, Docker</p>
     <ul>
-      <li>Streamed NASA's public C-MAPSS run-to-failure fleet (200 engines, 21 sensors) through Kafka into Delta Lake bronze, silver and gold tables with Spark Structured Streaming; per-engine health scores warn a median 44 cycles before failure for all 200 engines.</li>
+      <li>Streamed NASA's public C-MAPSS run-to-failure fleet (200 engines, 21 sensors) through Kafka into Delta Lake bronze, silver and gold tables with Spark Structured Streaming; per-engine health scores warn all 200 engines before failure, a median 44 cycles ahead.</li>
       <li>Proved exactly-once delivery: injected duplicate, late and malformed messages, killed the Spark job mid-stream (kill -9) and verified 54,787 of 54,787 events with 0 lost and 0 duplicated; all 438 bad records kept in a dead-letter table with reason codes.</li>
       <li>Found that the alert model missed 44% of one fleet (a second fault type moves sensors the opposite way); a fault-mode-aware score validated on held-out engines raised detection from 56% to 100% with no extra false alarms.</li>
-      <li>Load-tested on 4 cores (3,000 events/s sustained through all layers, ~28,000 events/s ingest) and traced the bottleneck to the stateful gold step using Delta commit history; 14 tests, CI and 16 documented failures with fixes.</li>
-    </ul>
-  </div>
-  <div class="proj">
-    <div class="row"><span><a href="https://github.com/YuvrajDevs/NHTSA">Vehicle Safety Intelligence</a>: Batch Data Product on NHTSA Data (In progress)</span><span></span></div>
-    <p class="sub">PySpark, Delta Lake, SQL, Apache Airflow</p>
-    <ul>
-      <li>Building a governed data product on public NHTSA vehicle complaints (2.3M rows), recalls and investigations, to test whether consumer complaints could have warned of recalls.</li>
-      <li>Built so far: a medallion pipeline that turns daily full snapshots into change data capture (inserts, updates, soft deletes, SCD type 2 for recalls), checked on a simulated day with 1,500 known changes (none missed, none extra); a star schema in SQL; and 89 data-contract checks run as an Airflow quality gate.</li>
+      <li>Load-tested on 4 cores (3,000 events/s sustained through all layers, ~28,000 events/s producer throughput) and traced the bottleneck to the stateful gold step using Delta commit history; 14 tests, CI and 16 documented failures with fixes.</li>
     </ul>
   </div>
   <div class="proj">
@@ -70,19 +62,19 @@
     <p class="sub">Node.js, Kafka, MongoDB Atlas Vector Search, Redis, Gemini API</p>
     <ul>
       <li>Built event-driven ingestion of Y Combinator and SEC EDGAR Form D data through Kafka into MongoDB with idempotent upserts: 465 companies and 136 verified funding filings.</li>
-      <li>Built RAG question answering over 594 passages: Gemini embeddings, Atlas Vector Search and keyword search fused by weighted reciprocal rank fusion, reaching 100% Hit@5 versus 52% for keyword search alone.</li>
-      <li>Classified companies by sector with an LLM plus a human review queue: 87.8% accuracy on a hand-labelled set versus 75.5% for a keyword baseline.</li>
+      <li>Built RAG question answering over about 600 passages: Gemini embeddings, Atlas Vector Search and keyword search fused by weighted reciprocal rank fusion, reaching 100% Hit@5 on 25 evaluation questions versus 52% for keyword search alone.</li>
+      <li>Classified companies by sector with Gemini plus a human review queue for low-confidence labels: 87.8% accuracy on the first 41 hand-labelled Legal AI companies.</li>
     </ul>
   </div>
 
   <h2>Skills</h2>
   <div class="skills">
     <p><b>Languages:</b> SQL, Python, TypeScript, JavaScript</p>
-    <p><b>Data engineering:</b> PySpark, Spark SQL, Spark Structured Streaming, Kafka, Delta Lake, Apache Airflow, dbt, batch and streaming ETL/ELT, change data capture, incremental loads, medallion lakehouse</p>
-    <p><b>Modelling and quality:</b> dimensional modelling (star schema, SCD type 2), data contracts, data validation, reconciliation, Spark performance tuning</p>
+    <p><b>Data engineering:</b> PySpark, Spark SQL, Spark Structured Streaming, Kafka, Delta Lake, Apache Airflow, dbt, batch and streaming ETL/ELT, incremental loads, medallion lakehouse</p>
+    <p><b>Modelling and quality:</b> dimensional modelling (star schema), data contracts, data validation, reconciliation, Spark load testing</p>
     <p><b>Databases:</b> PostgreSQL, DuckDB, MongoDB, Redis</p>
     <p><b>Analytics and BI:</b> Salesforce CRM Analytics, SOQL, dashboards</p>
-    <p><b>AI:</b> AI-ready data preparation, RAG, embeddings and vector search, OpenAI, Anthropic and Gemini APIs, LLM evaluation</p>
+    <p><b>AI:</b> RAG, embeddings and vector search, OpenAI, Anthropic and Gemini APIs, LLM evaluation</p>
     <p><b>Tools:</b> Git, GitHub Actions (CI/CD), Docker, Linux, Streamlit, Next.js, React, FastAPI, Figma</p>
     <p><b>Conceptual:</b> Azure, Hadoop, Hive, HBase, Scala</p>
   </div>
